@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Fantasy Dating</string>
+    <string name="enable_location">Enable location</string>
+    <string name="location_modal_message">We need your location to find people near to you.</string>
+    <string name="swipe_up">Swipe up</string>
+</resources>

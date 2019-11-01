@@ -1,0 +1,91 @@
+
+Todo
+
+ [ ] Icon
+ [ ] Store Page
+   [ ] Description
+   [ ] Screenshots
+ [ ] Backend
+ [ ] Content Server
+
+NEXT
+====
+
+ [ ] Popover Discovery Options modal with X
+ [ ] Click span templates (with underline)
+ [ ] Bubble
+ [ ] Editable spans
+
+ [ ] Verify phone number
+ [ ] Upload photo
+ [ ] Edit your profile on first app launch (required)
+
+ [ ] Push notifications
+     [ ] You matched with Sal           Talk with her
+     [ ] Sal sent you a message         View message
+     [ ] Sal unmatched you              Dismiss
+     [ ] Your profile is hidden         Open profile
+     [ ] Your profile is visible        Open profile
+
+ [ ] Edit Profile button / screen / flow
+
+ [x] Show lines above / below feed
+ [x] Fantasy Drawer swipe up
+ [x] Feed
+ [x] Home screen, tap to start behavior
+
+ALL
+====
+
+Screens & Components
+
+[ ] Initial Screen
+   X Enable Location Modal
+   - Splash Image
+[ ] Main Screen
+   - Loading State Background
+   X Discovery Options
+   - Modify Discovery Options Modal
+     - Inline Menu
+     - Close Button
+   X Notifications Feed
+   X Story & Fantasy
+   - Welcome Modal
+     - Inline Menu
+     - Button
+   - Bubbles
+[ ] Edit Profile
+   X Story Progress
+   - Story & Fantasy
+   - Bubble
+   - Choose Photo Button
+   - Choose Photo Modal
+     - Button
+     - Inline Button
+     - Close Button
+   - Photo Guidebook Modal
+   - Save Button
+   - Menu
+[ ] View Profile
+   X Story Progress
+   X Story & Fantasy
+   - Fantasy Photo Fade
+   - Like Button
+   - Bubble
+   - Menu
+[ ] Messages
+   - Story Button
+   - Close Button
+   - Send Message Input
+   - Send Photo, Location, Number Button
+     - Share Phone Number Modal
+     - Launch Camera
+     - Launch Location Chooser
+   - Message
+     - Tap Reveal Time
+
+Todo (Extras)
+
+ [ ] Don't have your town yet? Vote for it to help us launch there.
+    - Tell them to update their profile anyways
+    - Votes count based on profile effort score

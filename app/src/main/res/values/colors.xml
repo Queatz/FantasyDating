@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#a64d79</color>
+    <color name="colorPrimaryDark">#880E4F</color>
+    <color name="colorAccent">#880E4F</color>
+    <color name="highlight">#F8BBD0</color>
+    <color name="white">#ffffff</color>
+    <color name="story_background">#54000000</color>
+    <color name="black">#000000</color>
+    <color name="white50">#80ffffff</color>
+</resources>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.queatz.fantasydating.FancyImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.queatz.fantasydating.StoryProgress
+        android:id="@+id/stories"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="8dp" />
+
+    <com.queatz.fantasydating.FancyTextView
+        android:id="@+id/storyText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/swipeUpArrow"
+        android:padding="@dimen/pad4x"
+        android:textColor="@color/black"
+        tools:text="Emi, 27\n\nI love pretending I’m visiting Earth on an intergalactic mission." />
+
+    <TextView
+        android:id="@+id/fantasy"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:background="@color/story_background"
+        android:padding="@dimen/pad4x"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textAppearance="@style/Text.Medium"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:text="Emi’s Fantasy\n\nI want a boy to masturbate and kiss me on a bench overlooking the lake."
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/swipeUpArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/fantasy"
+        android:src="@drawable/ic_swipe_up"
+        android:contentDescription="@string/swipe_up"
+        android:padding="@dimen/pad4x"
+        android:scaleX=".5"
+        android:scaleY=".5"
+        android:background="@null" />
+
+    <View
+        android:id="@+id/leftTouchTarget"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rightTouchTarget"
+        tools:visibility="gone"/>
+
+    <View
+        android:id="@+id/rightTouchTarget"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toEndOf="@+id/leftTouchTarget"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="gone"/>
+
+    <View
+        android:id="@+id/feedTop"
+        android:layout_width="160dp"
+        android:layout_height="2dp"
+        app:layout_constraintTop_toTopOf="@+id/feed"
+        app:layout_constraintStart_toStartOf="@+id/feed"
+        app:layout_constraintEnd_toEndOf="@+id/feed"
+        android:background="@color/white50" />
+
+    <View
+        android:id="@+id/feedBottom"
+        android:layout_width="160dp"
+        android:layout_height="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/feed"
+        app:layout_constraintStart_toStartOf="@+id/feed"
+        app:layout_constraintEnd_toEndOf="@+id/feed"
+        android:background="@color/white50" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/feedGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="feed,feedTop,feedBottom" />
+    <ScrollView
+        android:id="@+id/feed"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/discoveryPreferencesText"
+        app:layout_constraintBottom_toTopOf="@+id/storyText"
+        android:layout_marginStart="@dimen/pad8x"
+        android:layout_marginEnd="@dimen/pad8x"
+        android:layout_marginTop="@dimen/pad2x"
+        android:paddingTop="@dimen/pad2x"
+        android:paddingBottom="@dimen/pad2x"
+        android:scrollbars="none"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/pad2x"
+            android:paddingBottom="@dimen/pad2x"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/pad2x"
+                android:textColor="@color/white"
+                android:shadowColor="@color/story_background"
+                android:shadowRadius="24"
+                android:textStyle="bold"
+                android:textAppearance="@style/Text.Medium"
+                android:textSize="32sp"
+                android:text="TODAY" />
+
+            <com.queatz.fantasydating.FancyTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pad2x"
+                android:padding="@dimen/pad"
+                android:textSize="24sp"
+                app:thin="true"
+                android:textColor="@color/colorPrimary"
+                android:text="YOU MATCHED WITH AMY" />
+
+            <com.queatz.fantasydating.FancyTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pad2x"
+                android:padding="@dimen/pad"
+                android:textSize="24sp"
+                app:thin="true"
+                android:textColor="@color/colorPrimary"
+                android:text="JING SENT YOU 3 MESSAGES" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pad8x"
+                android:textColor="@color/white"
+                android:shadowColor="@color/story_background"
+                android:shadowRadius="24"
+                android:textStyle="bold"
+                android:textAppearance="@style/Text.Medium"
+                android:textSize="32sp"
+                android:text="YESTERDAY" />
+
+            <com.queatz.fantasydating.FancyTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pad2x"
+                android:padding="@dimen/pad"
+                android:textSize="24sp"
+                app:thin="true"
+                android:textColor="@color/colorPrimary"
+                android:text="YOU MATCHED WITH JING" />
+
+            <com.queatz.fantasydating.FancyTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pad2x"
+                android:padding="@dimen/pad"
+                android:textSize="24sp"
+                app:thin="true"
+                android:textColor="@color/colorPrimary"
+                android:text="WELCOME TO FANTASY DATING" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <com.queatz.fantasydating.FancyTextView
+        android:id="@+id/discoveryPreferencesText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/pad2x"
+        android:padding="@dimen/pad"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimary"
+        android:text="Girls in Austin, Ages 25 - 34" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
