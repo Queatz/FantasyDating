@@ -97,7 +97,11 @@ class FancyTextView : TextView {
         Jsoup.parse(text.toString()).body().childNodes().forEach { node ->
             if (node is Element) {
                 when (node.tagName()) {
-                    "tap" -> links.add(Link(node.attr("data"), Size(parsed.length, parsed.length + node.text().length)))
+                    "tap" -> links.add(Link(
+                        node.attr("data"),
+                        node.attr("thin")?.toBoolean() ?: false,
+                        Size(parsed.length, parsed.length + node.text().length))
+                    )
                     "br" -> parsed += "\n"
                 }
 
@@ -122,7 +126,10 @@ class FancyTextView : TextView {
 
                     override fun updateDrawState(ds: TextPaint) {
                         ds.color = ds.linkColor
-                        ds.flags = ds.flags or Paint.FAKE_BOLD_TEXT_FLAG
+
+                        if (!link.thin) {
+                            ds.flags = ds.flags or Paint.FAKE_BOLD_TEXT_FLAG
+                        }
                     }
                 }, link.pos.width, link.pos.height, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
             }
@@ -136,5 +143,6 @@ class FancyTextView : TextView {
 
 data class Link constructor(
     val data: String,
+    val thin: Boolean,
     val pos: Size
 )

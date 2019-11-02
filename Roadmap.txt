@@ -5,6 +5,8 @@ NAMES
 
 Good People
 Fantasy Dating
+Cherish
+Austin Chapters
 
 =====
 
@@ -24,9 +26,7 @@ NEXT
 
  [ ] Edit your profile on first app launch (required)
 
- [ ] Popover Discovery Options modal with X
  [ ] Editable spans
- [ ] Click span templates (with underline)
  [ ] Bubble
 
  [ ] Verify phone number
@@ -39,8 +39,9 @@ NEXT
      [ ] Your profile is hidden         Open profile
      [ ] Your profile is visible        Open profile
 
- [ ] Edit Profile button / screen / flow
-
+ [X] Edit Profile button / screen / flow
+ [X] Popover Discovery Options modal with X
+ [X] Click span templates (with underline)
  [x] Show lines above / below feed
  [x] Fantasy Drawer swipe up
  [x] Feed

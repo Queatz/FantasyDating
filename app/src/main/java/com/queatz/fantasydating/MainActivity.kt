@@ -1,14 +1,10 @@
 package com.queatz.fantasydating
 
+import android.animation.Animator
 import android.annotation.SuppressLint
-import android.graphics.Paint
 import android.graphics.PointF
 import android.os.Bundle
-import android.text.method.LinkMovementMethod
-import android.view.GestureDetector
-import android.view.MotionEvent
-import android.view.View
-import android.view.WindowManager
+import android.view.*
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -24,6 +20,7 @@ import kotlin.math.sin
 
 class MainActivity : AppCompatActivity() {
 
+    var sex = ""
     val discoveryPreferences = DiscoveryPreferences("Girls", "Austin", 25, 35)
 
     var showFantasy = false
@@ -61,6 +58,11 @@ class MainActivity : AppCompatActivity() {
 
             discoveryPreferencesLayout.visibility = if (value) View.VISIBLE else View.GONE
             showFeed = !value
+
+            if (!value) {
+                editPreferenceText.visibility = View.GONE
+                editProfileText.visibility = View.VISIBLE
+            }
         }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -253,6 +255,27 @@ class MainActivity : AppCompatActivity() {
         }
 
         updateDiscoveryPreferences()
+
+        showWelcomeModal()
+    }
+
+    private fun showWelcomeModal() {
+        welcomeMessageLayout.visibility = View.VISIBLE
+        welcomeMessageText.onLinkClick = {
+            sex = it
+            welcomeMessageLayout.visibility = View.GONE
+
+            bub1.visibility = View.VISIBLE
+            bub2.visibility = View.VISIBLE
+
+            listOf(bub1, bub2).forEach {
+                it.alpha = 0f
+                it.animate()
+                    .alpha(1f)
+                    .setDuration(200)
+                    .start()
+            }
+        }
     }
 
     private fun showAustinOnly() {
@@ -303,26 +326,10 @@ class MainActivity : AppCompatActivity() {
                 positiveButton.setBackgroundResource(android.R.color.transparent)
                 positiveButton.setPaddingRelative(pad, 0, pad, 0)
 
-                positiveButton.setOnTouchListener { _, event ->
-                    when (event.action) {
-                        MotionEvent.ACTION_DOWN -> {
-                            positiveButton.paintFlags = positiveButton.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-
-                        }
-                        MotionEvent.ACTION_UP -> {
-                            positiveButton.paintFlags = positiveButton.paintFlags xor Paint.UNDERLINE_TEXT_FLAG
-                        }
-                    }
-
-                    false
-                }
-
                 positiveButton.setOnClickListener { dismiss() }
 
-                messageTextView.movementMethod = LinkMovementMethod.getInstance()
-
                 messageTextView.setTextAppearance(R.style.Text_Medium)
-                messageTextView.setLineSpacing(0f, 1.5f)
+                messageTextView.setLineSpacing(0f, 1.4f)
             }
     }
 
@@ -334,5 +341,29 @@ class MainActivity : AppCompatActivity() {
         background.postDelayed({
             zoom()
         }, 5)
+    }
+
+    fun closeBub(view: View) {
+        view.animate()
+            .alpha(0f)
+            .setDuration(200)
+            .setListener(object : Animator.AnimatorListener {
+                override fun onAnimationRepeat(p0: Animator?) {
+
+                }
+
+                override fun onAnimationEnd(p0: Animator?) {
+                    (view.parent as ViewGroup).removeView(view)
+                }
+
+                override fun onAnimationCancel(p0: Animator?) {
+
+                }
+
+                override fun onAnimationStart(p0: Animator?) {
+
+                }
+            })
+            .start()
     }
 }
