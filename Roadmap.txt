@@ -1,4 +1,15 @@
 
+
+NAMES
+=====
+
+Good People
+Fantasy Dating
+
+=====
+
+
+
 Todo
 
  [ ] Icon
@@ -11,14 +22,15 @@ Todo
 NEXT
 ====
 
+ [ ] Edit your profile on first app launch (required)
+
  [ ] Popover Discovery Options modal with X
+ [ ] Editable spans
  [ ] Click span templates (with underline)
  [ ] Bubble
- [ ] Editable spans
 
  [ ] Verify phone number
  [ ] Upload photo
- [ ] Edit your profile on first app launch (required)
 
  [ ] Push notifications
      [ ] You matched with Sal           Talk with her

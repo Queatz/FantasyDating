@@ -81,7 +81,7 @@ dependencies {
     implementation ('com.google.android.gms:play-services-location:15.0.1') {
         exclude group: 'com.android.support'
     }
-
+    implementation 'org.jsoup:jsoup:1.10.3'
     implementation 'io.coil-kt:coil:0.8.0'
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'

@@ -2,13 +2,12 @@ package com.queatz.fantasydating
 
 import android.graphics.Canvas
 import android.graphics.Paint
-import android.graphics.Rect
+import android.graphics.RectF
 import android.text.style.LineBackgroundSpan
-import androidx.core.graphics.toRectF
 
 
-class BackgroundSpan(private val decent: Boolean, private val backgroundColor: Int, private val padding: Int) : LineBackgroundSpan {
-    private val bgRect: Rect = Rect()
+class BackgroundSpan(private val backgroundColor: Int, private val padding: Float) : LineBackgroundSpan {
+    private val bgRect = RectF()
 
     override fun drawBackground(
         c: Canvas,
@@ -23,22 +22,23 @@ class BackgroundSpan(private val decent: Boolean, private val backgroundColor: I
         end: Int,
         lnum: Int
     ) {
-        p.getTextBounds(text.toString(), start, end, bgRect)
+        val t = text.toString().subSequence(start, end).trimEnd()
 
-        if (bgRect.width() == 0) {
+        if (t.isBlank()) {
             return
         }
 
-        bgRect.left -= padding
-        bgRect.right += padding
-        bgRect.top -= padding
-        bgRect.bottom += padding - (if (decent) p.descent().toInt() / 2 else 0)
-        bgRect.offset(left, baseline)
+        val w = p.measureText(t.toString())
+
+        bgRect.left = left - padding
+        bgRect.right = left + w + padding
+        bgRect.top = baseline + p.ascent() - padding * .25f
+        bgRect.bottom = baseline + padding
 
         val paintColor = p.color
 
         p.color = backgroundColor
-        c.drawRoundRect(bgRect.toRectF(), padding * .5f, padding * .5f, p)
+        c.drawRoundRect(bgRect, padding * .5f, padding * .5f, p)
         p.color = paintColor
     }
 }

@@ -79,11 +79,12 @@
         app:layout_constraintTop_toTopOf="@+id/feed"
         app:layout_constraintStart_toStartOf="@+id/feed"
         app:layout_constraintEnd_toEndOf="@+id/feed"
+        android:visibility="gone"
         android:background="@color/white50" />
 
     <View
         android:id="@+id/feedBottom"
-        android:layout_width="160dp"
+        android:layout_width="0dp"
         android:layout_height="2dp"
         app:layout_constraintBottom_toBottomOf="@+id/feed"
         app:layout_constraintStart_toStartOf="@+id/feed"
@@ -94,7 +95,8 @@
         android:id="@+id/feedGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="feed,feedTop,feedBottom" />
+        app:constraint_referenced_ids="feed,feedBottom" />
+
     <ScrollView
         android:id="@+id/feed"
         android:layout_width="match_parent"
@@ -129,6 +131,7 @@
                 android:text="TODAY" />
 
             <com.queatz.fantasydating.FancyTextView
+                android:id="@+id/notification1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/pad2x"
@@ -136,9 +139,11 @@
                 android:textSize="24sp"
                 app:thin="true"
                 android:textColor="@color/colorPrimary"
-                android:text="YOU MATCHED WITH AMY" />
+                android:lineSpacingMultiplier="1.1"
+                tools:text="YOU MATCHED WITH AMY" />
 
             <com.queatz.fantasydating.FancyTextView
+                android:id="@+id/notification2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/pad2x"
@@ -146,7 +151,8 @@
                 android:textSize="24sp"
                 app:thin="true"
                 android:textColor="@color/colorPrimary"
-                android:text="JING SENT YOU 3 MESSAGES" />
+                android:lineSpacingMultiplier="1.1"
+                tools:text="JING SENT YOU 3 MESSAGES" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -155,12 +161,12 @@
                 android:textColor="@color/white"
                 android:shadowColor="@color/story_background"
                 android:shadowRadius="24"
-                android:textStyle="bold"
                 android:textAppearance="@style/Text.Medium"
                 android:textSize="32sp"
                 android:text="YESTERDAY" />
 
             <com.queatz.fantasydating.FancyTextView
+                android:id="@+id/notification3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/pad2x"
@@ -168,9 +174,11 @@
                 android:textSize="24sp"
                 app:thin="true"
                 android:textColor="@color/colorPrimary"
-                android:text="YOU MATCHED WITH JING" />
+                android:lineSpacingMultiplier="1.1"
+                tools:text="YOU MATCHED WITH JING" />
 
             <com.queatz.fantasydating.FancyTextView
+                android:id="@+id/notification4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/pad2x"
@@ -178,7 +186,8 @@
                 android:textSize="24sp"
                 app:thin="true"
                 android:textColor="@color/colorPrimary"
-                android:text="WELCOME TO FANTASY DATING" />
+                android:lineSpacingMultiplier="1.1"
+                tools:text="WELCOME TO FANTASY DATING" />
 
         </LinearLayout>
 
@@ -195,6 +204,55 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:textAllCaps="true"
         android:textColor="@color/colorPrimary"
-        android:text="Girls in Austin, Ages 25 - 34" />
+        android:text="@string/discovery_preferences" />
+
+    <LinearLayout
+        android:id="@+id/discoveryPreferencesLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/pad2x"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <com.queatz.fantasydating.FancyTextView
+            android:id="@+id/editDiscoveryPreferencesText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pad"
+            android:background="@drawable/white_rounded"
+            android:padding="@dimen/pad2x"
+            android:elevation="@dimen/pad"
+            app:thin="true"
+            android:textColor="@color/black"
+            android:text="@string/discovery_preferences_template" />
+
+        <com.queatz.fantasydating.FancyTextView
+            android:id="@+id/editPreferenceText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pad"
+            android:background="@drawable/white_rounded"
+            android:padding="@dimen/pad2x"
+            android:gravity="center_horizontal"
+            android:elevation="@dimen/pad"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/edit_who"
+            android:visibility="gone" />
+
+        <com.queatz.fantasydating.FancyTextView
+            android:id="@+id/editProfileText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pad"
+            android:background="@drawable/white_rounded"
+            android:padding="@dimen/pad2x"
+            app:thin="true"
+            android:gravity="center_horizontal"
+            android:elevation="@dimen/pad"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/edit_your_profile" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

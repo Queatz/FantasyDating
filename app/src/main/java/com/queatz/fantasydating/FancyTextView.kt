@@ -2,11 +2,20 @@ package com.queatz.fantasydating
 
 import android.content.Context
 import android.content.res.Resources
+import android.graphics.Color
 import android.graphics.Paint
 import android.text.SpannableString
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.util.AttributeSet
+import android.util.Size
 import android.util.TypedValue
+import android.view.View
 import android.widget.TextView
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Element
+import org.jsoup.nodes.TextNode
 
 
 class FancyTextView : TextView {
@@ -14,6 +23,8 @@ class FancyTextView : TextView {
     private var bold: Boolean = false
     private var textChangeLock: Boolean = false
     private var theme: Resources.Theme? = null
+
+    var onLinkClick: (String) -> Unit = {}
 
     constructor(context: Context) : super(context) { initialize(
         context
@@ -38,13 +49,12 @@ class FancyTextView : TextView {
         bold = true
         var lineSpacing = 1.4f
         theme = context.theme
-        val colors = textColors
         setTextAppearance(R.style.Text_Medium)
-        setTextColor(colors)
 
         attrs?.let {
             val styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.FancyTextView, defStyleAttr, defStyleRes)
             val textSize = styledAttrs.getDimension(R.styleable.FancyTextView_android_textSize, 0f)
+            val textColor = styledAttrs.getColor(R.styleable.FancyTextView_android_textColor, -1)
             bold = !styledAttrs.getBoolean(R.styleable.FancyTextView_thin, false)
             lineSpacing = styledAttrs.getFloat(R.styleable.FancyTextView_android_lineSpacingMultiplier, lineSpacing)
             styledAttrs.recycle()
@@ -52,18 +62,23 @@ class FancyTextView : TextView {
             if (textSize > 0) {
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
             }
+
+            if (textColor > 0) {
+                setTextColor(textColor)
+            }
         }
 
         if (bold) {
             paintFlags = paintFlags or Paint.FAKE_BOLD_TEXT_FLAG
-        } else {
-            lineSpacing = 1.1f
         }
 
         setLineSpacing(0f, lineSpacing)
 
         val pad = resources.getDimensionPixelSize(R.dimen.pad)
         setShadowLayer(pad.toFloat(), 0f, 0f, 0)
+
+        highlightColor = Color.TRANSPARENT
+        setLinkTextColor(resources.getColor(R.color.colorPrimary, theme))
     }
 
     override fun onTextChanged(
@@ -76,14 +91,50 @@ class FancyTextView : TextView {
             return
         }
 
+        var parsed = ""
+        var links = mutableListOf<Link>()
+
+        Jsoup.parse(text.toString()).body().childNodes().forEach { node ->
+            if (node is Element) {
+                when (node.tagName()) {
+                    "tap" -> links.add(Link(node.attr("data"), Size(parsed.length, parsed.length + node.text().length)))
+                    "br" -> parsed += "\n"
+                }
+
+                parsed += node.text()
+            } else if (node is TextNode) {
+                parsed += node.text()
+            }
+        }
+
         val pad = resources.getDimensionPixelSize(R.dimen.pad)
 
         textChangeLock = true
 
-        super.setText(SpannableString(text).apply {
-            setSpan(BackgroundSpan(bold, resources.getColor(R.color.white, theme), pad / 2), 0, text.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+        super.setText(SpannableString(parsed).apply {
+            setSpan(BackgroundSpan(resources.getColor(R.color.white, theme), pad * .75f), 0, parsed.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+            links.forEach { link ->
+                setSpan(object : ClickableSpan() {
+                    override fun onClick(view: View) {
+                        onLinkClick.invoke(link.data)
+                    }
+
+                    override fun updateDrawState(ds: TextPaint) {
+                        ds.color = ds.linkColor
+                        ds.flags = ds.flags or Paint.FAKE_BOLD_TEXT_FLAG
+                    }
+                }, link.pos.width, link.pos.height, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
         })
+
+        movementMethod = LinkMovementMethod.getInstance()
 
         textChangeLock = false
     }
 }
+
+data class Link constructor(
+    val data: String,
+    val pos: Size
+)

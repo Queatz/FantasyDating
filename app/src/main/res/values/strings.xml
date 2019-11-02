@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">Fantasy Dating</string>
     <string name="enable_location">Enable location</string>
-    <string name="location_modal_message">We need your location to find people near to you.</string>
+    <string name="location_modal_message">We need your location to find people near you.</string>
     <string name="swipe_up">Swipe up</string>
+    <string name="edit_your_profile"><![CDATA[<tap>Edit your profile</tap>]]></string>
+    <string name="discovery_preferences_template"><![CDATA[Show me <tap data="who">%1$s</tap> in <tap data="where">%2$s</tap> between the ages of <tap data="ageMin">%3$s</tap> and <tap data="ageMax">%4$s</tap>]]></string>
+    <string name="discovery_preferences"><![CDATA[<tap>%1$s in %2$s, Ages %3$s – %4$s</tap>]]></string>
+
+    <string name="link"><![CDATA[<tap>%1$s</tap>]]></string>
+    <string name="edit_who"><![CDATA[<tap data="Girls">Girls</tap>, <tap data="Boys">Boys</tap>, or <tap data="People">People</tap>]]></string>
+    <string name="edit_where"><![CDATA[<tap data="Austin">Austin</tap>, or <tap data="nope">somewhere else</tap>]]></string>
 </resources>
