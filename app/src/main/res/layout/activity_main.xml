@@ -117,12 +117,13 @@
             android:paddingStart="@dimen/pad4x"
             android:paddingEnd="@dimen/pad4x"
             android:paddingTop="@dimen/pad2x"
+            android:background="@null"
             android:paddingBottom="@dimen/pad2x"
             android:textAppearance="@style/Text.Medium"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:scrollbars="vertical"
-            android:text="I want a boy to masturbate and kiss me on a bench overlooking the lake." />
+            tools:text="I want a boy to masturbate and kiss me on a bench overlooking the lake." />
 
         <ImageView
             android:id="@+id/loveButton"

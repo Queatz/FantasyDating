@@ -1,5 +1,7 @@
 package com.queatz.fantasydating.features
 
+import com.queatz.fantasydating.otherwise
+import com.queatz.fantasydating.then
 import com.queatz.fantasydating.visible
 import com.queatz.on.On
 import kotlinx.android.synthetic.main.activity_main.*
@@ -7,6 +9,31 @@ import kotlinx.android.synthetic.main.activity_main.*
 class LayoutFeature constructor(private val on: On) {
 
     var showEditProfile = false
+        set(value) {
+            if (field == value) {
+                return
+            }
+
+            field = value
+
+            on<ViewFeature>().with {
+                if (value) {
+                    loveButton.visible = false
+                    moreOptionsButton.elevation = 1f
+
+                    storyText.elevation = 1f
+
+                    choosePhotoButton.visible = true
+                } else {
+                    choosePhotoButton.visible = false
+                    loveButton.visible = true
+                    moreOptionsButton.elevation = 0f
+                    storyText.onLinkClick = { }
+                    storyText.elevation = 0f
+                    fantasyText.setOnClickListener { }
+                }
+            }
+        }
 
     var showFantasy = false
         set(value) {
@@ -26,19 +53,23 @@ class LayoutFeature constructor(private val on: On) {
                     moreOptionsButton.visible = false
                     moreOptionsText.visible = false
                     on<StoryFeature>().event(StoryEvent.Pause)
-                    on<WalkthroughFeature>().showBub(bub4)
-                    on<WalkthroughFeature>().closeBub(bub5)
+
+                    showEditProfile otherwise {
+                        on<WalkthroughFeature>().showBub(bub4)
+                        on<WalkthroughFeature>().closeBub(bub5)
+                    }
                 } else {
                     swipeUpArrow.rotation = 0f
                     fantasy.visible = false
                     storyText.visible = true
                     moreOptionsButton.visible = true
                     on<StoryFeature>().event(StoryEvent.Resume)
-                    on<WalkthroughFeature>().closeBub(bub4)
-                    on<WalkthroughFeature>().showBub(bub5)
 
-                    if (showEditProfile) {
+                    showEditProfile then {
                         choosePhotoButton.visible = true
+                    } otherwise {
+                        on<WalkthroughFeature>().closeBub(bub4)
+                        on<WalkthroughFeature>().showBub(bub5)
                     }
                 }
             }
@@ -53,7 +84,6 @@ class LayoutFeature constructor(private val on: On) {
             field = value
 
             on<ViewFeature>().with {
-
                 discoveryPreferencesText.visible = value
                 feed.visible = value
 

@@ -2,7 +2,6 @@ package com.queatz.fantasydating.features
 
 import android.view.Gravity
 import com.queatz.fantasydating.R
-import com.queatz.fantasydating.visible
 import com.queatz.on.On
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -10,9 +9,6 @@ class EditProfileFeature constructor(private val on: On) {
     fun editProfile() {
         on<ViewFeature>().with {
             on<LayoutFeature>().showEditProfile = true
-
-            loveButton.visible = false
-            moreOptionsButton.elevation = 1f
 
             on<MyProfileFeature>().myProfile.let { myProfile ->
                 storyText.onLinkClick = {
@@ -35,11 +31,7 @@ class EditProfileFeature constructor(private val on: On) {
                             on<EditorFeature>().open(
                                 myProfile.stories.firstOrNull() ?: ""
                             ) {
-                                if (it.isEmpty()) {
-                                    myProfile.stories = listOf()
-                                } else {
-                                    myProfile.stories = listOf(it)
-                                }
+                                myProfile.stories = if (it.isEmpty()) listOf() else listOf(it)
 
                                 updateMyStory()
                             }
@@ -56,9 +48,6 @@ class EditProfileFeature constructor(private val on: On) {
                 }
             }
 
-            storyText.elevation = 1f
-
-            choosePhotoButton.visible = true
             choosePhotoButton.setOnClickListener { close() }
 
             updateMyStory()
@@ -66,16 +55,7 @@ class EditProfileFeature constructor(private val on: On) {
     }
 
     fun close() {
-        on<ViewFeature>().with {
-            on<LayoutFeature>().showEditProfile = false
-
-            choosePhotoButton.visible = false
-            loveButton.visible = true
-            moreOptionsButton.elevation = 0f
-            storyText.onLinkClick = {}
-            storyText.elevation = 0f
-            fantasyText.setOnClickListener { }
-        }
+        on<LayoutFeature>().showEditProfile = false
     }
 
     private fun updateMyStory() {

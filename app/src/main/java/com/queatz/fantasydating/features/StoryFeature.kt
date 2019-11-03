@@ -61,6 +61,10 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
             disposables.add(stories.currentObservable
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe {
+                    if (on<LayoutFeature>().showEditProfile) {
+                        stories.post { stories.pause() }
+                    }
+
                     val photo = when (it) {
                         0 -> "https://lh3.googleusercontent.com/80hJcieOULQhfT2hLS689_tNOCACzpilOYjTMvgw8aHH12Nk4hj7eTCsFdWY4lcC8laMoSAk8YIshlWMxRHELXYBE3UtDtWCK1_1uXFotpeUKn_D2AA0ZMcpQDwML8rBgDjMmFjaeW8"
                         1 -> "https://lh3.googleusercontent.com/LE1DiS1zLJ-kdc639XxdC89NtNjBl3v8M7a2A_KX-8PaINqGvruYkcAnxOYu6Pbaa9asAdT75nHniyMUZRMrlSMoV0hH374dJlRdWzXhagh6ywZKvBZILyFEQnFLsnHLgIXQklUtcFo"

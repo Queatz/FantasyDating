@@ -13,7 +13,7 @@ class WalkthroughFeature constructor(private val on: On) {
         showWelcomeModal()
     }
 
-    fun showBub(view: View) = view.apply {
+    fun showBub(view: View?) = view?.apply {
         setOnClickListener { closeBub(this) }
         alpha = 0f
         visible = true
