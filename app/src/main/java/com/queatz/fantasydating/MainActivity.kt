@@ -2,12 +2,15 @@ package com.queatz.fantasydating
 
 import android.animation.Animator
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.PointF
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.*
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.get
@@ -24,11 +27,15 @@ import kotlin.math.sin
 
 class MainActivity : AppCompatActivity() {
 
-    var sex = ""
+    var my = MyPreferences("Person", "", 0, "", listOf())
     val discoveryPreferences = DiscoveryPreferences("Girls", "Austin", 25, 35)
 
     var showFantasy = false
         set(value) {
+            if (field == value) {
+                return
+            }
+
             field = value
 
             if (value) {
@@ -47,12 +54,17 @@ class MainActivity : AppCompatActivity() {
                 storyText.visibility = View.VISIBLE
                 moreOptionsButton.visibility = View.VISIBLE
                 stories.resume()
+                closeBub(bub4)
                 showBub(bub5)
             }
         }
 
     var showFeed = true
         set(value) {
+            if (field == value) {
+                return
+            }
+
             field = value
 
             discoveryPreferencesText.visibility = if (value) View.VISIBLE else View.GONE
@@ -65,6 +77,10 @@ class MainActivity : AppCompatActivity() {
 
     var showDiscoveryPreferences = false
         set(value) {
+            if (field == value) {
+                return
+            }
+
             field = value
 
             discoveryPreferencesLayout.visibility = if (value) View.VISIBLE else View.GONE
@@ -78,7 +94,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    val disposables = CompositeDisposable()
+    private var editorCallback: (String) -> Unit = {}
+
+    private val disposables = CompositeDisposable()
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -107,13 +125,11 @@ class MainActivity : AppCompatActivity() {
                 }
             })
 
-        stories.count = 8
-
         Coil.load(this, "https://lh3.googleusercontent.com/80hJcieOULQhfT2hLS689_tNOCACzpilOYjTMvgw8aHH12Nk4hj7eTCsFdWY4lcC8laMoSAk8YIshlWMxRHELXYBE3UtDtWCK1_1uXFotpeUKn_D2AA0ZMcpQDwML8rBgDjMmFjaeW8")
         Coil.load(this, "https://lh3.googleusercontent.com/LE1DiS1zLJ-kdc639XxdC89NtNjBl3v8M7a2A_KX-8PaINqGvruYkcAnxOYu6Pbaa9asAdT75nHniyMUZRMrlSMoV0hH374dJlRdWzXhagh6ywZKvBZILyFEQnFLsnHLgIXQklUtcFo")
+        Coil.load(this, "https://lh4.googleusercontent.com/luVnq4laYiTHUcQG3mEWirhNy6mJJ_aSTlYWcKHTfDFpQJOCKALKFUgJjJEQWeeadVtjv663soNxDSfm29Awgr2eYMDyDuHwMGUIOKho6zHMK-90FGR3Bs4ZMZYMSGmTk3Al58jcyKI")
         Coil.load(this, "https://lh6.googleusercontent.com/7HwiyGQgVsnaPSi0KDp_IE-UqKaDmZIlQQqKyJXAXHwiyVoYfkQfQwbCMGMf3nHhC3sIKzDIaSJq2-Aod9RErfPZlCVoLrHU4kAt3K7rwPXbKPW7Js4FmY4KXoIwTt4asEm6bBGvBkk")
         Coil.load(this, "https://lh3.googleusercontent.com/c6PnVBA7rKB_ofPEmcRXEQfNste2x5C3M5rmC1dlUUnoqHLlHg4R8wNZAS7LKFSBmL9f-5lB85oPwlBQ7Ib9aXTxHnHS9iBwdCkMQhTk4rgMsaKQyfObPg70xGB2_kH9GM8A8BOereo")
-        Coil.load(this, "https://lh4.googleusercontent.com/luVnq4laYiTHUcQG3mEWirhNy6mJJ_aSTlYWcKHTfDFpQJOCKALKFUgJjJEQWeeadVtjv663soNxDSfm29Awgr2eYMDyDuHwMGUIOKho6zHMK-90FGR3Bs4ZMZYMSGmTk3Al58jcyKI")
         Coil.load(this, "https://lh3.googleusercontent.com/F7BDjvSURaJuIEYUZ3ikrK6rdvqXjYmZvPrFoyyNpoHOAVOlzcheVO9WFCB3bZgkcvuhNxEQdKFiC-SGKOIDPdc8rPmHrTZFc6OovxKiM9VMcx93Bdf6kKMaZxFmVobxxZyXSh3kqfI")
         Coil.load(this, "https://lh5.googleusercontent.com/ecnggpWNeMRffzCDrEugrJqbolVoOXyd_jyHSRtuezPI461GIxdOXF6_e2yGE5Yf9BWf5QeSFwtaw8fsWdn8uKdyOtCZQDh7N86bNL5yXs7XsYHNJjpxUJoCsjdF2I1cTpBTwJuKLLs")
         Coil.load(this, "https://lh5.googleusercontent.com/Z7HKvSPvB-yj3xqvu1W8pOaHhzwS0uFVw7l6OoqDmMpBb4FZOZVkKCIFxB2T2mELkkQOXkfO4nAafk06-yGAO_zk22SLyTlgxW4RZAUjwphApCxu2i1CPbdXyG9ojVAa94yYkf3jwjA")
@@ -124,9 +140,9 @@ class MainActivity : AppCompatActivity() {
                 val photo = when (it) {
                     0 -> "https://lh3.googleusercontent.com/80hJcieOULQhfT2hLS689_tNOCACzpilOYjTMvgw8aHH12Nk4hj7eTCsFdWY4lcC8laMoSAk8YIshlWMxRHELXYBE3UtDtWCK1_1uXFotpeUKn_D2AA0ZMcpQDwML8rBgDjMmFjaeW8"
                     1 -> "https://lh3.googleusercontent.com/LE1DiS1zLJ-kdc639XxdC89NtNjBl3v8M7a2A_KX-8PaINqGvruYkcAnxOYu6Pbaa9asAdT75nHniyMUZRMrlSMoV0hH374dJlRdWzXhagh6ywZKvBZILyFEQnFLsnHLgIXQklUtcFo"
-                    2 -> "https://lh6.googleusercontent.com/7HwiyGQgVsnaPSi0KDp_IE-UqKaDmZIlQQqKyJXAXHwiyVoYfkQfQwbCMGMf3nHhC3sIKzDIaSJq2-Aod9RErfPZlCVoLrHU4kAt3K7rwPXbKPW7Js4FmY4KXoIwTt4asEm6bBGvBkk"
-                    3 -> "https://lh3.googleusercontent.com/c6PnVBA7rKB_ofPEmcRXEQfNste2x5C3M5rmC1dlUUnoqHLlHg4R8wNZAS7LKFSBmL9f-5lB85oPwlBQ7Ib9aXTxHnHS9iBwdCkMQhTk4rgMsaKQyfObPg70xGB2_kH9GM8A8BOereo"
-                    4 -> "https://lh4.googleusercontent.com/luVnq4laYiTHUcQG3mEWirhNy6mJJ_aSTlYWcKHTfDFpQJOCKALKFUgJjJEQWeeadVtjv663soNxDSfm29Awgr2eYMDyDuHwMGUIOKho6zHMK-90FGR3Bs4ZMZYMSGmTk3Al58jcyKI"
+                    2 -> "https://lh4.googleusercontent.com/luVnq4laYiTHUcQG3mEWirhNy6mJJ_aSTlYWcKHTfDFpQJOCKALKFUgJjJEQWeeadVtjv663soNxDSfm29Awgr2eYMDyDuHwMGUIOKho6zHMK-90FGR3Bs4ZMZYMSGmTk3Al58jcyKI"
+                    3 -> "https://lh6.googleusercontent.com/7HwiyGQgVsnaPSi0KDp_IE-UqKaDmZIlQQqKyJXAXHwiyVoYfkQfQwbCMGMf3nHhC3sIKzDIaSJq2-Aod9RErfPZlCVoLrHU4kAt3K7rwPXbKPW7Js4FmY4KXoIwTt4asEm6bBGvBkk"
+                    4 -> "https://lh3.googleusercontent.com/c6PnVBA7rKB_ofPEmcRXEQfNste2x5C3M5rmC1dlUUnoqHLlHg4R8wNZAS7LKFSBmL9f-5lB85oPwlBQ7Ib9aXTxHnHS9iBwdCkMQhTk4rgMsaKQyfObPg70xGB2_kH9GM8A8BOereo"
                     5 -> "https://lh3.googleusercontent.com/F7BDjvSURaJuIEYUZ3ikrK6rdvqXjYmZvPrFoyyNpoHOAVOlzcheVO9WFCB3bZgkcvuhNxEQdKFiC-SGKOIDPdc8rPmHrTZFc6OovxKiM9VMcx93Bdf6kKMaZxFmVobxxZyXSh3kqfI"
                     6 -> "https://lh5.googleusercontent.com/ecnggpWNeMRffzCDrEugrJqbolVoOXyd_jyHSRtuezPI461GIxdOXF6_e2yGE5Yf9BWf5QeSFwtaw8fsWdn8uKdyOtCZQDh7N86bNL5yXs7XsYHNJjpxUJoCsjdF2I1cTpBTwJuKLLs"
                     else -> "https://lh5.googleusercontent.com/Z7HKvSPvB-yj3xqvu1W8pOaHhzwS0uFVw7l6OoqDmMpBb4FZOZVkKCIFxB2T2mELkkQOXkfO4nAafk06-yGAO_zk22SLyTlgxW4RZAUjwphApCxu2i1CPbdXyG9ojVAa94yYkf3jwjA"
@@ -159,6 +175,8 @@ class MainActivity : AppCompatActivity() {
                     0 -> "I want a boy to masturbate and kiss me on a bench overlooking the lake.\n\nEmi’s Fantasy\n\nI want a boy to masturbate and kiss me on a bench overlooking the lake.\n\nEmi’s Fantasy\n\nI want a boy to masturbate and kiss me on a bench overlooking the lake.\n\nEmi’s Fantasy\n\nI want a boy to masturbate and kiss me on a bench overlooking the lake.\n\nEmi’s Fantasy\n\nI want a boy to masturbate and kiss me on a bench overlooking the lake.\n\nEmi’s Fantasy\n\nI want a boy to masturbate and kiss me on a bench overlooking the lake.\n\nEmi’s Fantasy\n\nI want a boy to masturbate and kiss me on a bench overlooking the lake.\n\nEmi’s Fantasy\n\nI want a boy to masturbate and kiss me on a bench overlooking the lake.\n\n"
                     else -> "I want a boy to masturbate and kiss me on a bench overlooking the lake."
                 }
+
+                fantasyText.scrollTo(0, 0)
 
                 moreOptionsText.visibility = View.GONE
             })
@@ -311,7 +329,33 @@ class MainActivity : AppCompatActivity() {
             showFantasy = false
             showDiscoveryPreferences = false
             showFeed = false
-            stories.start()
+
+            editProfile()
+        }
+
+        editorDoneButton.setOnClickListener {
+            editorCancelButton.callOnClick()
+            editorCallback.invoke(editor.text.toString())
+        }
+
+        editorCancelButton.setOnClickListener {
+            editorLayout.visibility = View.GONE
+
+            window.clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN)
+            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(editor.windowToken, 0)
+        }
+
+        editor.setOnEditorActionListener { textView, action, keyEvent ->
+            when (action) {
+                EditorInfo.IME_ACTION_DONE -> {
+                    editorDoneButton.callOnClick()
+                    true
+                }
+                else -> false
+            }
         }
 
         updateDiscoveryPreferences()
@@ -346,10 +390,87 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
+    private fun editProfile() {
+        updateMyStory()
+
+        storyText.onLinkClick = {
+            when (it) {
+                "name" -> {
+                    editor.setText(my.name)
+                    editorCallback = {
+                        my.name = it
+
+                        updateMyStory()
+                    }
+                }
+                "age" -> {
+                    editor.setText(if (my.age > 18) my.age.toString() else "")
+                    editorCallback = {
+                        my.age = it.toIntOrNull() ?: 0
+
+                        updateMyStory()
+                    }
+                }
+                "story" -> {
+                    editor.setText(my.stories.firstOrNull() ?: "")
+                    editorCallback = {
+                        if (it.isEmpty()) {
+                            my.stories = listOf()
+                        } else {
+                            my.stories = listOf(it)
+                        }
+
+                        updateMyStory()
+                    }
+                }
+            }
+
+            openEditor()
+        }
+
+        storyText.elevation = 1f
+
+        fantasyText.setOnClickListener {
+            editor.setText(my.fantasy)
+            editorCallback = {
+                my.fantasy = it
+
+                updateMyStory()
+            }
+
+            openEditor()
+        }
+
+        choosePhotoButton.visibility = View.VISIBLE
+        choosePhotoButton.setOnClickListener {
+            choosePhotoButton.visibility = View.GONE
+            storyText.onLinkClick = {}
+            storyText.elevation = 0f
+            fantasyText.setOnClickListener {  }
+        }
+    }
+
+    private fun openEditor() {
+        window.addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN)
+        window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        editorLayout.visibility = View.VISIBLE
+        editor.requestFocus()
+        editor.selectAll()
+
+
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(editor, 0)
+    }
+
+    private fun updateMyStory() {
+        storyText.text = "<tap data=\"name\">${if (my.name.isBlank()) "Your name" else my.name}</tap>, <tap data=\"age\">${if (my.age < 18) "your age" else my.age.toString()}</tap><br /><br />I love <tap data=\"story\">${if (my.stories.isEmpty()) "write something here" else my.stories[0]}</tap>"
+        fantasyText.text = if (my.fantasy.isBlank()) "Start writing your fantasy here" else my.fantasy
+    }
+
     private fun showWelcomeModal() {
         welcomeMessageLayout.visibility = View.VISIBLE
         welcomeMessageText.onLinkClick = {
-            sex = it
+            my.sex = it
             welcomeMessageLayout.visibility = View.GONE
 
             bub1.visibility = View.VISIBLE
@@ -380,7 +501,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (showDiscoveryPreferences) {
+        if (editorLayout.visibility != View.GONE) {
+            editorCancelButton.callOnClick()
+        } else if (showDiscoveryPreferences) {
             showDiscoveryPreferences = false
         } else if (showFantasy) {
             showFantasy = false
