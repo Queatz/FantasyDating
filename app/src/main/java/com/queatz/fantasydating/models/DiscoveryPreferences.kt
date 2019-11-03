@@ -1,4 +1,4 @@
-package com.queatz.fantasydating
+package com.queatz.fantasydating.models
 
 data class DiscoveryPreferences constructor(
     var who: String,

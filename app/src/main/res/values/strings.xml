@@ -14,4 +14,10 @@
     <string name="cont">Continue</string>
     <string name="moreOptionsTemplate"><![CDATA[<tap data="report">Report</tap>, or <tap data="hide">Hide</tap> Emi]]></string>
     <string name="moreOptionsProfileTemplate"><![CDATA[<tap data="report">Delete my account</tap>]]></string>
+    <string name="cancel">Cancel</string>
+    <string name="done">Done</string>
+    <string name="any">Any</string>
+    <string name="your_name">Your name</string>
+    <string name="your_age">your age</string>
+    <string name="empty_fantasy">Tap here to start writing your fantasy</string>
 </resources>

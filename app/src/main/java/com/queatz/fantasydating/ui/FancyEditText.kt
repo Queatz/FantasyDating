@@ -1,4 +1,4 @@
-package com.queatz.fantasydating
+package com.queatz.fantasydating.ui
 
 import android.content.Context
 import android.util.AttributeSet

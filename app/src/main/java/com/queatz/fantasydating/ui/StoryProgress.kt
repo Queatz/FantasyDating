@@ -1,4 +1,4 @@
-package com.queatz.fantasydating
+package com.queatz.fantasydating.ui
 
 import android.animation.Animator
 import android.animation.ValueAnimator
@@ -10,6 +10,7 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.LinearInterpolator
+import com.queatz.fantasydating.R
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 import kotlin.math.max

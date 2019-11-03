@@ -35,12 +35,10 @@ NEXT
 ====
 
  [ ] Update editor keyboard and input mode based on context
- [ ] Dropdown arrow on your profile shows delete account
  [ ] Show "I love" locked at beginning of editor for fantasy
 
  [ ] Edit your profile on first app launch (required)
  [ ] Don't show some bubbles that are showing now on profile
-
 
  [ ] Verify phone number
  [ ] Verify location
@@ -54,6 +52,7 @@ NEXT
      [ ] Your profile is visible        Open profile
 
 
+ [X] Dropdown arrow on your profile shows delete account
  [x] Editor left aligned for fantasy
  [x] Delete account from V menu on my profile
  [x] Hide choose photo when my fantasy is open

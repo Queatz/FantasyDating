@@ -1,4 +1,4 @@
-package com.queatz.fantasydating
+package com.queatz.fantasydating.ui
 
 import android.content.Context
 import android.content.res.Resources
@@ -13,6 +13,7 @@ import android.util.Size
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
+import com.queatz.fantasydating.R
 import io.reactivex.subjects.BehaviorSubject
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
@@ -55,7 +56,8 @@ class FancyTextView : TextView {
         setTextAppearance(R.style.Text_Medium)
 
         attrs?.let {
-            val styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.FancyTextView, defStyleAttr, defStyleRes)
+            val styledAttrs = context.obtainStyledAttributes(attrs,
+                R.styleable.FancyTextView, defStyleAttr, defStyleRes)
             val textSize = styledAttrs.getDimension(R.styleable.FancyTextView_android_textSize, 0f)
             val textColor = styledAttrs.getColor(R.styleable.FancyTextView_android_textColor, -1)
             bold = !styledAttrs.getBoolean(R.styleable.FancyTextView_thin, false)
@@ -100,10 +102,12 @@ class FancyTextView : TextView {
         Jsoup.parse(text.toString()).body().childNodes().forEach { node ->
             if (node is Element) {
                 when (node.tagName()) {
-                    "tap" -> links.add(Link(
-                        node.attr("data"),
-                        node.attr("thin")?.toBoolean() ?: false,
-                        Size(parsed.length, parsed.length + node.text().length))
+                    "tap" -> links.add(
+                        Link(
+                            node.attr("data"),
+                            node.attr("thin")?.toBoolean() ?: false,
+                            Size(parsed.length, parsed.length + node.text().length)
+                        )
                     )
                     "br" -> parsed += "\n"
                 }
@@ -119,11 +123,17 @@ class FancyTextView : TextView {
         textChangeLock = true
 
         super.setText(SpannableString(parsed).apply {
-            setSpan(BackgroundSpan(resources.getColor(R.color.white, theme), pad * .75f) { line, width ->
-                if (line == 0) {
-                    firstLineWidth.onNext(width)
-                }
-            }, 0, parsed.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+            setSpan(
+                BackgroundSpan(
+                    resources.getColor(
+                        R.color.white,
+                        theme
+                    ), pad * .75f
+                ) { line, width ->
+                    if (line == 0) {
+                        firstLineWidth.onNext(width)
+                    }
+                }, 0, parsed.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
 
             links.forEach { link ->
                 setSpan(object : ClickableSpan() {
