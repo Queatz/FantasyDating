@@ -12,6 +12,16 @@ Austin Chapters
 
 
 
+Premium Features
+
+ - Direct Line (msg anyone)
+
+
+Other
+
+ - Feedback on person after matching (1 day delay)
+
+
 Todo
 
  [ ] Icon
@@ -43,6 +53,12 @@ NEXT
      [ ] Your profile is hidden         Open profile
      [ ] Your profile is visible        Open profile
 
+
+ [x] Editor left aligned for fantasy
+ [x] Delete account from V menu on my profile
+ [x] Hide choose photo when my fantasy is open
+ [x] hide love button on my fantasy
+ [x] if report menu is open back button closes is
  [x] Editable spans
  [X] Bubble
  [X] Edit Profile button / screen / flow

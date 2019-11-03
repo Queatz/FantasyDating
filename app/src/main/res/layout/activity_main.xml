@@ -525,7 +525,9 @@
             android:background="@null"
             android:gravity="center"
             android:lineSpacingMultiplier="1.4"
-            android:padding="@dimen/pad4x"
+            android:paddingTop="@dimen/pad4x"
+            android:paddingStart="@dimen/pad4x"
+            android:paddingEnd="@dimen/pad4x"
             android:textColor="@color/white"
             android:imeOptions="actionDone"
             android:inputType="textCapSentences|textMultiLine"/>

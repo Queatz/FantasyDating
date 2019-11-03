@@ -2,7 +2,7 @@
     <string name="app_name">Fantasy Dating</string>
     <string name="enable_location">Enable location</string>
     <string name="location_modal_message">We need your location to find people near you.</string>
-    <string name="welcome_modal_message"><![CDATA[Welcome to <b>Fantasy Dating</b>!  We believe in fantasies being real, and we’re so happy to have you here!<br /><br />Let’s get started by selecting your sex.<br /><br />I am a <tap data="Girl">Girl</tap>, <tap data="Boy">Boy</tap>, or <tap data="Person">Person</tap>.]]></string>
+    <string name="welcome_modal_message"><![CDATA[Welcome to <b>Fantasy Dating</b>!<br /><br />We believe in fantasies being real, and we’re so happy to have you here!<br /><br />Let’s get started by selecting your sex.<br /><br />I am a <tap data="Girl">Girl</tap>, <tap data="Boy">Boy</tap>, or <tap data="Person">Person</tap>.]]></string>
     <string name="swipe_up">Swipe up</string>
     <string name="edit_your_profile"><![CDATA[<tap>Edit your profile</tap>]]></string>
     <string name="discovery_preferences_template"><![CDATA[Show me <tap data="who">%1$s</tap> in <tap data="where">%2$s</tap> between the ages of <tap data="ageMin">%3$s</tap> and <tap data="ageMax">%4$s</tap>]]></string>
@@ -13,4 +13,5 @@
     <string name="edit_where"><![CDATA[<tap data="Austin">Austin</tap>, or <tap data="nope">somewhere else</tap>]]></string>
     <string name="cont">Continue</string>
     <string name="moreOptionsTemplate"><![CDATA[<tap data="report">Report</tap>, or <tap data="hide">Hide</tap> Emi]]></string>
+    <string name="moreOptionsProfileTemplate"><![CDATA[<tap data="report">Delete my account</tap>]]></string>
 </resources>

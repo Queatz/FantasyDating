@@ -30,6 +30,8 @@ class MainActivity : AppCompatActivity() {
     var my = MyPreferences("Person", "", 0, "", listOf())
     val discoveryPreferences = DiscoveryPreferences("Girls", "Austin", 25, 35)
 
+    var showEditProfile = false
+
     var showFantasy = false
         set(value) {
             if (field == value) {
@@ -42,6 +44,7 @@ class MainActivity : AppCompatActivity() {
                 closeBub(bub3)
                 swipeUpArrow.rotation = 180f
                 fantasy.visibility = View.VISIBLE
+                choosePhotoButton.visibility = View.GONE
                 storyText.visibility = View.GONE
                 moreOptionsButton.visibility = View.GONE
                 moreOptionsText.visibility = View.GONE
@@ -56,6 +59,10 @@ class MainActivity : AppCompatActivity() {
                 stories.resume()
                 closeBub(bub4)
                 showBub(bub5)
+
+                if (showEditProfile) {
+                    choosePhotoButton.visibility = View.VISIBLE
+                }
             }
         }
 
@@ -373,6 +380,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         moreOptionsButton.setOnClickListener {
+            if (choosePhotoButton.visibility == View.GONE) {
+                moreOptionsText.setText(R.string.moreOptionsTemplate)
+            } else {
+                moreOptionsText.setText(R.string.moreOptionsProfileTemplate)
+            }
+
             moreOptionsText.visibility = View.VISIBLE
             stories.pause()
             closeBub(bub5)
@@ -391,10 +404,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun editProfile() {
+        showEditProfile = true
+
         updateMyStory()
 
-        loveButton.alpha = .25f
-        loveButton.isEnabled = false
+        loveButton.visibility = View.GONE
+        moreOptionsButton.elevation = 1f
 
         storyText.onLinkClick = {
             when (it) {
@@ -428,6 +443,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
+            editor.gravity = Gravity.CENTER
             openEditor()
         }
 
@@ -441,14 +457,18 @@ class MainActivity : AppCompatActivity() {
                 updateMyStory()
             }
 
+            editor.gravity = Gravity.START
             openEditor()
         }
 
         choosePhotoButton.visibility = View.VISIBLE
+
         choosePhotoButton.setOnClickListener {
+            showEditProfile = false
+
             choosePhotoButton.visibility = View.GONE
-            loveButton.alpha = 1f
-            loveButton.isEnabled = true
+            loveButton.visibility = View.VISIBLE
+            moreOptionsButton.elevation = 0f
             storyText.onLinkClick = {}
             storyText.elevation = 0f
             fantasyText.setOnClickListener {  }
@@ -508,6 +528,8 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (editorLayout.visibility != View.GONE) {
             editorCancelButton.callOnClick()
+        } else if (moreOptionsText.visibility != View.GONE) {
+            moreOptionsText.visibility = View.GONE
         } else if (showDiscoveryPreferences) {
             showDiscoveryPreferences = false
         } else if (showFantasy) {
