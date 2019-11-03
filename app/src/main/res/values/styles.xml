@@ -33,7 +33,7 @@
     <style name="Text.Medium" parent="TextAppearance.AppCompat.Medium">
         <item name="android:fontFamily">@font/questrial</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">#060606</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
 </resources>

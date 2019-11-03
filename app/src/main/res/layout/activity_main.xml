@@ -28,20 +28,6 @@
         android:textColor="@color/black"
         tools:text="Emi, 27\n\nI love pretending I’m visiting Earth on an intergalactic mission." />
 
-    <TextView
-        android:id="@+id/fantasy"
-        android:layout_width="match_parent"
-        android:layout_height="240dp"
-        android:background="@color/story_background"
-        android:padding="@dimen/pad4x"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:textAppearance="@style/Text.Medium"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:text="Emi’s Fantasy\n\nI want a boy to masturbate and kiss me on a bench overlooking the lake."
-        android:visibility="gone"
-        tools:visibility="visible" />
-
     <ImageButton
         android:id="@+id/swipeUpArrow"
         android:layout_width="wrap_content"
@@ -55,7 +41,7 @@
         android:scaleX=".5"
         android:scaleY=".5"
         android:background="@null" />
-
+e
     <View
         android:id="@+id/leftTouchTarget"
         android:layout_width="0dp"
@@ -71,6 +57,57 @@
         app:layout_constraintStart_toEndOf="@+id/leftTouchTarget"
         app:layout_constraintEnd_toEndOf="parent"
         tools:visibility="gone"/>
+
+
+    <LinearLayout
+        android:id="@+id/fantasy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical"
+        android:background="@color/story_background"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            android:id="@+id/fantasyTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/pad4x"
+            android:paddingStart="@dimen/pad4x"
+            android:paddingEnd="@dimen/pad4x"
+            android:textAppearance="@style/Text.Medium"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:scrollbars="vertical"
+            android:text="Emi’s Fantasy" />
+
+        <TextView
+            android:id="@+id/fantasyText"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:paddingStart="@dimen/pad4x"
+            android:paddingEnd="@dimen/pad4x"
+            android:paddingTop="@dimen/pad2x"
+            android:paddingBottom="@dimen/pad2x"
+            android:textAppearance="@style/Text.Medium"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:scrollbars="vertical"
+            android:text="I want a boy to masturbate and kiss me on a bench overlooking the lake." />
+
+        <ImageView
+            android:id="@+id/loveButton"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/pad2x"
+            android:foreground="@drawable/ic_heart"
+            android:foregroundGravity="center"
+            android:foregroundTint="@color/colorPrimaryBright"
+            android:background="@drawable/white_rounded_oval" />
+
+    </LinearLayout>
 
     <View
         android:id="@+id/feedTop"
@@ -236,6 +273,7 @@
             android:padding="@dimen/pad2x"
             android:gravity="center_horizontal"
             android:elevation="@dimen/pad"
+            app:thin="true"
             android:textColor="@color/colorPrimary"
             android:text="@string/edit_who"
             android:visibility="gone" />
@@ -302,6 +340,29 @@
         android:visibility="gone"
         android:text="Tap here to change your discovery options." />
 
+    <TextView
+        android:id="@+id/bub3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintWidth_max="240dp"
+        app:layout_constraintBottom_toTopOf="@+id/swipeUpArrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:onClick="closeBub"
+        android:textAppearance="@style/Text.Medium"
+        android:drawableBottom="@drawable/ic_arrow_downward_black_24dp"
+        android:gravity="center"
+        android:drawableTint="#09a"
+        android:background="@drawable/info_rounded"
+        android:textSize="19sp"
+        android:padding="@dimen/pad2x"
+        android:drawablePadding="@dimen/pad"
+        android:elevation="@dimen/pad2x"
+        android:lineSpacingMultiplier="1.4"
+        android:visibility="gone"
+        android:text="Swipe up to view Emi’s fantasy." />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/welcomeMessageLayout"
         android:layout_width="match_parent"
@@ -321,6 +382,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintVertical_bias=".33"
+            android:lineSpacingMultiplier="1.2"
             app:thin="true"
             android:textAppearance="@style/Text.Medium"
             android:background="@drawable/white_rounded"
