@@ -41,11 +41,11 @@ class EditorFeature constructor(private val on: On) : OnLifecycle {
             window.addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN)
             window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
-            editor.requestFocus()
-            editor.selectAll()
-
             editor.setText(text)
             editor.gravity = gravity
+
+            editor.requestFocus()
+            editor.selectAll()
 
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(editor, 0)

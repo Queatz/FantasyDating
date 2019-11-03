@@ -4,13 +4,26 @@ import com.queatz.fantasydating.R
 import com.queatz.fantasydating.models.DiscoveryPreferences
 import com.queatz.fantasydating.visible
 import com.queatz.on.On
+import com.queatz.on.OnLifecycle
 import kotlinx.android.synthetic.main.activity_main.*
 
-class DiscoveryPreferencesFeature constructor(private val on: On) {
+class DiscoveryPreferencesFeature constructor(private val on: On) : OnLifecycle {
 
     private val sexes = setOf("Girls", "Boys", "People")
     private val ages = listOf(18, 20, 22, 24, 26, 28, 30, 35, 40, 45, 50, 1000)
-    private val discoveryPreferences = DiscoveryPreferences("Girls", "Austin", 25, 35)
+
+    private lateinit var discoveryPreferences: DiscoveryPreferences
+
+    fun edit(function: DiscoveryPreferences.() -> Unit) {
+        function.invoke(discoveryPreferences)
+
+        on<StoreFeature>().get(DiscoveryPreferences::class).put(discoveryPreferences)
+    }
+
+    override fun on() {
+        discoveryPreferences = on<StoreFeature>().get(DiscoveryPreferences::class).all.firstOrNull() ?:
+                DiscoveryPreferences("Girls", "Austin", 25, 35)
+    }
 
     fun start() {
         on<ViewFeature>().with {
@@ -25,10 +38,10 @@ class DiscoveryPreferencesFeature constructor(private val on: On) {
             editPreferenceText.onLinkClick = {
                 when {
                     it == "nope" -> {}
-                    sexes.contains(it) -> discoveryPreferences.who = it
-                    it == "Austin" -> discoveryPreferences.where = it
-                    it.startsWith("min:") -> discoveryPreferences.ageMin = it.split(":").last().toInt()
-                    it.startsWith("max:") -> discoveryPreferences.ageMax = it.split(":").last().toInt()
+                    sexes.contains(it) -> on<DiscoveryPreferencesFeature>().edit { who = it }
+                    it == "Austin" -> on<DiscoveryPreferencesFeature>().edit { where = it }
+                    it.startsWith("min:") -> on<DiscoveryPreferencesFeature>().edit { ageMin = it.split(":").last().toInt() }
+                    it.startsWith("max:") -> on<DiscoveryPreferencesFeature>().edit { ageMax = it.split(":").last().toInt() }
                 }
 
                 editPreferenceText.visible = false

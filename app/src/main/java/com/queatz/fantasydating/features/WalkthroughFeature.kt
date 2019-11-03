@@ -3,6 +3,8 @@ package com.queatz.fantasydating.features
 import android.animation.Animator
 import android.view.View
 import android.view.ViewGroup
+import com.queatz.fantasydating.models.WalkthroughStep
+import com.queatz.fantasydating.models.WalkthroughStep_
 import com.queatz.fantasydating.visible
 import com.queatz.on.On
 import kotlinx.android.synthetic.main.activity_main.*
@@ -14,7 +16,12 @@ class WalkthroughFeature constructor(private val on: On) {
     }
 
     fun showBub(view: View?) = view?.apply {
+        if (step(view.id.toString())?.shown == true) {
+            return this
+        }
+
         setOnClickListener { closeBub(this) }
+
         alpha = 0f
         visible = true
         animate()
@@ -27,6 +34,8 @@ class WalkthroughFeature constructor(private val on: On) {
         if (view?.visible?.not() != false) {
             return
         }
+
+        shown(view.id.toString())
 
         view.animate()
             .alpha(0f)
@@ -51,12 +60,31 @@ class WalkthroughFeature constructor(private val on: On) {
             .start()
     }
 
+    private fun step(step: String) = on<StoreFeature>().get(WalkthroughStep::class).query()
+        .equal(WalkthroughStep_.step, step)
+        .build()
+        .findFirst()
+
+    private fun shown(step: String) {
+        on<StoreFeature>().get(WalkthroughStep::class).put(step(step)?.also { it.shown = true } ?: WalkthroughStep(step, true))
+    }
+
     private fun showWelcomeModal() {
+        if (on<MyProfileFeature>().myProfile.sex.isNotBlank()) {
+            on<ViewFeature>().with {
+
+                showBub(bub1)
+                showBub(bub2)
+                showBub(bub3)
+            }
+            return
+        }
+
         on<ViewFeature>().with {
             welcomeMessageLayout.visible = true
 
             welcomeMessageText.onLinkClick = {
-                on<MyProfileFeature>().myProfile.sex = it
+                on<MyProfileFeature>().edit { sex = it }
 
                 welcomeMessageLayout.visible = false
 

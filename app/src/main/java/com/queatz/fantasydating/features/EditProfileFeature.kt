@@ -15,14 +15,14 @@ class EditProfileFeature constructor(private val on: On) {
                     when (it) {
                         "name" -> {
                             on<EditorFeature>().open(myProfile.name) {
-                                myProfile.name = it
+                                on<MyProfileFeature>().edit { name = it }
 
                                 updateMyStory()
                             }
                         }
                         "age" -> {
                             on<EditorFeature>().open(if (myProfile.age > 18) myProfile.age.toString() else "") {
-                                myProfile.age = it.toIntOrNull() ?: 0
+                                on<MyProfileFeature>().edit { age = it.toIntOrNull() ?: 0 }
 
                                 updateMyStory()
                             }
@@ -31,7 +31,7 @@ class EditProfileFeature constructor(private val on: On) {
                             on<EditorFeature>().open(
                                 myProfile.stories.firstOrNull() ?: ""
                             ) {
-                                myProfile.stories = if (it.isEmpty()) listOf() else listOf(it)
+                                on<MyProfileFeature>().edit { stories = if (it.isEmpty()) listOf() else listOf(it) }
 
                                 updateMyStory()
                             }
@@ -41,7 +41,7 @@ class EditProfileFeature constructor(private val on: On) {
 
                 fantasyText.setOnClickListener {
                     on<EditorFeature>().open(myProfile.fantasy, Gravity.START) {
-                        myProfile.fantasy = it
+                        on<MyProfileFeature>().edit { fantasy = it }
 
                         updateMyStory()
                     }
