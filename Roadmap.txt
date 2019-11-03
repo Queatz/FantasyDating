@@ -24,11 +24,16 @@ Todo
 NEXT
 ====
 
- [ ] Edit your profile on first app launch (required)
+ [ ] Update editor keyboard and input mode based on context
+ [ ] Dropdown arrow on your profile shows delete account
+ [ ] Show "I love" locked at beginning of editor for fantasy
 
- [ ] Editable spans
+ [ ] Edit your profile on first app launch (required)
+ [ ] Don't show some bubbles that are showing now on profile
+
 
  [ ] Verify phone number
+ [ ] Verify location
  [ ] Upload photo
 
  [ ] Push notifications
@@ -38,6 +43,7 @@ NEXT
      [ ] Your profile is hidden         Open profile
      [ ] Your profile is visible        Open profile
 
+ [x] Editable spans
  [X] Bubble
  [X] Edit Profile button / screen / flow
  [X] Popover Discovery Options modal with X

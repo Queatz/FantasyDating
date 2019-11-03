@@ -393,6 +393,9 @@ class MainActivity : AppCompatActivity() {
     private fun editProfile() {
         updateMyStory()
 
+        loveButton.alpha = .25f
+        loveButton.isEnabled = false
+
         storyText.onLinkClick = {
             when (it) {
                 "name" -> {
@@ -444,6 +447,8 @@ class MainActivity : AppCompatActivity() {
         choosePhotoButton.visibility = View.VISIBLE
         choosePhotoButton.setOnClickListener {
             choosePhotoButton.visibility = View.GONE
+            loveButton.alpha = 1f
+            loveButton.isEnabled = true
             storyText.onLinkClick = {}
             storyText.elevation = 0f
             fantasyText.setOnClickListener {  }
@@ -464,7 +469,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateMyStory() {
         storyText.text = "<tap data=\"name\">${if (my.name.isBlank()) "Your name" else my.name}</tap>, <tap data=\"age\">${if (my.age < 18) "your age" else my.age.toString()}</tap><br /><br />I love <tap data=\"story\">${if (my.stories.isEmpty()) "write something here" else my.stories[0]}</tap>"
-        fantasyText.text = if (my.fantasy.isBlank()) "Start writing your fantasy here" else my.fantasy
+        fantasyText.text = if (my.fantasy.isBlank()) "Tap here to start writing your fantasy" else my.fantasy
     }
 
     private fun showWelcomeModal() {
