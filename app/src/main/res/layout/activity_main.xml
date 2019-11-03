@@ -25,7 +25,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/swipeUpArrow"
         android:padding="@dimen/pad4x"
-        android:textColor="@color/black"
         tools:text="Emi, 27\n\nI love pretending I’m visiting Earth on an intergalactic mission." />
 
     <ImageButton
@@ -41,7 +40,7 @@
         android:scaleX=".5"
         android:scaleY=".5"
         android:background="@null" />
-e
+
     <View
         android:id="@+id/leftTouchTarget"
         android:layout_width="0dp"
@@ -57,6 +56,35 @@ e
         app:layout_constraintStart_toEndOf="@+id/leftTouchTarget"
         app:layout_constraintEnd_toEndOf="parent"
         tools:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/moreOptionsButton"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        app:layout_constraintStart_toStartOf="@+id/storyText"
+        app:layout_constraintTop_toTopOf="@+id/storyText"
+        android:layout_marginTop="@dimen/pad4x"
+        android:layout_marginStart="160dp"
+        android:padding="@dimen/pad"
+        android:rotation="180"
+        android:src="@drawable/ic_swipe_up" />
+
+    <com.queatz.fantasydating.FancyTextView
+        android:id="@+id/moreOptionsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/pad"
+        app:layout_constraintTop_toBottomOf="@+id/moreOptionsButton"
+        app:layout_constraintStart_toStartOf="@+id/moreOptionsButton"
+        android:background="@drawable/white_rounded"
+        android:padding="@dimen/pad2x"
+        app:thin="true"
+        android:gravity="center_horizontal"
+        android:elevation="@dimen/pad"
+        android:textColor="@color/colorPrimary"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:text="@string/moreOptionsTemplate" />
 
 
     <LinearLayout
@@ -362,6 +390,54 @@ e
         android:lineSpacingMultiplier="1.4"
         android:visibility="gone"
         android:text="Swipe up to view Emi’s fantasy." />
+
+    <TextView
+        android:id="@+id/bub4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintWidth_max="240dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="92dp"
+        android:onClick="closeBub"
+        android:textAppearance="@style/Text.Medium"
+        android:drawableBottom="@drawable/ic_arrow_downward_black_24dp"
+        android:gravity="center"
+        android:drawableTint="#09a"
+        android:background="@drawable/info_rounded"
+        android:textSize="19sp"
+        android:padding="@dimen/pad2x"
+        android:drawablePadding="@dimen/pad"
+        android:elevation="@dimen/pad2x"
+        android:visibility="gone"
+        android:lineSpacingMultiplier="1.4"
+        android:text="Tap show you like her.  If she likes you back, you’ll both be able to talk with each other." />
+
+    <TextView
+        android:id="@+id/bub5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintWidth_max="240dp"
+        app:layout_constraintStart_toEndOf="@+id/moreOptionsButton"
+        app:layout_constraintTop_toTopOf="@+id/moreOptionsButton"
+        app:layout_constraintBottom_toBottomOf="@+id/moreOptionsButton"
+        android:layout_marginStart="@dimen/pad"
+        android:onClick="closeBub"
+        android:textAppearance="@style/Text.Medium"
+        android:drawableStart="@drawable/ic_arrow_back_black_24dp"
+        android:gravity="center"
+        android:drawableTint="#09a"
+        android:background="@drawable/info_rounded"
+        android:textSize="19sp"
+        android:padding="@dimen/pad2x"
+        android:drawablePadding="@dimen/pad"
+        android:elevation="@dimen/pad2x"
+        android:visibility="gone"
+        android:lineSpacingMultiplier="1.4"
+        android:text="Is something wrong?  Tap here to let us know." />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/welcomeMessageLayout"

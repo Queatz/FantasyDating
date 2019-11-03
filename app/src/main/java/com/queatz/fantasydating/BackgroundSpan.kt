@@ -6,7 +6,7 @@ import android.graphics.RectF
 import android.text.style.LineBackgroundSpan
 
 
-class BackgroundSpan(private val backgroundColor: Int, private val padding: Float) : LineBackgroundSpan {
+class BackgroundSpan(private val backgroundColor: Int, private val padding: Float, private val lineWidth: (Int, Int) -> Unit) : LineBackgroundSpan {
     private val bgRect = RectF()
 
     override fun drawBackground(
@@ -29,6 +29,8 @@ class BackgroundSpan(private val backgroundColor: Int, private val padding: Floa
         }
 
         val w = p.measureText(t.toString())
+
+        lineWidth.invoke(lnum, w.toInt())
 
         bgRect.left = left - padding
         bgRect.right = left + w + padding

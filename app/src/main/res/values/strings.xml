@@ -12,4 +12,5 @@
     <string name="edit_who"><![CDATA[<tap data="Girls">Girls</tap>, <tap data="Boys">Boys</tap>, or <tap data="People">People</tap>]]></string>
     <string name="edit_where"><![CDATA[<tap data="Austin">Austin</tap>, or <tap data="nope">somewhere else</tap>]]></string>
     <string name="cont">Continue</string>
+    <string name="moreOptionsTemplate"><![CDATA[<tap data="report">Report</tap>, or <tap data="hide">Hide</tap> Emi]]></string>
 </resources>

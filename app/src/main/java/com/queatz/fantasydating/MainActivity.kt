@@ -36,12 +36,18 @@ class MainActivity : AppCompatActivity() {
                 swipeUpArrow.rotation = 180f
                 fantasy.visibility = View.VISIBLE
                 storyText.visibility = View.GONE
+                moreOptionsButton.visibility = View.GONE
+                moreOptionsText.visibility = View.GONE
                 stories.pause()
+                showBub(bub4)
+                closeBub(bub5)
             } else {
                 swipeUpArrow.rotation = 0f
                 fantasy.visibility = View.GONE
                 storyText.visibility = View.VISIBLE
+                moreOptionsButton.visibility = View.VISIBLE
                 stories.resume()
+                showBub(bub5)
             }
         }
 
@@ -153,6 +159,8 @@ class MainActivity : AppCompatActivity() {
                     0 -> "I want a boy to masturbate and kiss me on a bench overlooking the lake.\n\nEmi’s Fantasy\n\nI want a boy to masturbate and kiss me on a bench overlooking the lake.\n\nEmi’s Fantasy\n\nI want a boy to masturbate and kiss me on a bench overlooking the lake.\n\nEmi’s Fantasy\n\nI want a boy to masturbate and kiss me on a bench overlooking the lake.\n\nEmi’s Fantasy\n\nI want a boy to masturbate and kiss me on a bench overlooking the lake.\n\nEmi’s Fantasy\n\nI want a boy to masturbate and kiss me on a bench overlooking the lake.\n\nEmi’s Fantasy\n\nI want a boy to masturbate and kiss me on a bench overlooking the lake.\n\nEmi’s Fantasy\n\nI want a boy to masturbate and kiss me on a bench overlooking the lake.\n\n"
                     else -> "I want a boy to masturbate and kiss me on a bench overlooking the lake."
                 }
+
+                moreOptionsText.visibility = View.GONE
             })
 
         val gestures = object : GestureDetector.SimpleOnGestureListener() {
@@ -309,6 +317,33 @@ class MainActivity : AppCompatActivity() {
         updateDiscoveryPreferences()
 
         showWelcomeModal()
+
+        loveButton.setOnClickListener {
+            showFantasy = false
+            closeBub(bub4)
+        }
+
+        moreOptionsText.onLinkClick = {
+            moreOptionsText.visibility = View.GONE
+            stories.resume()
+        }
+
+        moreOptionsButton.setOnClickListener {
+            moreOptionsText.visibility = View.VISIBLE
+            stories.pause()
+            closeBub(bub5)
+        }
+
+        val oneDp = resources.getDimensionPixelSize(R.dimen.dp)
+
+        disposables.add(storyText.firstLineWidth
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                (moreOptionsButton.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                    leftMargin = it + oneDp * 42
+                }
+                moreOptionsButton.requestLayout()
+            })
     }
 
     private fun showWelcomeModal() {
@@ -321,13 +356,7 @@ class MainActivity : AppCompatActivity() {
             bub2.visibility = View.VISIBLE
             bub3.visibility = View.VISIBLE
 
-            listOf(bub1, bub2, bub3).forEach {
-                it.alpha = 0f
-                it.animate()
-                    .alpha(1f)
-                    .setDuration(200)
-                    .start()
-            }
+            listOf(bub1, bub2, bub3).forEach { showBub(it) }
         }
     }
 
@@ -372,7 +401,19 @@ class MainActivity : AppCompatActivity() {
         }, 5)
     }
 
+    fun showBub(view: View) = view.apply {
+        alpha = 0f
+        visibility = View.VISIBLE
+        animate()
+            .alpha(1f)
+            .setDuration(200)
+            .start()
+    }
+
     fun closeBub(view: View) {
+        if (view.visibility == View.GONE) {
+            return
+        }
 
         view.animate()
             .alpha(0f)

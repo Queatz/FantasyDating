@@ -13,6 +13,7 @@ import android.util.Size
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
+import io.reactivex.subjects.BehaviorSubject
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import org.jsoup.nodes.TextNode
@@ -23,6 +24,8 @@ class FancyTextView : TextView {
     private var bold: Boolean = false
     private var textChangeLock: Boolean = false
     private var theme: Resources.Theme? = null
+
+    val firstLineWidth = BehaviorSubject.createDefault(0)
 
     var onLinkClick: (String) -> Unit = {}
 
@@ -116,7 +119,11 @@ class FancyTextView : TextView {
         textChangeLock = true
 
         super.setText(SpannableString(parsed).apply {
-            setSpan(BackgroundSpan(resources.getColor(R.color.white, theme), pad * .75f), 0, parsed.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+            setSpan(BackgroundSpan(resources.getColor(R.color.white, theme), pad * .75f) { line, width ->
+                if (line == 0) {
+                    firstLineWidth.onNext(width)
+                }
+            }, 0, parsed.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
 
             links.forEach { link ->
                 setSpan(object : ClickableSpan() {
