@@ -401,7 +401,7 @@
         android:elevation="@dimen/pad2x"
         android:lineSpacingMultiplier="1.4"
         android:visibility="gone"
-        android:text="Swipe up to view Emi’s fantasy." />
+        android:text="Swipe up to view Emi's fantasy." />
 
     <TextView
         android:id="@+id/bub4"
@@ -424,7 +424,7 @@
         android:elevation="@dimen/pad2x"
         android:visibility="gone"
         android:lineSpacingMultiplier="1.4"
-        android:text="Tap show you like her.  If she likes you back, you’ll both be able to talk with each other." />
+        android:text="Tap show you love her.  If she loves you back, you’ll both be able to talk with each other." />
 
     <TextView
         android:id="@+id/bub5"
@@ -445,6 +445,28 @@
         android:visibility="gone"
         android:lineSpacingMultiplier="1.4"
         android:text="Is something wrong?  Tap here to let us know." />
+    <TextView
+        android:id="@+id/bub6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintWidth_max="240dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/pad2x"
+        android:textAppearance="@style/Text.Medium"
+        android:drawableTop="@drawable/ic_arrow_upward_black_24dp"
+        android:gravity="center"
+        android:drawableTint="#09a"
+        android:background="@drawable/info_rounded"
+        android:textSize="19sp"
+        android:padding="@dimen/pad2x"
+        android:drawablePadding="@dimen/pad"
+        android:elevation="@dimen/pad2x"
+        android:visibility="gone"
+        android:lineSpacingMultiplier="1.4"
+        android:text="Swipe up to go back to your news feed." />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/welcomeMessageLayout"

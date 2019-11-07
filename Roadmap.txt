@@ -4,122 +4,138 @@ NAMES
 =====
 
 Good People
+Austin's Fun People
 Fantasy Dating
 Cherish
 Austin Chapters
 
-=====
 
-
-
-Premium Features
-
- - Direct Line (msg anyone)
-
-
-Other
-
- - Feedback on person after matching (1 day delay)
-
-
-Todo
-
- [ ] Icon
- [ ] Store Page
-   [ ] Description
-   [ ] Screenshots
- [ ] Backend
- [ ] Content Server
-
-NEXT
+Todo for app
 ====
 
- [ ] Update editor keyboard and input mode based on context
- [ ] Show "I love" locked at beginning of editor for fantasy
+ [ ] Edit profile
+    [ ] Update editor keyboard and input mode based on context
+    [ ] Show "I love " locked at beginning of editor for fantasy
+    [ ] Delete account flow
+       [ ] Your account will die and you'll need to set up a new account to use Fantasy Dating again.
+           Do you want this? Yes / No / Just hide my account for now
+    [ ] Upload photo
+       [ ] Choose a photo modal
+       [ ] Photo Guidebook modal
+       [ ] Launch photo chooser
+       [ ] Position photo
+       [ ] Upload photo to content server
+       [ ] Save photo url + position
+       [ ] Load stories from model
 
- [ ] Edit your profile on first app launch (required)
- [ ] Don't show some bubbles that are showing now on profile
+ [ ] Models
+    [x] Person model
+    [ ] Event model
+    [ ] Message model
+    [ ] Love Model
 
- [ ] Verify phone number
- [ ] Verify location
- [ ] Upload photo
+ [ ] Sign up
+    [ ] Edit your profile on first app launch (required)
+       [ ] After welcome modal
+    [ ] Verify flow (choose any two)
+        [ ] Verify phone number
+        [ ] Verify location
+        [ ] Verify photos with photo from camera
+
+ [ ] Fantasy
+    [ ] Name reflects current person
+    [ ] Love fantasy
+       [ ] Call API
+    [ ] Load from model
+
+ [ ] Story
+    [ ] Name and story and fantasy powered by current person
+    [ ] Move to next person
+    [ ] Report person flow
+    [ ] Hide person flow
+
+ [ ] Matching
+    [ ] Feedback on person after matching (1 day delay)
+
+ [ ] News Feed
+    [ ] Tap to open
+    [ ] Load from API
+
+ [ ] Messages screen
+    [ ] Show story Button (at top)
+    [ ] Close Button
+    [ ] Send Message Input
+    [ ] Send Photo, Location, Number Button
+      [ ] Share Phone Number Modal
+      [ ] Launch Camera
+      [ ] Launch Location Chooser
+    [ ] Message
+      [ ] Tap to reveal time
+
+ [ ] Profile acceptance flow
+    [ ] Notification of new profiles to review (for admins)
+    [ ] Preview profile
+       [ ] Accept
+       [ ] Don't accept -> Reason
+    [ ] Call API
+
+ [ ] Discovery Preferences
+    [ ] Save to API
+    [ ] Not in Austin?  Don't worry, you can still set up your profile and we'll send you a notification when we expand outside of Austin.
 
  [ ] Push notifications
-     [ ] You matched with Sal           Talk with her
-     [ ] Sal sent you a message         View message
-     [ ] Sal unmatched you              Dismiss
-     [ ] Your profile is hidden         Open profile
-     [ ] Your profile is visible        Open profile
+    [ ] Purple notification light
+    [ ] Set up FCM
+    [ ] Get device token
+    [ ] You matched with Sal           Talk with her
+    [ ] Sal sent you a message         View message
+    [ ] Sal unmatched you              Dismiss
+    [ ] Sal removed her account        Dismiss
+    [ ] Sal updated her story          Open profile
+    [ ] Your profile is hidden         Open profile
+    [ ] Your profile is visible        Open profile
 
 
- [X] Dropdown arrow on your profile shows delete account
- [x] Editor left aligned for fantasy
- [x] Delete account from V menu on my profile
- [x] Hide choose photo when my fantasy is open
- [x] hide love button on my fantasy
- [x] if report menu is open back button closes is
- [x] Editable spans
- [X] Bubble
- [X] Edit Profile button / screen / flow
- [X] Popover Discovery Options modal with X
- [X] Click span templates (with underline)
- [x] Show lines above / below feed
- [x] Fantasy Drawer swipe up
- [x] Feed
- [x] Home screen, tap to start behavior
-
-ALL
+Todo for backend
 ====
 
-Screens & Components
+ [ ] API
+    [ ] Just use Closer's backend?
+    [ GET ]
+        [X] /me -> Person
+        [X] /me/discovery-preferences -> DiscoveryPreferences
+        [ ] /me/feed -> Event[]
+        [ ] /me/people -> Person[]
+        [ ] /person/:id -> Person
+        [ ] /person/:id/messages -> Messages[]
+    [ POST ]
+        [X] Person -> /me -> Person
+        [X] DiscoveryPreferences -> /me/discovery-preferences -> DiscoveryPreferences
+        [ ] { report, hide } -> /person/:id -> Person
+        [ ] Message -> /person/:id/messages -> Messages[]
 
-[ ] Initial Screen
-   X Enable Location Modal
-   - Splash Image
-[ ] Main Screen
-   - Loading State Background
-   X Discovery Options
-   - Modify Discovery Options Modal
-     - Inline Menu
-     - Close Button
-   X Notifications Feed
-   X Story & Fantasy
-   - Welcome Modal
-     - Inline Menu
-     - Button
-   - Bubbles
-[ ] Edit Profile
-   X Story Progress
-   - Story & Fantasy
-   - Bubble
-   - Choose Photo Button
-   - Choose Photo Modal
-     - Button
-     - Inline Button
-     - Close Button
-   - Photo Guidebook Modal
-   - Save Button
-   - Menu
-[ ] View Profile
-   X Story Progress
-   X Story & Fantasy
-   - Fantasy Photo Fade
-   - Like Button
-   - Bubble
-   - Menu
-[ ] Messages
-   - Story Button
-   - Close Button
-   - Send Message Input
-   - Send Photo, Location, Number Button
-     - Share Phone Number Modal
-     - Launch Camera
-     - Launch Location Chooser
-   - Message
-     - Tap Reveal Time
 
-Todo (Extras)
+Todo for launch
+=====
 
- [ ] Don't have your town yet? Vote for it to help us launch there.
-    - Tell them to update their profile anyways
-    - Votes count based on profile effort score
+ [ ] Hire photographer in app
+    [ ] Their name + photo
+    [ ] Camera they use
+    [ ] Price
+    [ ] Sample photos
+ [ ] Show inspirational photos to get ideas for your own story
+ [ ] Highlights (editors picks for fantasies)
+ [ ] Icon ( city (left side) + nature (right side) )
+ [ ] Store Page
+    [ ] Description
+    [ ] Screenshots
+ [ ] Backend
+    [ ] api.crayture.com
+ [ ] Content Server
+    [ ] content.crayture.com
+
+
+
+    X-CLOSER-UPLOAD
+    iamsupersupersecret
+

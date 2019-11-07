@@ -10,28 +10,34 @@ import io.objectbox.annotation.Id
 @BaseEntity
 open class BaseModel {
     @Id var objectBoxId: Long = 0
+    var id: String? = null
 }
 
 @Entity
-class DiscoveryPreferences constructor(
-    var who: String,
-    var where: String,
-    var ageMin: Int,
-    var ageMax: Int
+data class Token constructor(var token: String = "") : BaseModel()
+
+@Entity
+data class DiscoveryPreferences constructor(
+    var who: String = "",
+    var where: String = "",
+    var ageMin: Int = 0,
+    var ageMax: Int = 0
 ) : BaseModel()
 
 @Entity
-class WalkthroughStep constructor(
-    var step: String,
-    var shown: Boolean
+data class WalkthroughStep constructor(
+    var step: String = "",
+    var shown: Boolean = false
 ) : BaseModel()
 
 @Entity
-class MyPreferences constructor(
-    var sex: String,
-    var name: String,
-    var age: Int,
-    var fantasy: String,
+data class Person constructor(
+    var sex: String = "",
+    var name: String = "",
+    var age: Int = 0,
+    var approved: Boolean = false,
+    var active: Boolean = false,
+    var fantasy: String = "",
     @Convert(converter = StringListJsonConverter::class, dbType = String::class)
-    var stories: List<String>
+    var stories: List<String> = listOf()
 ) : BaseModel()

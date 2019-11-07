@@ -37,6 +37,7 @@ class GesturesFeature constructor(private val on: On) {
                 }
 
                 if (velocityY > 0 && on<LayoutFeature>().showFantasy.not()) {
+                    on<WalkthroughFeature>().closeBub(on<ViewFeature>().with { bub6 })
                     on<LayoutFeature>().showFeed = true
                 }
 
@@ -87,6 +88,7 @@ class GesturesFeature constructor(private val on: On) {
                 if (on<LayoutFeature>().showFeed) {
                     on<StoryFeature>().event(StoryEvent.Start)
                     on<WalkthroughFeature>().closeBub(bub1)
+                    on<WalkthroughFeature>().showBub(bub6)
                 } else {
                     on<StoryFeature>().event(StoryEvent.Next)
                 }
