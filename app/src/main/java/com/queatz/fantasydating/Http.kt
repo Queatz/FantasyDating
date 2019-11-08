@@ -18,9 +18,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.reflect.Type
 import java.nio.charset.Charset
 import java.time.Instant
-import kotlin.reflect.KClass
 
 class Http constructor(private val on: On) : OnLifecycle {
 
@@ -43,24 +43,23 @@ class Http constructor(private val on: On) : OnLifecycle {
         http.close()
     }
 
-    fun <T : Any> get(url: String, klass: KClass<T>, error: ((Throwable) -> Unit)? = null, result: ((T) -> Unit)? = null) {
+    fun <T : Any> get(url: String, klass: Type, error: ((Throwable) -> Unit)? = null, result: ((T) -> Unit)? = null) {
         call(url, klass, Get, result = result, error = error)
     }
 
-    fun <T : Any> post(url: String, body: Any, klass: KClass<T>, error: ((Throwable) -> Unit)? = null, result: ((T) -> Unit)? = null) {
+    fun <T : Any> post(url: String, body: Any, klass: Type, error: ((Throwable) -> Unit)? = null, result: ((T) -> Unit)? = null) {
         call(url, klass, Post, body, result, error)
     }
 
-    private fun <T : Any> call(url: String, klass: KClass<T>, method: HttpMethod, body: Any = EmptyContent, result: ((T) -> Unit)? = null, error: ((Throwable) -> Unit)? = null) {
+    private fun <T : Any> call(url: String, klass: Type, method: HttpMethod, body: Any = EmptyContent, result: ((T) -> Unit)? = null, error: ((Throwable) -> Unit)? = null) {
         CoroutineScope(Dispatchers.Main).launch {
             withContext(Dispatchers.IO) {
                 try {
                     Result(on<Json>().from(when (method) {
                         Post -> http.post(baseUrl + url) { this.body = body }
                         else -> http.get(baseUrl + url)
-                    }, klass), null)
+                    }, klass) as T, null)
                 } catch (e: Exception) {
-                    e.printStackTrace()
                     Result(null, e)
                 }
             }.let {

@@ -1,8 +1,6 @@
 package com.queatz.fantasydating.features
 
-import com.queatz.fantasydating.R
-import com.queatz.fantasydating.models.DiscoveryPreferences
-import com.queatz.fantasydating.visible
+import com.queatz.fantasydating.*
 import com.queatz.on.On
 import com.queatz.on.OnLifecycle
 import kotlinx.android.synthetic.main.activity_main.*
@@ -17,12 +15,23 @@ class DiscoveryPreferencesFeature constructor(private val on: On) : OnLifecycle 
     fun edit(function: DiscoveryPreferences.() -> Unit) {
         function.invoke(discoveryPreferences)
 
+        on<Api>().discoveryPreferences(MeDiscoveryPreferencesRequest(
+            where = discoveryPreferences.where,
+            who = discoveryPreferences.who,
+            ageMin = discoveryPreferences.ageMin,
+            ageMax = discoveryPreferences.ageMax
+        )) {}
+
         on<StoreFeature>().get(DiscoveryPreferences::class).put(discoveryPreferences)
     }
 
     override fun on() {
-        discoveryPreferences = on<StoreFeature>().get(DiscoveryPreferences::class).all.firstOrNull() ?:
-                DiscoveryPreferences("Girls", "Austin", 25, 35)
+        discoveryPreferences = on<StoreFeature>().get(DiscoveryPreferences::class).all.firstOrNull() ?: DiscoveryPreferences(
+            "Girls",
+            "Austin",
+            25,
+            35
+        )
     }
 
     fun start() {

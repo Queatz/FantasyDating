@@ -39,22 +39,16 @@ class InstantTypeConverter : JsonSerializer<Instant>, JsonDeserializer<Instant> 
     }
 }
 
+private val gson = GsonBuilder().registerTypeAdapter(Instant::class.java, InstantTypeConverter()).create()
+
 class StringListJsonConverter : PropertyConverter<List<String>, String> {
+    override fun convertToEntityProperty(databaseValue: String?): List<String>? = if (databaseValue == null)
+        null else gson.fromJson<List<String>>(databaseValue, object : TypeToken<List<String>>() {}.type)
+    override fun convertToDatabaseValue(entityProperty: List<String>): String = gson.toJson(entityProperty)
+}
 
-    override fun convertToEntityProperty(databaseValue: String?): List<String>? {
-        return if (databaseValue == null) {
-            null
-        } else gson.fromJson<List<String>>(databaseValue, object : TypeToken<List<String>>() {
-
-        }.type)
-
-    }
-
-    override fun convertToDatabaseValue(entityProperty: List<String>): String {
-        return gson.toJson(entityProperty)
-    }
-
-    companion object {
-        private val gson = Gson()
-    }
+class PersonStoryListJsonConverter : PropertyConverter<List<PersonStory>, String> {
+    override fun convertToEntityProperty(databaseValue: String?): List<PersonStory>? = if (databaseValue == null)
+        null else gson.fromJson<List<PersonStory>>(databaseValue, object : TypeToken<List<PersonStory>>() {}.type)
+    override fun convertToDatabaseValue(entityProperty: List<PersonStory>): String = gson.toJson(entityProperty)
 }

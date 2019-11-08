@@ -1,6 +1,6 @@
 package com.queatz.fantasydating.features
 
-import com.queatz.fantasydating.models.Token
+import com.queatz.fantasydating.Token
 import com.queatz.on.On
 import kotlin.math.abs
 import kotlin.random.Random.Default.nextLong

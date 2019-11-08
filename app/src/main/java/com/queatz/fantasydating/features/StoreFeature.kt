@@ -1,6 +1,6 @@
 package com.queatz.fantasydating.features
 
-import com.queatz.fantasydating.models.MyObjectBox
+import com.queatz.fantasydating.MyObjectBox
 import com.queatz.on.On
 import com.queatz.on.OnLifecycle
 import io.objectbox.Box

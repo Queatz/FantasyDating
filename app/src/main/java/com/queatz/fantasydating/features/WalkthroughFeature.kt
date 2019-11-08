@@ -3,8 +3,8 @@ package com.queatz.fantasydating.features
 import android.animation.Animator
 import android.view.View
 import android.view.ViewGroup
-import com.queatz.fantasydating.models.WalkthroughStep
-import com.queatz.fantasydating.models.WalkthroughStep_
+import com.queatz.fantasydating.WalkthroughStep
+import com.queatz.fantasydating.WalkthroughStep_
 import com.queatz.fantasydating.visible
 import com.queatz.on.On
 import kotlinx.android.synthetic.main.activity_main.*
@@ -66,7 +66,10 @@ class WalkthroughFeature constructor(private val on: On) {
         .findFirst()
 
     private fun shown(step: String) {
-        on<StoreFeature>().get(WalkthroughStep::class).put(step(step)?.also { it.shown = true } ?: WalkthroughStep(step, true))
+        on<StoreFeature>().get(WalkthroughStep::class).put(step(step)?.also { it.shown = true } ?: WalkthroughStep(
+            step,
+            true
+        ))
     }
 
     private fun showWelcomeModal() {

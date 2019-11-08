@@ -29,12 +29,20 @@ class MainActivity : AppCompatActivity() {
         on<MoreOptionsFeature>().start()
         on<WalkthroughFeature>().start()
 
-        on<Api>().me {
-            Log.d("KOTLIN HTTP MAGIC", "me = " + it.name)
+        on<Api>().people {
+            Log.d("KOTLIN HTTP MAGIC", "people = " + on<Json>().to(it))
         }
 
-        on<Api>().me(MeRequest(name = "Jacob")) {
-            Log.d("KOTLIN HTTP MAGIC", "me = " + it.name)
+        on<Api>().messages("75190185") {
+            Log.d("KOTLIN HTTP MAGIC", "messages = " + on<Json>().to(it))
+        }
+
+        on<Api>().me {
+            Log.d("KOTLIN HTTP MAGIC", "me = " + on<Json>().to(it))
+        }
+
+        on<Api>().discoveryPreferences(MeDiscoveryPreferencesRequest(who = "Girls")) {
+            Log.d("KOTLIN HTTP MAGIC", "discovery preferences = " + on<Json>().to(it))
         }
     }
 

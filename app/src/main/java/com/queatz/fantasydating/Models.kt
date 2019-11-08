@@ -1,6 +1,5 @@
-package com.queatz.fantasydating.models
+package com.queatz.fantasydating
 
-import com.queatz.fantasydating.StringListJsonConverter
 import io.objectbox.annotation.BaseEntity
 import io.objectbox.annotation.Convert
 import io.objectbox.annotation.Entity
@@ -38,6 +37,19 @@ data class Person constructor(
     var approved: Boolean = false,
     var active: Boolean = false,
     var fantasy: String = "",
-    @Convert(converter = StringListJsonConverter::class, dbType = String::class)
-    var stories: List<String> = listOf()
+    @Convert(converter = PersonStoryListJsonConverter::class, dbType = String::class)
+    var stories: List<PersonStory> = listOf()
 ) : BaseModel()
+
+@Entity
+class Message constructor(
+    var from: String = "",
+    var to: String = "",
+    var message: String? = null,
+    var attachment: String? = null
+) : BaseModel()
+
+class PersonStory constructor(
+    val story: String = "",
+    val photo: String = ""
+)
