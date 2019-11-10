@@ -13,11 +13,6 @@ Austin Chapters
 Todo for app
 ====
 
- [ ] Auto close menu after 7 seconds
- [ ] fantasy max height wrap content
- [ ] love is our ingredient Confirm you love her modal
- [ ] Pause story until photo is loaded
-
  [ ] Edit profile
     [ ] Update editor keyboard and input mode based on context
     [ ] Show "I love " locked at beginning of editor for fantasy
@@ -33,11 +28,11 @@ Todo for app
        [ ] Save photo url + position
        [ ] Load stories from model
 
- [ ] Models
-    [x] Person model
-    [ ] Event model
-    [ ] Message model
-    [ ] Love Model
+ [ ] UI
+    [ ] Auto close menu after 7 seconds
+    [ ] fantasy max height wrap content
+    [ ] love is our ingredient Confirm you love her modal
+    [ ] Pause story until photo is loaded
 
  [ ] Sign up
     [ ] Edit your profile on first app launch (required)
@@ -129,21 +124,6 @@ Todo for backend
     [ POST ]
         [ ] /boss { whoIsTheBoss = 'I am the boss' } -> BOSS MODE ACTIVATED
         [ ] /boss/person/:id { approve = true }
-
- [] API
-    [ GET ]
-        [X] /me -> Person
-        [X] /me/discovery-preferences -> DiscoveryPreferences
-        [X] /me/events -> Event[]
-        [X] /me/people -> Person[]
-        [X] /person/:id -> Person
-        [X] /person/:id/messages -> Messages[]
-    [ POST ]
-        [X] Person -> /me -> Person
-        [X] DiscoveryPreferences -> /me/discovery-preferences -> DiscoveryPreferences
-        [X] { love, report, hide } -> /person/:id -> { success }
-        [X] Message -> /person/:id/messages -> Success
-
 
 Todo for launch
 =====

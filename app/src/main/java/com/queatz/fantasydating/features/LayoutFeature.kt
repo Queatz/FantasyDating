@@ -116,8 +116,9 @@ class LayoutFeature constructor(private val on: On) {
 
     fun onBackPressed(): Boolean {
         when {
-            showDiscoveryPreferences -> showDiscoveryPreferences = false
             showFantasy -> showFantasy = false
+            showEditProfile -> showEditProfile = false
+            showDiscoveryPreferences -> showDiscoveryPreferences = false
             showFeed.not() -> showFeed = true
             else -> return false
         }

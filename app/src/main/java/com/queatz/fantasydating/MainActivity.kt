@@ -2,7 +2,6 @@ package com.queatz.fantasydating
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -28,22 +27,7 @@ class MainActivity : AppCompatActivity() {
         on<DiscoveryPreferencesFeature>().start()
         on<MoreOptionsFeature>().start()
         on<WalkthroughFeature>().start()
-
-        on<Api>().people {
-            Log.d("KOTLIN HTTP MAGIC", "people = " + on<Json>().to(it))
-        }
-
-        on<Api>().messages("75190185") {
-            Log.d("KOTLIN HTTP MAGIC", "messages = " + on<Json>().to(it))
-        }
-
-        on<Api>().me {
-            Log.d("KOTLIN HTTP MAGIC", "me = " + on<Json>().to(it))
-        }
-
-        on<Api>().discoveryPreferences(MeDiscoveryPreferencesRequest(who = "Girls")) {
-            Log.d("KOTLIN HTTP MAGIC", "discovery preferences = " + on<Json>().to(it))
-        }
+        on<PeopleFeature>().start()
     }
 
     override fun onDestroy() {
