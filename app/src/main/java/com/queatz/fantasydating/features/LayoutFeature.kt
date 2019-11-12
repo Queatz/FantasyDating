@@ -44,6 +44,8 @@ class LayoutFeature constructor(private val on: On) {
             field = value
 
             on<ViewFeature>().with {
+                confirmLove.visible = false
+
                 if (value) {
                     on<WalkthroughFeature>().closeBub(bub3)
                     swipeUpArrow.rotation = 180f
@@ -88,7 +90,7 @@ class LayoutFeature constructor(private val on: On) {
                 feed.visible = value
 
                 if (value) {
-                    on<StoryFeature>().event(StoryEvent.Reset)
+                    on<PeopleFeature>().reset()
                 }
             }
         }

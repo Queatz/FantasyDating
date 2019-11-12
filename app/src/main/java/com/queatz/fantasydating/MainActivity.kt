@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() = when {
+        on<StoryFeature>().onBackPressed() -> {}
         on<EditorFeature>().isOpen -> on<EditorFeature>().cancel()
         on<MoreOptionsFeature>().isOpen -> on<MoreOptionsFeature>().close()
         on<LayoutFeature>().onBackPressed() -> {}

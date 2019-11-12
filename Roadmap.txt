@@ -14,11 +14,6 @@ Todo for app
 ====
 
  [ ] Edit profile
-    [ ] Update editor keyboard and input mode based on context
-    [ ] Show "I love " locked at beginning of editor for fantasy
-    [ ] Delete account flow
-       [ ] Your account will die and you'll need to set up a new account to use Fantasy Dating again.
-           Do you want this? Yes / No / Just hide my account for now
     [ ] Upload photo
        [ ] Choose a photo modal
        [ ] Photo Guidebook modal
@@ -28,12 +23,6 @@ Todo for app
        [ ] Save photo url + position
        [ ] Load stories from model
 
- [ ] UI
-    [ ] Auto close menu after 7 seconds
-    [ ] fantasy max height wrap content
-    [ ] love is our ingredient Confirm you love her modal
-    [ ] Pause story until photo is loaded
-
  [ ] Sign up
     [ ] Edit your profile on first app launch (required)
        [ ] After welcome modal
@@ -42,27 +31,16 @@ Todo for app
         [ ] Verify location
         [ ] Verify photos with photo from camera
 
- [ ] Fantasy
-    [ ] Name reflects current person
-    [ ] Love fantasy
-       [ ] Call API
-    [ ] Load from model
-
- [ ] Story
-    [ ] Name and story and fantasy powered by current person
-    [ ] Move to next person
-    [ ] Report person flow
-       [ ] Confirm report "Report Elisa as [Spam] or [Serious]"
-    [ ] Hide person flow
-       [ ] Confirm hide "You won't see Elisa anymore [Confirm]"
-
  [ ] Matching
     [ ] Feedback on person after matching (1 day delay)
 
- [ ] Events
+ [ ] Events on News Feed
     [ ] Tap to open
-    [ ] RecyclerView
-      [ ] Day headers
+       [ ] Open messages with person
+       [ ] Open list of people
+       [ ] Open person
+    [X] RecyclerView
+       [X] Day headers
     [ ] Load from API
 
  [ ] Messages screen
@@ -76,23 +54,20 @@ Todo for app
     [ ] Message
       [ ] Tap to reveal time
 
- [ ] Profile acceptance flow
-    [ ] Notification of new profiles to review (for admins)
-    [ ] Preview profile
-       [ ] Accept
-       [ ] Don't accept -> Reason
-    [ ] Call API
+ [ ] Boss (for Jacob only, client-side)
+    [ ] Profile acceptance flow
+       [ ] Notification of new profiles to review (for admins)
+       [ ] Preview profile
+          [ ] Accept
+          [ ] Don't accept -> Reason
+       [ ] Call API
 
- [ ] Report flow
-    [ ] Notification of new reports
-       [ ] List all reports
-       [ ] Unapprove profile
-       [ ] Soft ban
-       [ ] Msg person directly (system message)
-
- [ ] Discovery Preferences
-    [X] Save to API
-    [ ] Not in Austin?  Don't worry, you can still set up your profile and we'll send you a notification when we expand outside of Austin.
+    [ ] Report flow
+       [ ] Notification of new reports
+          [ ] List all reports
+          [ ] Unapprove profile
+          [ ] Soft ban
+          [ ] Msg person directly (system message)
 
  [ ] Push notifications
     [ ] Purple notification light
@@ -111,11 +86,15 @@ Todo for app
 Todo for backend
 ====
 
- [ ] People generator
-   [ ] Add 1,000 people
+ [X] Delete my account flow
+    [X] POST /me/delete
+
+ [X] People generator
+   [X] Add 1,000 people
 
  [ ] Find people
-    - -distance + popularity * 3 + likedme * 10 + active * 5
+    [ ] Apply discovery preferences to /me/people response
+    [ ] -distance + popularity * 3 + likedme * 10 + active * 5
 
  [ ] BOSS MODE
     [ GET ]
@@ -124,6 +103,7 @@ Todo for backend
     [ POST ]
         [ ] /boss { whoIsTheBoss = 'I am the boss' } -> BOSS MODE ACTIVATED
         [ ] /boss/person/:id { approve = true }
+
 
 Todo for launch
 =====
@@ -135,7 +115,7 @@ Todo for launch
     [ ] Sample photos
  [ ] Show inspirational photos to get ideas for your own story
  [ ] Highlights (editors picks for fantasies)
- [ ] Icon ( city (left side) + nature (right side) )
+ [X] Icon ( city (left side) + nature (right side) )
  [ ] Store Page
     [ ] Description
     [ ] Screenshots

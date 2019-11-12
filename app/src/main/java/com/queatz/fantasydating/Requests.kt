@@ -20,3 +20,9 @@ data class MessageRequest constructor(
     var message: String? = null,
     var attachment: String? = null
 )
+
+data class PersonRequest constructor(
+    var love: Boolean? = null,
+    var report: Boolean? = null,
+    var hide: Boolean? = null
+)

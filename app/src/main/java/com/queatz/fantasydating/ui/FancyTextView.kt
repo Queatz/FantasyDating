@@ -96,6 +96,8 @@ class FancyTextView : TextView {
             return
         }
 
+        scrollTo(0, 0)
+
         var parsed = ""
         var links = mutableListOf<Link>()
 

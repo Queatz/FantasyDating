@@ -3,6 +3,7 @@ package com.queatz.fantasydating.features
 import android.animation.Animator
 import android.view.View
 import android.view.ViewGroup
+import com.queatz.fantasydating.R
 import com.queatz.fantasydating.WalkthroughStep
 import com.queatz.fantasydating.WalkthroughStep_
 import com.queatz.fantasydating.visible
@@ -84,12 +85,13 @@ class WalkthroughFeature constructor(private val on: On) {
         }
 
         on<ViewFeature>().with {
-            welcomeMessageLayout.visible = true
+            fullscreenMessageText.setText(R.string.welcome_modal_message)
+            fullscreenMessageLayout.visible = true
 
-            welcomeMessageText.onLinkClick = {
+            fullscreenMessageText.onLinkClick = {
                 on<MyProfileFeature>().edit { sex = it }
 
-                welcomeMessageLayout.visible = false
+                fullscreenMessageLayout.visible = false
 
                 showBub(bub1)
                 showBub(bub2)

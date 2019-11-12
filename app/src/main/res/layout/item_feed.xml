@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/pad8x"
+        android:textColor="@color/white"
+        android:shadowColor="@color/story_background"
+        android:shadowRadius="24"
+        android:textAppearance="@style/Text.Medium"
+        android:textSize="32sp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        tools:text="TODAY" />
+
+    <com.queatz.fantasydating.ui.FancyTextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/pad2x"
+        android:padding="@dimen/pad"
+        android:textSize="24sp"
+        app:thin="true"
+        android:textColor="@color/colorPrimary"
+        android:lineSpacingMultiplier="1.1"
+        tools:text="YOU MATCHED WITH AMY" />
+
+</LinearLayout>

@@ -7,17 +7,22 @@
     <string name="edit_your_profile"><![CDATA[<tap>Edit your profile</tap>]]></string>
     <string name="discovery_preferences_template"><![CDATA[Show me <tap data="who">%1$s</tap> in <tap data="where">%2$s</tap> between the ages of <tap data="ageMin">%3$s</tap> and <tap data="ageMax">%4$s</tap>]]></string>
     <string name="discovery_preferences"><![CDATA[<tap>%1$s in %2$s, Ages %3$s – %4$s</tap>]]></string>
+    <string name="not_in_austin"><![CDATA[Not in Austin?  Don\'t worry, keep Fantasy Dating installed and we\'ll let you know when we launch in more areas. <tap data="ok">Okay then</tap>.]]></string>
 
     <string name="link"><![CDATA[<tap thin="true">%1$s</tap>]]></string>
     <string name="edit_who"><![CDATA[<tap data="Girls">Girls</tap>, <tap data="Boys">Boys</tap>, or <tap data="People">People</tap>]]></string>
     <string name="edit_where"><![CDATA[<tap data="Austin">Austin</tap>, or <tap data="nope">somewhere else</tap>]]></string>
     <string name="cont">Continue</string>
-    <string name="moreOptionsTemplate"><![CDATA[<tap data="report">Report</tap>, or <tap data="hide">Hide</tap> Emi]]></string>
-    <string name="moreOptionsProfileTemplate"><![CDATA[<tap data="report">Delete my account</tap>]]></string>
+    <string name="moreOptionsTemplate"><![CDATA[<tap data="report">Report</tap>, or <tap data="hide">Hide</tap> %1$s]]></string>
+    <string name="moreOptionsHideConfirmTemplate"><![CDATA[Yes, I want to <tap data="hide:confirm">Hide %1$s</tap>]]></string>
+    <string name="moreOptionsProfileTemplate"><![CDATA[<tap data="deleteMyAccount">Delete my account</tap>]]></string>
+    <string name="moreOptionsProfileConfirmTemplate"><![CDATA[Your account will die and you\'ll need to set up a new account to use Fantasy Dating again.<br /><br />Do you want this?<br /><br /><tap data="deleteMyAccount:confirm">Yes, delete my account</tap><br /><br /><tap data="cancel">No way, get me outta here</tap>]]></string>
+    <string name="confirm_your_love"><![CDATA[Love is our ingredient. <tap>Yes</tap>, I do love %1$s]]></string>
     <string name="cancel">Cancel</string>
     <string name="done">Done</string>
     <string name="any">Any</string>
     <string name="your_name">Your name</string>
     <string name="your_age">your age</string>
     <string name="empty_fantasy">Tap here to start writing your fantasy</string>
+    <string name="something_went_wrong">Something went wrong…</string>
 </resources>

@@ -24,6 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/swipeUpArrow"
+        android:background="@null"
         android:padding="@dimen/pad4x"
         tools:text="Emi, 27\n\nI love pretending I’m visiting Earth on an intergalactic mission." />
 
@@ -71,11 +72,21 @@
 
     <com.queatz.fantasydating.ui.FancyTextView
         android:id="@+id/moreOptionsText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="@dimen/pad"
+        android:layout_marginEnd="@dimen/pad"
+        android:layout_marginBottom="@dimen/pad"
         app:layout_constraintTop_toBottomOf="@+id/moreOptionsButton"
         app:layout_constraintStart_toStartOf="@+id/moreOptionsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constrainedWidth="true"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintWidth_default="wrap"
+        app:layout_constraintHeight_default="wrap"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintVertical_bias="0"
         android:background="@drawable/white_rounded"
         android:padding="@dimen/pad2x"
         app:thin="true"
@@ -86,13 +97,11 @@
         tools:visibility="visible"
         android:text="@string/moreOptionsTemplate" />
 
-
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fantasy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:orientation="vertical"
         android:background="@color/story_background"
         android:visibility="gone"
         tools:visibility="visible">
@@ -101,6 +110,9 @@
             android:id="@+id/fantasyTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:paddingTop="@dimen/pad4x"
             android:paddingStart="@dimen/pad4x"
             android:paddingEnd="@dimen/pad4x"
@@ -108,16 +120,21 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:scrollbars="vertical"
-            android:text="Emi’s Fantasy" />
+            tools:text="Emi’s Fantasy" />
 
         <TextView
             android:id="@+id/fantasyText"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/fantasyTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:paddingStart="@dimen/pad4x"
             android:paddingEnd="@dimen/pad4x"
             android:paddingTop="@dimen/pad2x"
             android:background="@null"
+            android:maxHeight="180dp"
+            android:minHeight="80dp"
             android:paddingBottom="@dimen/pad2x"
             android:textAppearance="@style/Text.Medium"
             android:textColor="@color/white"
@@ -129,6 +146,10 @@
             android:id="@+id/loveButton"
             android:layout_width="65dp"
             android:layout_height="65dp"
+            app:layout_constraintTop_toBottomOf="@id/fantasyText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_gravity="center_horizontal"
             android:layout_margin="@dimen/pad2x"
             android:foreground="@drawable/ic_heart"
@@ -136,7 +157,29 @@
             android:foregroundTint="@color/colorPrimaryBright"
             android:background="@drawable/white_rounded_oval" />
 
-    </LinearLayout>
+        <com.queatz.fantasydating.ui.FancyTextView
+            android:id="@+id/confirmLove"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/pad2x"
+            app:layout_constraintBottom_toTopOf="@+id/loveButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constrainedWidth="true"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintWidth_default="wrap"
+            app:layout_constraintHeight_default="wrap"
+            android:background="@drawable/white_rounded"
+            android:padding="@dimen/pad2x"
+            app:thin="true"
+            android:gravity="center_horizontal"
+            android:elevation="@dimen/pad"
+            android:textColor="@color/colorPrimary"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:text="@string/confirm_your_love" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:id="@+id/feedTop"
@@ -172,84 +215,12 @@
         android:scrollbars="none"
         android:overScrollMode="never">
 
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/feedRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/pad2x"
-            android:paddingBottom="@dimen/pad2x"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/pad2x"
-                android:textColor="@color/white"
-                android:shadowColor="@color/story_background"
-                android:shadowRadius="24"
-                android:textAppearance="@style/Text.Medium"
-                android:textSize="32sp"
-                android:text="TODAY" />
-
-            <com.queatz.fantasydating.ui.FancyTextView
-                android:id="@+id/notification1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/pad2x"
-                android:padding="@dimen/pad"
-                android:textSize="24sp"
-                app:thin="true"
-                android:textColor="@color/colorPrimary"
-                android:lineSpacingMultiplier="1.1"
-                tools:text="YOU MATCHED WITH AMY" />
-
-            <com.queatz.fantasydating.ui.FancyTextView
-                android:id="@+id/notification2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/pad2x"
-                android:padding="@dimen/pad"
-                android:textSize="24sp"
-                app:thin="true"
-                android:textColor="@color/colorPrimary"
-                android:lineSpacingMultiplier="1.1"
-                tools:text="JING SENT YOU 3 MESSAGES" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/pad8x"
-                android:textColor="@color/white"
-                android:shadowColor="@color/story_background"
-                android:shadowRadius="24"
-                android:textAppearance="@style/Text.Medium"
-                android:textSize="32sp"
-                android:text="YESTERDAY" />
-
-            <com.queatz.fantasydating.ui.FancyTextView
-                android:id="@+id/notification3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/pad2x"
-                android:padding="@dimen/pad"
-                android:textSize="24sp"
-                app:thin="true"
-                android:textColor="@color/colorPrimary"
-                android:lineSpacingMultiplier="1.1"
-                tools:text="YOU MATCHED WITH JING" />
-
-            <com.queatz.fantasydating.ui.FancyTextView
-                android:id="@+id/notification4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/pad2x"
-                android:padding="@dimen/pad"
-                android:textSize="24sp"
-                app:thin="true"
-                android:textColor="@color/colorPrimary"
-                android:lineSpacingMultiplier="1.1"
-                tools:text="WELCOME TO FANTASY DATING" />
-
-        </LinearLayout>
+            android:paddingBottom="@dimen/pad2x" />
 
     </ScrollView>
 
@@ -469,16 +440,17 @@
         android:text="Swipe up to go back to your news feed." />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/welcomeMessageLayout"
+        android:id="@+id/fullscreenMessageLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="@dimen/pad4x"
         android:clickable="true"
         android:visibility="gone"
+        tools:visibility="visible"
         android:background="@color/story_background">
 
         <com.queatz.fantasydating.ui.FancyTextView
-            android:id="@+id/welcomeMessageText"
+            android:id="@+id/fullscreenMessageText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/pad4x"
@@ -496,15 +468,15 @@
             android:paddingEnd="@dimen/pad4x"
             android:paddingBottom="@dimen/pad4x"
             android:elevation="@dimen/pad2x"
-            android:text="@string/welcome_modal_message" />
+            tools:text="@string/welcome_modal_message" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@+id/welcomeMessageText"
-            app:layout_constraintBottom_toTopOf="@+id/welcomeMessageText"
-            app:layout_constraintStart_toStartOf="@+id/welcomeMessageText"
-            app:layout_constraintEnd_toEndOf="@+id/welcomeMessageText"
+            app:layout_constraintTop_toTopOf="@+id/fullscreenMessageText"
+            app:layout_constraintBottom_toTopOf="@+id/fullscreenMessageText"
+            app:layout_constraintStart_toStartOf="@+id/fullscreenMessageText"
+            app:layout_constraintEnd_toEndOf="@+id/fullscreenMessageText"
             android:textColor="@color/white"
             android:elevation="@dimen/pad2x"
             android:shadowColor="@color/story_background"

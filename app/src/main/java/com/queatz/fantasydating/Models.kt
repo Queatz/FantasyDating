@@ -30,6 +30,13 @@ data class WalkthroughStep constructor(
 ) : BaseModel()
 
 @Entity
+data class Event constructor(
+    var person: String = "",
+    var name: String = "",
+    var data: String = ""
+) : BaseModel()
+
+@Entity
 data class Person constructor(
     var sex: String = "",
     var name: String = "",
@@ -55,3 +62,4 @@ class PersonStory constructor(
     var x: Float = 0f,
     var y: Float = 0f
 )
+

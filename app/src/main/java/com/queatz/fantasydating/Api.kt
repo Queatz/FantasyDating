@@ -12,6 +12,10 @@ class Api constructor(private val on: On) {
         on<Http>().post("me", request, type<Person>(), this::error, callback)
     }
 
+    fun deleteMe(callback: (SuccessResponse) -> Unit) {
+        on<Http>().post("me/delete", Any(), type<SuccessResponse>(), this::error, callback)
+    }
+
     fun discoveryPreferences(callback: (DiscoveryPreferences) -> Unit) {
         on<Http>().get("me/discovery-preferences", type<DiscoveryPreferences>(), this::error, callback)
     }
@@ -32,7 +36,14 @@ class Api constructor(private val on: On) {
         on<Http>().post("person/${person}/messages", request, type<SuccessResponse>(), this::error, callback)
     }
 
-    private fun error(throwable: Throwable) = throwable.printStackTrace()
+    fun person(person: String, request: PersonRequest, callback: (SuccessResponse) -> Unit) {
+        on<Http>().post("person/${person}", request, type<SuccessResponse>(), this::error, callback)
+    }
+
+    private fun error(throwable: Throwable) {
+        on<Say>().say(R.string.something_went_wrong)
+        throwable.printStackTrace()
+    }
 
     private inline fun <reified T> type() = object : TypeToken<T>() {}.type
 }

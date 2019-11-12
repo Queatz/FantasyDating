@@ -46,17 +46,24 @@ class DiscoveryPreferencesFeature constructor(private val on: On) : OnLifecycle 
 
             editPreferenceText.onLinkClick = {
                 when {
-                    it == "nope" -> {}
+                    it == "nope" -> {
+                        editPreferenceText.text = resources.getString(R.string.not_in_austin)
+                    }
+                    it == "ok" -> {
+                        editPreferenceText.text = resources.getString(R.string.edit_where)
+                    }
                     sexes.contains(it) -> on<DiscoveryPreferencesFeature>().edit { who = it }
                     it == "Austin" -> on<DiscoveryPreferencesFeature>().edit { where = it }
                     it.startsWith("min:") -> on<DiscoveryPreferencesFeature>().edit { ageMin = it.split(":").last().toInt() }
                     it.startsWith("max:") -> on<DiscoveryPreferencesFeature>().edit { ageMax = it.split(":").last().toInt() }
                 }
 
-                editPreferenceText.visible = false
-                editProfileText.visible = true
+                if (it != "nope") {
+                    editPreferenceText.visible = false
+                    editProfileText.visible = true
 
-                updateDiscoveryPreferences()
+                    updateDiscoveryPreferences()
+                }
             }
 
             editDiscoveryPreferencesText.onLinkClick = {

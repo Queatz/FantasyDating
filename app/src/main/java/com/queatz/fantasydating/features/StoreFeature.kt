@@ -23,5 +23,12 @@ class StoreFeature constructor(private val on: On) : OnLifecycle {
         boxStore = StoreFeature.boxStore!!
     }
 
+    fun clear() {
+        boxStore.close()
+        boxStore.deleteAllFiles()
+        StoreFeature.boxStore = null
+        on()
+    }
+
     fun <T : Any> get(clazz: KClass<T>): Box<T> = boxStore.boxFor(clazz.java)
 }

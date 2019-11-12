@@ -9,11 +9,7 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.get
 import coil.Coil
 import coil.api.load
-import coil.decode.DataSource
-import coil.request.Request
-import com.queatz.fantasydating.Person
-import com.queatz.fantasydating.R
-import com.queatz.fantasydating.visible
+import com.queatz.fantasydating.*
 import com.queatz.on.On
 import com.queatz.on.OnLifecycle
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -25,12 +21,18 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
 
     private val disposables = CompositeDisposable()
 
-    var person: Person? = null
+    private var person: Person? = null
         set(value) {
             field = value
-            event(StoryEvent.Start)
+
+            if (on<LayoutFeature>().showFeed) {
+                event(StoryEvent.Reset)
+            } else if (on<LayoutFeature>().showEditProfile.not()) {
+                event(StoryEvent.Start)
+            }
 
             on<ViewFeature>().with {
+                fantasyTitle.text = "${value?.name ?: ""}'s Fantasy"
                 fantasyText.text = value?.fantasy ?: ""
                 fantasyText.scrollTo(0, 0)
 
@@ -62,18 +64,25 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
             fantasyText.movementMethod = ScrollingMovementMethod()
 
             loveButton.setOnClickListener {
-                on<LayoutFeature>().showFantasy = false
-                on<WalkthroughFeature>().closeBub(bub4)
+                confirmLove.text = resources.getString(R.string.confirm_your_love, person!!.name)
+                confirmLove.visible = confirmLove.visible.not()
+                confirmLove.onLinkClick = {
+                    person?.id?.let {
+                        on<LayoutFeature>().showFantasy = false
+                        on<WalkthroughFeature>().closeBub(bub4)
+
+                        on<Api>().person(it, PersonRequest(love = true)) {}
+                    }
+                }
             }
 
             disposables.add(stories.exitObservable
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     if (it == 1) {
-                        stories.start()
+                        on<PeopleFeature>().nextPerson()
                     } else {
-                        stories.set(1)
-                        stories.next()
+                        on<PeopleFeature>().previousPerson()
                     }
                 })
 
@@ -113,7 +122,16 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
 
     fun setPhoto(photo: String) {
         on<ViewFeature>().with {
-            background.load(photo)
+            stories.post { stories.pause() }
+
+            background.setImageDrawable(null)
+
+            background.load(photo) {
+                crossfade(true)
+                listener { _, _ ->
+                    stories.post { stories.resume() }
+                }
+            }
 
             Coil.load(this, photo) {
                 allowHardware(false)
@@ -129,6 +147,16 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
             }
         }
     }
+
+    fun onBackPressed(): Boolean {
+        return on<ViewFeature>().with {
+            if (confirmLove.visible) {
+                confirmLove.visible = false
+                true
+            } else false
+        }
+    }
+
 
     override fun off() {
         disposables.dispose()
