@@ -4,10 +4,13 @@ import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.Typeface
 import android.text.SpannableString
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.text.style.StyleSpan
+import android.text.style.UnderlineSpan
 import android.util.AttributeSet
 import android.util.Size
 import android.util.TypedValue
@@ -100,6 +103,8 @@ class FancyTextView : TextView {
 
         var parsed = ""
         var links = mutableListOf<Link>()
+        var bolds = mutableListOf<Link>()
+        var underlines = mutableListOf<Link>()
 
         Jsoup.parse(text.toString()).body().childNodes().forEach { node ->
             if (node is Element) {
@@ -112,6 +117,8 @@ class FancyTextView : TextView {
                         )
                     )
                     "br" -> parsed += "\n"
+                    "b" -> bolds.add(Link(pos = Size(parsed.length, parsed.length + node.text().length)))
+                    "u" -> underlines.add(Link(pos = Size(parsed.length, parsed.length + node.text().length)))
                 }
 
                 parsed += node.text()
@@ -137,6 +144,14 @@ class FancyTextView : TextView {
                     }
                 }, 0, parsed.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
 
+            bolds.forEach { link ->
+                setSpan(StyleSpan(Typeface.BOLD), link.pos.width, link.pos.height, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
+
+            underlines.forEach { link ->
+                setSpan(UnderlineSpan(), link.pos.width, link.pos.height, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
+
             links.forEach { link ->
                 setSpan(object : ClickableSpan() {
                     override fun onClick(view: View) {
@@ -161,7 +176,7 @@ class FancyTextView : TextView {
 }
 
 data class Link constructor(
-    val data: String,
-    val thin: Boolean,
+    val data: String = "",
+    val thin: Boolean = false,
     val pos: Size
 )

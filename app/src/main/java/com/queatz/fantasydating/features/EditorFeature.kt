@@ -13,6 +13,7 @@ import com.queatz.fantasydating.visible
 import com.queatz.on.On
 import com.queatz.on.OnLifecycle
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.math.max
 
 class EditorFeature constructor(private val on: On) : OnLifecycle {
 
@@ -36,7 +37,10 @@ class EditorFeature constructor(private val on: On) : OnLifecycle {
 
             editor.onSelectionChangeListener = { start, end ->
                 if (start < prefix.length && editor.text.length >= prefix.length) {
-                    editor.setSelection(prefix.length)
+                    editor.setSelection(
+                        max(prefix.length, start),
+                        max(prefix.length, end)
+                    )
                 }
             }
 
@@ -90,12 +94,7 @@ class EditorFeature constructor(private val on: On) : OnLifecycle {
             editor.inputType = inputType
 
             editor.requestFocus()
-
-            if (prefix.isBlank()) {
-                editor.selectAll()
-            } else {
-                editor.setSelection(prefix.length)
-            }
+            editor.selectAll()
 
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(editor, 0)

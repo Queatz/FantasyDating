@@ -7,41 +7,56 @@ Good People
 Austin's Fun People
 Fantasy Dating
 Cherish
-Austin Chapters
+Austin Dating Chapters
 
 
 Todo for app
 ====
 
+ -- Milestone 1 -----------------
+
  [ ] Edit profile
     [ ] Upload photo
-       [ ] Choose a photo modal
-       [ ] Photo Guidebook modal
-       [ ] Launch photo chooser
+       [ ] Launch Android photo chooser
+
        [ ] Position photo
+
        [ ] Upload photo to content server
        [ ] Save photo url + position
-       [ ] Load stories from model
+       [ ] Load my stories from model
 
- [ ] Sign up
-    [ ] Edit your profile on first app launch (required)
-       [ ] After welcome modal
-    [ ] Verify flow (choose any two)
-        [ ] Verify phone number
-        [ ] Verify location
-        [ ] Verify photos with photo from camera
+  -  [ ] Sign up
+        [ ] Edit your profile on first app launch (required)
+           [ ] After welcome modal
+        [ ] Verify flow (choose any two)
+            [ ] Verify phone number
+            [ ] Verify location
+            [ ] Verify photos with photo from camera
 
- [ ] Matching
-    [ ] Feedback on person after matching (1 day delay)
+  -  -   [ ] Events on News Feed
+            [ ] Tap to open
+               [ ] Open messages with person
+               [ ] Open list of people
+               [ ] Open person
+            [ ] Load from API
 
- [ ] Events on News Feed
-    [ ] Tap to open
-       [ ] Open messages with person
-       [ ] Open list of people
-       [ ] Open person
-    [X] RecyclerView
-       [X] Day headers
-    [ ] Load from API
+ [ ] Fix scrolling hover menus that you cant read
+
+ -- Milestone 2 -----------------
+
+ [ ] Push notifications
+    [ ] Purple notification light
+    [ ] Set up FCM
+    [ ] Get device token
+    [ ] At the end of the day          2 New Events Today
+    [ ] You matched with Sal           Talk with her
+    [ ] Sal sent you a message         View message
+    [ ] Sal unmatched you              Dismiss
+    [ ] Sal removed her account        Dismiss
+    [ ] Sal updated her story          Open profile
+    [ ] Your profile is hidden         Open profile
+    [ ] Your profile is visible        Open profile
+    [ ] Thirty boys love your fantasy  View boys
 
  [ ] Messages screen
     [ ] Show story Button (at top)
@@ -69,18 +84,11 @@ Todo for app
           [ ] Soft ban
           [ ] Msg person directly (system message)
 
- [ ] Push notifications
-    [ ] Purple notification light
-    [ ] Set up FCM
-    [ ] Get device token
-    [ ] You matched with Sal           Talk with her
-    [ ] Sal sent you a message         View message
-    [ ] Sal unmatched you              Dismiss
-    [ ] Sal removed her account        Dismiss
-    [ ] Sal updated her story          Open profile
-    [ ] Your profile is hidden         Open profile
-    [ ] Your profile is visible        Open profile
-    [ ] Thirty boys love your fantasy  View boys
+
+Todo (Nice to haves)
+
+ [ ] Matching
+    [ ] Feedback on person after matching (1 day delay)
 
 
 Todo for backend

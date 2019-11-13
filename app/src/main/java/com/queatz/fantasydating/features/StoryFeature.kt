@@ -64,12 +64,13 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
             fantasyText.movementMethod = ScrollingMovementMethod()
 
             loveButton.setOnClickListener {
+                on<WalkthroughFeature>().closeBub(bub4)
+
                 confirmLove.text = resources.getString(R.string.confirm_your_love, person!!.name)
                 confirmLove.visible = confirmLove.visible.not()
                 confirmLove.onLinkClick = {
                     person?.id?.let {
                         on<LayoutFeature>().showFantasy = false
-                        on<WalkthroughFeature>().closeBub(bub4)
 
                         on<Api>().person(it, PersonRequest(love = true)) {}
                     }

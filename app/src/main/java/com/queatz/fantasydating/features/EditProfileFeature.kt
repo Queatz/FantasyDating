@@ -2,9 +2,7 @@ package com.queatz.fantasydating.features
 
 import android.text.InputType
 import android.view.Gravity
-import com.queatz.fantasydating.PersonStory
-import com.queatz.fantasydating.R
-import com.queatz.fantasydating.Upload
+import com.queatz.fantasydating.*
 import com.queatz.on.On
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -53,17 +51,44 @@ class EditProfileFeature constructor(private val on: On) {
                 }
             }
 
-            choosePhotoButton.setOnClickListener { on<Upload>().getPhotoFromDevice {
-                on<StoryFeature>().setPhoto(it)
-            } }
+            choosePhotoButton.setOnClickListener { choosePhoto() }
 
             updateMyStory()
         }
     }
 
+    private fun choosePhoto() {
+        on<ViewFeature>().with {
+            choosePhotoModal.visible = true
+            choosePhotoModal.text = getString(R.string.choose_photo_modal)
+
+            choosePhotoModal.onLinkClick = {
+                choosePhotoModal.visible = false
+
+                when (it) {
+                    "guidebook" -> {
+                        choosePhotoModal.text = getString(R.string.photography_guidebook)
+                        choosePhotoModal.visible = true
+                    }
+                    "guidebook:close" -> {
+                        choosePhoto()
+                    }
+                    "choose" -> {
+                        on<Upload>().getPhotoFromDevice {
+                            on<StoryFeature>().setPhoto(it)
+                        }
+                    }
+                    "hire" -> {
+                        on<Say>().say("working on it...")
+                    }
+                }
+            }
+        }
+    }
+
     private fun updateMyStory() {
         on<ViewFeature>().with {
-            storyText.text = on<MyProfileFeature>().myProfile.let { "<tap data=\"name\">${if (it.name.isBlank()) getString(R.string.your_name) else it.name}</tap>, <tap data=\"age\">${if (it.age < 18) getString(R.string.your_age) else it.age.toString()}</tap><br /><br />I love <tap data=\"story\">${if (it.stories.isEmpty() || it.stories.first().story.isBlank()) "write something here" else it.stories[0].story.let { 
+            storyText.text = on<MyProfileFeature>().myProfile.let { "<tap data=\"name\">${if (it.name.isBlank()) getString(R.string.your_name) else it.name}</tap>, <tap data=\"age\">${if (it.age < 18) getString(R.string.your_age) else it.age.toString()}</tap><br /><br />I love <tap data=\"story\">${if (it.stories.isEmpty() || it.stories.first().story.isBlank()) "write something here to complement your photo" else it.stories[0].story.let { 
                 if (it.startsWith("I love ")) {
                     it.replaceFirst("I love ", "")
                 } else {

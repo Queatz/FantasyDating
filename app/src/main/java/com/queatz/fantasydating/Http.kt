@@ -24,8 +24,8 @@ import java.time.Instant
 
 class Http constructor(private val on: On) : OnLifecycle {
 
-    private val baseUrl = "http://10.0.2.2:8888/"
-//    private val baseUrl = "http://72.14.191.179/"
+//    private val baseUrl = "http://10.0.2.2:8888/"
+    private val baseUrl = "https://mage.camp/"
 
     private val http = HttpClient(CIO) {
         install(DefaultRequest) {
