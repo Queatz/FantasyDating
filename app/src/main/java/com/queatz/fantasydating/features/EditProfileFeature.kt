@@ -1,12 +1,36 @@
 package com.queatz.fantasydating.features
 
+import android.graphics.PointF
 import android.text.InputType
 import android.view.Gravity
+import android.view.MotionEvent
 import com.queatz.fantasydating.*
 import com.queatz.on.On
 import kotlinx.android.synthetic.main.activity_main.*
 
 class EditProfileFeature constructor(private val on: On) {
+
+    private val listener = object : InteractionListener {
+        override fun scroll(distanceX: Float, distanceY: Float, event: MotionEvent): Boolean {
+            on<ViewFeature>().with {
+                val dw = background.drawable.intrinsicWidth.toFloat()
+                val dh = background.drawable.intrinsicHeight.toFloat()
+                val vw = background.measuredWidth.toFloat()
+                val vh = background.measuredHeight.toFloat()
+
+                val xScale = (vw - dw * background.baseScale)
+                val yScale = (vh - dh * background.baseScale)
+
+                background.origin = PointF(
+                    (background.origin.x - if (xScale != 0f) distanceX / xScale else 0f).clamp(),
+                    (background.origin.y - if (yScale != 0f) distanceY / yScale else 0f).clamp()
+                )
+            }
+
+            return true
+        }
+    }
+
     fun editProfile() {
         on<PeopleFeature>().showMe()
 
@@ -33,7 +57,9 @@ class EditProfileFeature constructor(private val on: On) {
                         "story" -> {
                             on<EditorFeature>().open(myProfile.stories.firstOrNull()?.story ?: "", prefix = "I love ") {
                                 on<MyProfileFeature>().edit { stories = if (it.isEmpty()) listOf() else listOf(
-                                    PersonStory(it, "https://somephoto.jpg")
+                                    PersonStory(it),
+                                    PersonStory(it),
+                                    PersonStory(it)
                                 ) }
 
                                 updateMyStory()
@@ -51,13 +77,33 @@ class EditProfileFeature constructor(private val on: On) {
                 }
             }
 
-            choosePhotoButton.setOnClickListener { choosePhoto() }
+            choosePhotoButton.setOnClickListener {
+//                on<GesturesFeature>().listener = listener
+//                on<StoryFeature>().event(StoryEvent.Pause)
+                choosePhoto()
+            }
 
             updateMyStory()
         }
     }
 
     private fun choosePhoto() {
+        if (on<GesturesFeature>().listener == listener) {
+            on<MyProfileFeature>().edit {
+                stories[on<StoryFeature>().getCurrentStory()].apply {
+                    x = on<ViewFeature>().with { background.x }
+                    y = on<ViewFeature>().with { background.y }
+                }
+            }
+
+            on<ViewFeature>().with {
+                choosePhotoButton.text = getString(R.string.choose__photo)
+            }
+
+            on<GesturesFeature>().listener = on<GesturesFeature>().storyNavigationListener
+            return
+        }
+
         on<ViewFeature>().with {
             choosePhotoModal.text = getString(R.string.choose_photo_modal)
             choosePhotoModal.visible = true
@@ -87,6 +133,12 @@ class EditProfileFeature constructor(private val on: On) {
     }
 
     private fun updateCurrentStoryPhoto(photo: String) {
+        on<GesturesFeature>().listener = listener
+
+        on<ViewFeature>().with {
+            choosePhotoButton.text = getString(R.string.confirm__position)
+        }
+
         on<MyProfileFeature>().edit {
             stories[on<StoryFeature>().getCurrentStory()].photo = photo
         }

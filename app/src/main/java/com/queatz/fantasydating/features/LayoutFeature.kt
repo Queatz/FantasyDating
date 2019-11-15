@@ -18,6 +18,8 @@ class LayoutFeature constructor(private val on: On) {
 
             on<ViewFeature>().with {
                 if (value) {
+                    on<GesturesFeature>().listener = on<GesturesFeature>().storyNavigationListener
+
                     loveButton.visible = false
                     moreOptionsButton.elevation = 1f
 
@@ -25,6 +27,8 @@ class LayoutFeature constructor(private val on: On) {
 
                     choosePhotoButton.visible = true
                 } else {
+                    on<GesturesFeature>().listener = on<GesturesFeature>().storyNavigationListener
+
                     choosePhotoButton.visible = false
                     loveButton.visible = true
                     moreOptionsButton.elevation = 0f

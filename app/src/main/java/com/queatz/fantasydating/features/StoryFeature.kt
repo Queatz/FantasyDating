@@ -127,14 +127,14 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
 
             background.setImageDrawable(null)
 
-            background.load(photo) {
+            background.load("$photo?s=1600") {
                 crossfade(true)
                 listener { _, _ ->
                     stories.post { stories.resume() }
                 }
             }
 
-            Coil.load(this, photo) {
+            Coil.load(this, "$photo?s=1600") {
                 allowHardware(false)
                 target({}, {}, { drawable ->
                     val color = drawable.toBitmap(4, 4, Bitmap.Config.ARGB_8888)[0, 3]
@@ -149,15 +149,12 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
         }
     }
 
-    fun onBackPressed(): Boolean {
-        return on<ViewFeature>().with {
-            if (confirmLove.visible) {
-                confirmLove.visible = false
-                true
-            } else false
-        }
+    fun onBackPressed() = on<ViewFeature>().with {
+        if (confirmLove.visible) {
+            confirmLove.visible = false
+            true
+        } else false
     }
-
 
     override fun off() {
         disposables.dispose()

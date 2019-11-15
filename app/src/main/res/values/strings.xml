@@ -34,4 +34,6 @@
         <b>4.</b> &nbsp; Your photo should be <u>recent</u> (captured within the last twelve months.)<br /><br />
         <tap data="guidebook:close">Close Guidebook</tap>]]>
     </string>
+    <string name="choose__photo">CHOOSE\nPHOTO</string>
+    <string name="confirm__position">CONFIRM\nPOSITION</string>
 </resources>

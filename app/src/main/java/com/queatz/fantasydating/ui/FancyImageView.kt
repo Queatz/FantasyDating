@@ -14,6 +14,8 @@ class FancyImageView : ImageView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) { initialize() }
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) { initialize() }
 
+    var baseScale: Float = 1f
+
     var scale: Float = 1f
         set(value) {
             field = value
@@ -44,10 +46,10 @@ class FancyImageView : ImageView {
         val vh = measuredHeight.toFloat()
 
         imageMatrix = Matrix().apply {
-            val scale = max(vw / dw, vh / dh) * scale
+            baseScale = max(vw / dw, vh / dh) * scale
 
             preTranslate(dw * -origin.x, dh * -origin.y)
-            postScale(scale, scale)
+            postScale(baseScale, baseScale)
             postTranslate(vw * origin.x, vh * origin.y)
         }
     }

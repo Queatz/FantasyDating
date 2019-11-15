@@ -16,14 +16,8 @@ Todo for app
  -- Milestone 1 -----------------
 
  [ ] Edit profile
-    [ ] Upload photo
-       [ ] Launch Android photo chooser
 
-       [ ] Position photo
-
-       [ ] Upload photo to content server
-       [ ] Save photo url + position
-       [ ] Load my stories from model
+ [ ] Stop auto-advancing lol
 
   -  [ ] Sign up
         [ ] Edit your profile on first app launch (required)
