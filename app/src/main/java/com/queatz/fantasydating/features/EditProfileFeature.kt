@@ -59,8 +59,8 @@ class EditProfileFeature constructor(private val on: On) {
 
     private fun choosePhoto() {
         on<ViewFeature>().with {
-            choosePhotoModal.visible = true
             choosePhotoModal.text = getString(R.string.choose_photo_modal)
+            choosePhotoModal.visible = true
 
             choosePhotoModal.onLinkClick = {
                 choosePhotoModal.visible = false
@@ -75,7 +75,7 @@ class EditProfileFeature constructor(private val on: On) {
                     }
                     "choose" -> {
                         on<Upload>().getPhotoFromDevice {
-                            on<StoryFeature>().setPhoto(it)
+                            updateCurrentStoryPhoto(it)
                         }
                     }
                     "hire" -> {
@@ -86,9 +86,17 @@ class EditProfileFeature constructor(private val on: On) {
         }
     }
 
+    private fun updateCurrentStoryPhoto(photo: String) {
+        on<MyProfileFeature>().edit {
+            stories[on<StoryFeature>().getCurrentStory()].photo = photo
+        }
+
+        on<StoryFeature>().setPhoto(photo)
+    }
+
     private fun updateMyStory() {
         on<ViewFeature>().with {
-            storyText.text = on<MyProfileFeature>().myProfile.let { "<tap data=\"name\">${if (it.name.isBlank()) getString(R.string.your_name) else it.name}</tap>, <tap data=\"age\">${if (it.age < 18) getString(R.string.your_age) else it.age.toString()}</tap><br /><br />I love <tap data=\"story\">${if (it.stories.isEmpty() || it.stories.first().story.isBlank()) "write something here to complement your photo" else it.stories[0].story.let { 
+            storyText.text = on<MyProfileFeature>().myProfile.let { "<tap data=\"name\">${if (it.name.isBlank()) getString(R.string.your_name) else it.name}</tap>, <tap data=\"age\">${if (it.age < 18) getString(R.string.your_age) else it.age.toString()}</tap><br /><br />I love <tap data=\"story\">${if (it.stories.isEmpty() || it.stories.first().story.isBlank()) "write something to complement your photo" else it.stories[0].story.let { 
                 if (it.startsWith("I love ")) {
                     it.replaceFirst("I love ", "")
                 } else {
@@ -97,5 +105,12 @@ class EditProfileFeature constructor(private val on: On) {
             }}</tap>" }
             fantasyText.text = on<MyProfileFeature>().myProfile.fantasy.let { if (it.isBlank()) getString(R.string.empty_fantasy) else it }
         }
+    }
+
+    fun onBackPressed() = on<ViewFeature>().with {
+        if (choosePhotoModal.visible) {
+            choosePhotoModal.visible = false
+            true
+        } else false
     }
 }

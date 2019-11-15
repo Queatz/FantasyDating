@@ -499,7 +499,7 @@
         app:thin="true"
         android:textAppearance="@style/Text.Medium"
         android:background="@drawable/white_rounded"
-        android:padding="@dimen/pad2x"
+        android:padding="@dimen/pad4x"
         android:elevation="@dimen/pad2x"
         android:visibility="gone"
         android:text="@string/choose_photo_modal" />

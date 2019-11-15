@@ -86,6 +86,8 @@ class LayoutFeature constructor(private val on: On) {
             field = value
 
             on<ViewFeature>().with {
+                showEditProfile = false
+
                 discoveryPreferencesText.visible = value
                 feed.visible = value
 

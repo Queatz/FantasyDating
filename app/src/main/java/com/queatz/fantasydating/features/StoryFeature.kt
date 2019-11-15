@@ -162,6 +162,8 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
     override fun off() {
         disposables.dispose()
     }
+
+    fun getCurrentStory() = on<ViewFeature>().activity.stories.currentObservable.value!!
 }
 
 enum class StoryEvent {

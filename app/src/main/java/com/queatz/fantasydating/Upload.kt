@@ -1,5 +1,6 @@
 package com.queatz.fantasydating
 
+import com.queatz.fantasydating.features.ViewFeature
 import com.queatz.on.On
 
 val photos = listOf(
@@ -23,6 +24,11 @@ val photos = listOf(
 
 class Upload constructor(private val on: On) {
     fun getPhotoFromDevice(callback: (url: String) -> Unit) {
-        callback(photos.random())
+        on<MediaRequest>().getPhoto {
+            on<PhotoUpload>().uploadPhoto(on<ViewFeature>().activity.contentResolver.openInputStream(it)!!, {
+                it.printStackTrace()
+                on<Say>().say("That didn't work")
+            }, callback)
+        }
     }
 }

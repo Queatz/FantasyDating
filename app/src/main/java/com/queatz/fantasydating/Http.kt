@@ -4,6 +4,7 @@ import com.queatz.fantasydating.features.MeFeature
 import com.queatz.on.On
 import com.queatz.on.OnLifecycle
 import io.ktor.client.HttpClient
+import io.ktor.client.engine.android.Android
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.features.DefaultRequest
 import io.ktor.client.features.json.GsonSerializer
@@ -14,6 +15,7 @@ import io.ktor.client.utils.EmptyContent
 import io.ktor.http.*
 import io.ktor.http.HttpMethod.Companion.Get
 import io.ktor.http.HttpMethod.Companion.Post
+import io.ktor.util.KtorExperimentalAPI
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,10 +24,17 @@ import java.lang.reflect.Type
 import java.nio.charset.Charset
 import java.time.Instant
 
+@KtorExperimentalAPI
 class Http constructor(private val on: On) : OnLifecycle {
 
 //    private val baseUrl = "http://10.0.2.2:8888/"
     private val baseUrl = "https://mage.camp/"
+
+    private val contentHttp = HttpClient(Android) {
+        install(DefaultRequest) {
+            headers.append("X-CLOSER-UPLOAD", "iamsupersupersecret")
+        }
+    }
 
     private val http = HttpClient(CIO) {
         install(DefaultRequest) {
@@ -52,14 +61,20 @@ class Http constructor(private val on: On) : OnLifecycle {
         call(url, klass, Post, body, result, error)
     }
 
-    private fun <T : Any> call(url: String, klass: Type, method: HttpMethod, body: Any = EmptyContent, result: ((T) -> Unit)? = null, error: ((Throwable) -> Unit)? = null) {
+    fun <T : Any> call(url: String, klass: Type, method: HttpMethod, body: Any = EmptyContent, result: ((T) -> Unit)? = null, error: ((Throwable) -> Unit)? = null) {
+        val fullUrl = (if (url.contains("://")) "" else baseUrl) + url
+        val httpClient = if (fullUrl.startsWith(PhotoUpload.url)) contentHttp else http
+
         CoroutineScope(Dispatchers.Main).launch {
             withContext(Dispatchers.IO) {
                 try {
-                    Result(on<Json>().from(when (method) {
-                        Post -> http.post(baseUrl + url) { this.body = body }
-                        else -> http.get(baseUrl + url)
-                    }, klass) as T, null)
+                    Result(if (httpClient == contentHttp)
+                        httpClient.post(fullUrl) { this.body = body } as Any as T
+                    else
+                        on<Json>().from(when (method) {
+                            Post -> httpClient.post(fullUrl) { this.body = body }
+                            else -> httpClient.get(fullUrl)
+                        }, klass) as T, null)
                 } catch (e: Exception) {
                     Result(null, e)
                 }
@@ -71,4 +86,4 @@ class Http constructor(private val on: On) : OnLifecycle {
     }
 }
 
-private data class Result<T : Any> constructor(val result: T?, val error: Exception?)
+data class Result<T : Any> constructor(val result: T?, val error: Exception?)

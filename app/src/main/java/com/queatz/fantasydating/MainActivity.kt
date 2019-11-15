@@ -1,6 +1,7 @@
 package com.queatz.fantasydating
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
@@ -35,7 +36,13 @@ class MainActivity : AppCompatActivity() {
         on.off()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        on<MediaRequest>().onActivityResult(requestCode, resultCode, data)
+    }
+
     override fun onBackPressed() = when {
+        on<EditProfileFeature>().onBackPressed() -> {}
         on<StoryFeature>().onBackPressed() -> {}
         on<EditorFeature>().isOpen -> on<EditorFeature>().cancel()
         on<MoreOptionsFeature>().isOpen -> on<MoreOptionsFeature>().close()
