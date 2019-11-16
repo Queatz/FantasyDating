@@ -17,7 +17,7 @@ Todo for app
 
  [ ] Edit profile
 
- [ ] Stop auto-advancing lol
+ [ ] Don't show "reposition" text if no photo set up
 
   -  [ ] Sign up
         [ ] Edit your profile on first app launch (required)

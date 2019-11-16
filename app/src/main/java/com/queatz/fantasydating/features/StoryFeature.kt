@@ -27,7 +27,7 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
 
             if (on<LayoutFeature>().showFeed) {
                 event(StoryEvent.Reset)
-            } else if (on<LayoutFeature>().showEditProfile.not()) {
+            } else {
                 event(StoryEvent.Start)
             }
 
@@ -80,6 +80,10 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
             disposables.add(stories.exitObservable
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe {
+                    if (stories.animate.not()) {
+                        return@subscribe
+                    }
+
                     if (it == 1) {
                         on<PeopleFeature>().nextPerson()
                     } else {
@@ -90,11 +94,13 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
             disposables.add(stories.currentObservable
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe {
+                    moreOptionsText.visible = false
+
                     if (on<LayoutFeature>().showEditProfile) {
-                        stories.post { stories.pause() }
+
+                        stories.post { event(StoryEvent.Pause) }
                     }
 
-                    moreOptionsText.visible = false
 
                     person ?: return@subscribe
 
@@ -104,7 +110,12 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                         }
 
                         setPhoto(stories[it].photo)
-                        storyText.text = "${name}, ${age}<br /><br />${stories[it].story}"
+
+                        if (on<LayoutFeature>().showEditProfile) {
+                            on<EditProfileFeature>().updateMyStory()
+                        } else {
+                            storyText.text = "${name}, ${age}<br /><br />${stories[it].story}"
+                        }
 
                         background.origin = PointF(stories[it].x, stories[it].y)
                     }
@@ -123,14 +134,14 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
 
     fun setPhoto(photo: String) {
         on<ViewFeature>().with {
-            stories.post { stories.pause() }
+            stories.post { event(StoryEvent.Pause) }
 
             background.setImageDrawable(null)
 
             background.load("$photo?s=1600") {
                 crossfade(true)
                 listener { _, _ ->
-                    stories.post { stories.resume() }
+                    stories.post { event(StoryEvent.Resume) }
                 }
             }
 

@@ -17,6 +17,8 @@ class LayoutFeature constructor(private val on: On) {
             field = value
 
             on<ViewFeature>().with {
+                stories.animate = value.not()
+
                 if (value) {
                     on<GesturesFeature>().listener = on<GesturesFeature>().storyNavigationListener
 

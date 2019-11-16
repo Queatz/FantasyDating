@@ -20,6 +20,13 @@ class StoryProgress : View {
     var count: Int = 3
     var barPadding: Float = 0f
 
+    var animate = true
+        set(value) {
+            field = value
+            currentProgress = 1f
+            animator?.pause()
+        }
+
     var currentObservable = BehaviorSubject.createDefault(0)
     var exitObservable = PublishSubject.create<Int>()
 
@@ -52,10 +59,12 @@ class StoryProgress : View {
     }
 
     fun pause() {
+        if (animate.not()) return
         animator?.pause()
     }
 
     fun resume() {
+        if (animate.not()) return
         animator?.resume()
     }
 
@@ -88,13 +97,19 @@ class StoryProgress : View {
             return
         } else if (current < 0) {
             current = 0
-            currentProgress = 0f
+            currentProgress = if (animate.not()) 1f else 0f
             invalidate()
             exitObservable.onNext(-1)
             return
         }
 
         currentObservable.onNext(current)
+
+        if (animate.not()) {
+            currentProgress = 1f
+            invalidate()
+            return
+        }
 
         animator = ValueAnimator.ofFloat(0f, 1f).apply {
             duration = 7000

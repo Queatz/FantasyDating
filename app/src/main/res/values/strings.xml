@@ -12,7 +12,7 @@
     <string name="link"><![CDATA[<tap thin="true">%1$s</tap>]]></string>
     <string name="edit_who"><![CDATA[<tap data="Girls">Girls</tap>, <tap data="Boys">Boys</tap>, or <tap data="People">People</tap>]]></string>
     <string name="edit_where"><![CDATA[<tap data="Austin">Austin</tap>, or <tap data="nope">somewhere else</tap>]]></string>
-    <string name="choose_photo_modal"><![CDATA[Choose a photo.  We allow nudity that is artistic or cute. Read our <tap thin="true" data="guidebook">Photography Guidebook</tap>.<br /><br /><tap data="choose">Choose from your photo</tap><br /><tap data="hire">Hire a pro photographer</tap>]]></string>
+    <string name="choose_photo_modal"><![CDATA[Choose a photo. or <tap thin="true" data="reposition">reposition</tap> this one.<br /><br />We allow nudity that is artistic or cute. Read our <tap thin="true" data="guidebook">Photography Guidebook</tap>.<br /><br /><tap data="choose">Choose from your photo</tap><br /><tap data="hire">Hire a pro photographer</tap>]]></string>
     <string name="cont">Continue</string>
     <string name="moreOptionsTemplate"><![CDATA[<tap data="report">Report</tap>, or <tap data="hide">Hide</tap> %1$s]]></string>
     <string name="moreOptionsHideConfirmTemplate"><![CDATA[<tap data="hide:confirm">Yes</tap>, I want to hide %1$s]]></string>
@@ -34,6 +34,6 @@
         <b>4.</b> &nbsp; Your photo should be <u>recent</u> (captured within the last twelve months.)<br /><br />
         <tap data="guidebook:close">Close Guidebook</tap>]]>
     </string>
-    <string name="choose__photo">CHOOSE\nPHOTO</string>
+    <string name="choose__photo">EDIT\nPHOTO</string>
     <string name="confirm__position">CONFIRM\nPOSITION</string>
 </resources>

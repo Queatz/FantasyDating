@@ -13,6 +13,10 @@ class EditProfileFeature constructor(private val on: On) {
     private val listener = object : InteractionListener {
         override fun scroll(distanceX: Float, distanceY: Float, event: MotionEvent): Boolean {
             on<ViewFeature>().with {
+                if (background.drawable == null) {
+                    return@with
+                }
+
                 val dw = background.drawable.intrinsicWidth.toFloat()
                 val dh = background.drawable.intrinsicHeight.toFloat()
                 val vw = background.measuredWidth.toFloat()
@@ -33,6 +37,8 @@ class EditProfileFeature constructor(private val on: On) {
 
     fun editProfile() {
         on<PeopleFeature>().showMe()
+
+        // todo preload all mine
 
         on<ViewFeature>().with {
             on<LayoutFeature>().showEditProfile = true
@@ -55,12 +61,18 @@ class EditProfileFeature constructor(private val on: On) {
                             }
                         }
                         "story" -> {
-                            on<EditorFeature>().open(myProfile.stories.firstOrNull()?.story ?: "", prefix = "I love ") {
-                                on<MyProfileFeature>().edit { stories = if (it.isEmpty()) listOf() else listOf(
+                            if (myProfile.stories.isEmpty()) {
+                                on<MyProfileFeature>().edit { stories = listOf(
                                     PersonStory(it),
                                     PersonStory(it),
                                     PersonStory(it)
                                 ) }
+                            }
+
+                            on<EditorFeature>().open(myProfile.stories[on<StoryFeature>().getCurrentStory()].story, prefix = "I love ") {
+                                on<MyProfileFeature>().edit {
+                                    stories[on<StoryFeature>().getCurrentStory()].story = it
+                                }
 
                                 updateMyStory()
                             }
@@ -78,8 +90,6 @@ class EditProfileFeature constructor(private val on: On) {
             }
 
             choosePhotoButton.setOnClickListener {
-//                on<GesturesFeature>().listener = listener
-//                on<StoryFeature>().event(StoryEvent.Pause)
                 choosePhoto()
             }
 
@@ -91,8 +101,8 @@ class EditProfileFeature constructor(private val on: On) {
         if (on<GesturesFeature>().listener == listener) {
             on<MyProfileFeature>().edit {
                 stories[on<StoryFeature>().getCurrentStory()].apply {
-                    x = on<ViewFeature>().with { background.x }
-                    y = on<ViewFeature>().with { background.y }
+                    x = on<ViewFeature>().with { background.origin.x }
+                    y = on<ViewFeature>().with { background.origin.y }
                 }
             }
 
@@ -127,17 +137,16 @@ class EditProfileFeature constructor(private val on: On) {
                     "hire" -> {
                         on<Say>().say("working on it...")
                     }
+                    "reposition" -> {
+                        reposition()
+                    }
                 }
             }
         }
     }
 
     private fun updateCurrentStoryPhoto(photo: String) {
-        on<GesturesFeature>().listener = listener
-
-        on<ViewFeature>().with {
-            choosePhotoButton.text = getString(R.string.confirm__position)
-        }
+        reposition()
 
         on<MyProfileFeature>().edit {
             stories[on<StoryFeature>().getCurrentStory()].photo = photo
@@ -146,13 +155,21 @@ class EditProfileFeature constructor(private val on: On) {
         on<StoryFeature>().setPhoto(photo)
     }
 
-    private fun updateMyStory() {
+    private fun reposition() {
+        on<GesturesFeature>().listener = listener
+
         on<ViewFeature>().with {
-            storyText.text = on<MyProfileFeature>().myProfile.let { "<tap data=\"name\">${if (it.name.isBlank()) getString(R.string.your_name) else it.name}</tap>, <tap data=\"age\">${if (it.age < 18) getString(R.string.your_age) else it.age.toString()}</tap><br /><br />I love <tap data=\"story\">${if (it.stories.isEmpty() || it.stories.first().story.isBlank()) "write something to complement your photo" else it.stories[0].story.let { 
-                if (it.startsWith("I love ")) {
-                    it.replaceFirst("I love ", "")
-                } else {
-                    it
+            choosePhotoButton.text = getString(R.string.confirm__position)
+        }
+    }
+
+    fun updateMyStory() {
+        on<ViewFeature>().with {
+            storyText.text = on<MyProfileFeature>().myProfile.let { "<tap data=\"name\">${if (it.name.isBlank()) getString(R.string.your_name) else it.name}</tap>, <tap data=\"age\">${if (it.age < 18) getString(R.string.your_age) else it.age.toString()}</tap><br /><br />I love <tap data=\"story\">${it.stories[on<StoryFeature>().getCurrentStory()].story.let {
+                when {
+                    it.isBlank() -> "write something to complement your photo"
+                    it.startsWith("I love ") -> it.replaceFirst("I love ", "")
+                    else -> it
                 }
             }}</tap>" }
             fantasyText.text = on<MyProfileFeature>().myProfile.fantasy.let { if (it.isBlank()) getString(R.string.empty_fantasy) else it }
