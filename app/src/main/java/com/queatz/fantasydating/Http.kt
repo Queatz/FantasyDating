@@ -27,8 +27,10 @@ import java.time.Instant
 @KtorExperimentalAPI
 class Http constructor(private val on: On) : OnLifecycle {
 
-//    private val baseUrl = "http://10.0.2.2:8888/"
-    private val baseUrl = "https://mage.camp/"
+    private val baseUrl = when (on<Env>().isDev) {
+        true -> "http://10.0.2.2:8888/"
+        false -> "https://mage.camp/"
+    }
 
     private val contentHttp = HttpClient(Android) {
         install(DefaultRequest) {

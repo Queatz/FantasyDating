@@ -24,5 +24,6 @@ data class MessageRequest constructor(
 data class PersonRequest constructor(
     var love: Boolean? = null,
     var report: Boolean? = null,
-    var hide: Boolean? = null
+    var hide: Boolean? = null,
+    var message: String? = null
 )

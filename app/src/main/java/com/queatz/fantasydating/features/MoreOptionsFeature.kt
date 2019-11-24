@@ -49,15 +49,15 @@ class MoreOptionsFeature constructor(private val on: On) {
                         close()
                     }
                     "report" -> {
+                        moreOptionsText.text = getString(R.string.moreOptionsReportConfirmTemplate, person.name)
+                    }
+                    "report:confirm:fake" -> {
                         close()
-                        on<PeopleFeature>().hide(person.id!!)
-                        on<Api>().person(person.id!!, PersonRequest(report = true)) {
-                            if (it.success) {
-                                on<Say>().say("Thank you for reporting ${person.name}")
-                            } else {
-                                on<Say>().say("Something went wrong...")
-                            }
-                        }
+                        report("Fake account")
+                    }
+                    "report:confirm:other" -> {
+                        close()
+                        report("Other reason")
                     }
                     "deleteMyAccount" -> {
                         close()
@@ -79,6 +79,19 @@ class MoreOptionsFeature constructor(private val on: On) {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    private fun report(reason: String) {
+        val person = on<PeopleFeature>().current.value!!
+
+        on<PeopleFeature>().hide(person.id!!)
+        on<Api>().person(person.id!!, PersonRequest(report = true, message = reason)) {
+            if (it.success) {
+                on<Say>().say("Thank you for reporting ${person.name}")
+            } else {
+                on<Say>().say("Something went wrong...")
             }
         }
     }

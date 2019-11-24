@@ -73,7 +73,7 @@
     <com.queatz.fantasydating.ui.FancyTextView
         android:id="@+id/moreOptionsText"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/pad"
         android:layout_marginEnd="@dimen/pad"
         android:layout_marginBottom="@dimen/pad"
@@ -84,7 +84,6 @@
         app:layout_constrainedWidth="true"
         app:layout_constrainedHeight="true"
         app:layout_constraintWidth_default="wrap"
-        app:layout_constraintHeight_default="wrap"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintVertical_bias="0"
         android:background="@drawable/white_rounded"
