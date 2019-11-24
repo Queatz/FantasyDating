@@ -1,5 +1,6 @@
 package com.queatz.fantasydating
 
+import android.util.Log
 import com.queatz.fantasydating.features.MeFeature
 import com.queatz.on.On
 import com.queatz.on.OnLifecycle
@@ -9,8 +10,10 @@ import io.ktor.client.engine.cio.CIO
 import io.ktor.client.features.DefaultRequest
 import io.ktor.client.features.json.GsonSerializer
 import io.ktor.client.features.json.JsonFeature
+import io.ktor.client.features.observer.ResponseObserver
 import io.ktor.client.request.get
 import io.ktor.client.request.post
+import io.ktor.client.response.readText
 import io.ktor.client.utils.EmptyContent
 import io.ktor.http.*
 import io.ktor.http.HttpMethod.Companion.Get
@@ -42,6 +45,14 @@ class Http constructor(private val on: On) : OnLifecycle {
         install(DefaultRequest) {
             headers.append(HttpHeaders.Authorization, on<MeFeature>().token)
             contentType(ContentType.Application.Json.withCharset(Charset.forName("UTF-8")))
+
+            Log.d("MAGIC", url.buildString() + " -> " + on<Json>().to(body))
+        }
+
+        install(ResponseObserver) {
+            onResponse {
+                Log.d("MAGIC", it.call.request.url.toString() + " <- " + it.call.response.status + " " + try { it.call.response.readText() } catch (throwable: Throwable) { "" })
+            }
         }
 
         install(JsonFeature) {

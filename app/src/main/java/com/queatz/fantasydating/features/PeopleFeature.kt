@@ -14,8 +14,13 @@ class PeopleFeature constructor(private val on: On) {
     private var people = mutableListOf<Person>()
 
     fun start() {
+        onDiscoveryPreferencesChanged()
+    }
+
+    fun onDiscoveryPreferencesChanged() {
         on<Api>().people {
             people = it.toMutableList()
+            index = -1
             nextPerson()
         }
     }

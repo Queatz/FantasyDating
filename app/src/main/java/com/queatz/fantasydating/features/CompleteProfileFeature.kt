@@ -13,26 +13,33 @@ class CompleteProfileFeature constructor(private val on: On) {
             }
 
             on<PeopleFeature>().current.subscribe {
-                val me = on<MyProfileFeature>().myProfile
+                update()
+            }
+        }
+    }
 
-                if (me.approved || me.active) {
-                    completeYourProfileButton.visible = false
-                    return@subscribe
-                }
+    fun update() {
+        on<ViewFeature>().with {
+            val person = on<PeopleFeature>().current.value
+            val me = on<MyProfileFeature>().myProfile
 
-                val isMe = it?.id == on<MyProfileFeature>().myProfile.id
-                val isProfileComplete = on<MyProfileFeature>().isComplete()
+            if (me.approved || me.active || discoveryPreferencesLayout.visible) {
+                completeYourProfileButton.visible = false
+                return@with
+            }
 
-                if (isProfileComplete && me.approved.not()) {
-                    completeYourProfileButton.text = getString(R.string.profile_in_review)
-                    return@subscribe
-                }
+            val isMe = person?.id == on<MyProfileFeature>().myProfile.id
+            val isProfileComplete = on<MyProfileFeature>().isComplete()
 
-                completeYourProfileButton.visible = it != null && isMe.not() && isProfileComplete.not()
+            if (isProfileComplete && me.approved.not()) {
+                completeYourProfileButton.text = getString(R.string.profile_in_review)
+                return@with
+            }
 
-                if (it != null) {
-                    completeYourProfileButton.text = getString(R.string.complete_your_profile, it.name)
-                }
+            completeYourProfileButton.visible = person != null && isMe.not() && isProfileComplete.not()
+
+            if (person != null) {
+                completeYourProfileButton.text = getString(R.string.complete_your_profile, person.name)
             }
         }
     }

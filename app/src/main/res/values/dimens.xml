@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="dp">1dp</dimen>
+    <dimen name="pad2z">4dp</dimen>
     <dimen name="pad">8dp</dimen>
     <dimen name="pad2x">16dp</dimen>
     <dimen name="pad4x">32dp</dimen>
-    <dimen name="dp">1dp</dimen>
     <dimen name="pad8x">64dp</dimen>
 </resources>

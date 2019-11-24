@@ -22,7 +22,6 @@ class LayoutFeature constructor(private val on: On) {
                 if (value) {
                     on<GesturesFeature>().listener = on<GesturesFeature>().storyNavigationListener
 
-                    loveButton.visible = false
                     moreOptionsButton.elevation = 1f
 
                     storyText.elevation = 1f
@@ -32,7 +31,6 @@ class LayoutFeature constructor(private val on: On) {
                     on<GesturesFeature>().listener = on<GesturesFeature>().storyNavigationListener
 
                     choosePhotoButton.visible = false
-                    loveButton.visible = true
                     moreOptionsButton.elevation = 0f
                     storyText.onLinkClick = { }
                     storyText.elevation = 0f
@@ -59,7 +57,7 @@ class LayoutFeature constructor(private val on: On) {
                     choosePhotoButton.visible = false
                     storyText.visible = false
                     moreOptionsButton.visible = false
-                    moreOptionsText.visible = false
+                    on<MoreOptionsFeature>().close()
                     on<StoryFeature>().event(StoryEvent.Pause)
 
                     showEditProfile otherwise {
@@ -113,6 +111,7 @@ class LayoutFeature constructor(private val on: On) {
 
             on<ViewFeature>().with {
                 discoveryPreferencesLayout.visible = value
+                on<CompleteProfileFeature>().update()
                 showFeed = !value
 
                 if (value) {

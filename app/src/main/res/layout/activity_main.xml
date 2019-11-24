@@ -308,15 +308,22 @@
 
     <com.queatz.fantasydating.ui.FancyTextView
         android:id="@+id/completeYourProfileButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/pad2x"
-        android:padding="@dimen/pad2x"
+        android:layout_marginTop="@dimen/pad2x"
+        android:layout_marginStart="@dimen/pad2x"
+        android:layout_marginEnd="@dimen/pad2x"
+        android:padding="@dimen/pad"
+        android:background="@drawable/white_rounded_2dp"
         app:thin="true"
         android:elevation="@dimen/pad"
+        android:gravity="center_horizontal"
+        app:layout_goneMarginTop="@dimen/pad4x"
         app:layout_constraintTop_toBottomOf="@+id/discoveryPreferencesText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintWidth_default="wrap"
         android:text="@string/complete_your_profile"
         android:visibility="gone" />
 

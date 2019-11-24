@@ -20,7 +20,9 @@ class DiscoveryPreferencesFeature constructor(private val on: On) : OnLifecycle 
             who = discoveryPreferences.who,
             ageMin = discoveryPreferences.ageMin,
             ageMax = discoveryPreferences.ageMax
-        )) {}
+        )) {
+            on<PeopleFeature>().onDiscoveryPreferencesChanged()
+        }
 
         on<StoreFeature>().get(DiscoveryPreferences::class).put(discoveryPreferences)
     }

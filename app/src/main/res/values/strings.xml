@@ -43,7 +43,7 @@
     <string name="upload__photo">UPLOAD\nPHOTO</string>
     <string name="choose__photo">CHANGE\nPHOTO</string>
     <string name="confirm__position">CONFIRM\nPOSITION</string>
-    <string name="complete_your_profile"><![CDATA[<tap data="love">Complete your profile</tap> to let %1$s discover you]]></string>
-    <string name="complete_your_profile_to_love"><![CDATA[<tap data="profile">Complete your profile</tap> to let %1$s know you better]]></string>
+    <string name="complete_your_profile"><![CDATA[<tap data="profile">Complete your profile</tap> to let %1$s discover you]]></string>
     <string name="profile_in_review">Your profile is currently in review</string>
+    <string name="confirm_love_self">You lovely you</string>
 </resources>

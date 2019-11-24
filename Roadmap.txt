@@ -1,0 +1,4 @@
+each value should only change in one place
+
+    i.e. completeProfile.visible
+    i.e. completeProfile.text
