@@ -82,15 +82,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constrainedWidth="true"
-        app:layout_constrainedHeight="true"
         app:layout_constraintWidth_default="wrap"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintVertical_bias="0"
         android:background="@drawable/white_rounded"
         android:padding="@dimen/pad2x"
         app:thin="true"
-        android:gravity="center_horizontal"
         android:elevation="@dimen/pad"
+        android:scrollbars="none"
         android:textColor="@color/colorPrimary"
         android:visibility="gone"
         tools:visibility="visible"
@@ -204,7 +203,7 @@
         android:id="@+id/feed"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/discoveryPreferencesText"
+        app:layout_constraintTop_toBottomOf="@+id/completeYourProfileButton"
         app:layout_constraintBottom_toTopOf="@+id/storyText"
         android:layout_marginStart="@dimen/pad8x"
         android:layout_marginEnd="@dimen/pad8x"
@@ -219,7 +218,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/pad2x"
-            android:paddingBottom="@dimen/pad2x" />
+            android:paddingBottom="@dimen/pad2x"
+            android:overScrollMode="never" />
 
     </ScrollView>
 
@@ -305,6 +305,20 @@
             android:text="@string/edit_your_profile" />
 
     </LinearLayout>
+
+    <com.queatz.fantasydating.ui.FancyTextView
+        android:id="@+id/completeYourProfileButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/pad2x"
+        android:padding="@dimen/pad2x"
+        app:thin="true"
+        android:elevation="@dimen/pad"
+        app:layout_constraintTop_toBottomOf="@+id/discoveryPreferencesText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/complete_your_profile"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/bub1"
@@ -414,7 +428,7 @@
         android:elevation="@dimen/pad2x"
         android:visibility="gone"
         android:lineSpacingMultiplier="1.4"
-        android:text="Is something wrong?  Tap here to let us know." />
+        android:text="If ever there's something wrong, tap here to let us know." />
     <TextView
         android:id="@+id/bub6"
         android:layout_width="wrap_content"

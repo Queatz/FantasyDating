@@ -95,10 +95,6 @@ class DiscoveryPreferencesFeature constructor(private val on: On) : OnLifecycle 
             }
 
             editProfileText.onLinkClick = {
-                on<LayoutFeature>().showFantasy = false
-                on<LayoutFeature>().showDiscoveryPreferences = false
-                on<LayoutFeature>().showFeed = false
-
                 on<EditProfileFeature>().editProfile()
             }
 

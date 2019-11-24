@@ -66,13 +66,24 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
             loveButton.setOnClickListener {
                 on<WalkthroughFeature>().closeBub(bub4)
 
-                confirmLove.text = resources.getString(R.string.confirm_your_love, person!!.name)
+                confirmLove.text = if (on<MyProfileFeature>().isComplete())
+                    getString(R.string.confirm_your_love, person!!.name)
+                else
+                    getString(R.string.complete_your_profile_to_love, person!!.name)
+
                 confirmLove.visible = confirmLove.visible.not()
                 confirmLove.onLinkClick = {
-                    person?.id?.let {
-                        on<LayoutFeature>().showFantasy = false
+                    when (it) {
+                        "love" -> {
+                            person?.id?.let {
+                                on<LayoutFeature>().showFantasy = false
 
-                        on<Api>().person(it, PersonRequest(love = true)) {}
+                                on<Api>().person(it, PersonRequest(love = true)) {}
+                            }
+                        }
+                        "profile" -> {
+                            on<EditProfileFeature>().editProfile()
+                        }
                     }
                 }
             }
@@ -163,6 +174,7 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
     fun onBackPressed() = on<ViewFeature>().with {
         if (confirmLove.visible) {
             confirmLove.visible = false
+            on<StoryFeature>().event(StoryEvent.Resume)
             true
         } else false
     }

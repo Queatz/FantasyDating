@@ -2,9 +2,7 @@ package com.queatz.fantasydating.features
 
 import coil.Coil
 import coil.api.load
-import com.queatz.fantasydating.Api
-import com.queatz.fantasydating.Person
-import com.queatz.fantasydating.PersonRequest
+import com.queatz.fantasydating.*
 import com.queatz.on.On
 import io.reactivex.subjects.BehaviorSubject
 
@@ -58,6 +56,18 @@ class PeopleFeature constructor(private val on: On) {
 
         index--
         nextPerson()
+    }
+
+    fun report(person: Person, message: String) {
+        hide(person.id!!)
+
+        on<Api>().person(person.id!!, PersonRequest(report = true, message = message)) {
+            if (it.success) {
+                on<Say>().say("Thank you for reporting ${person.name}")
+            } else {
+                on<Say>().say(R.string.something_went_wrong)
+            }
+        }
     }
 
     private fun show(person: Person) {

@@ -36,4 +36,15 @@ class MyProfileFeature constructor(private val on: On) : OnLifecycle {
             stories = listOf(PersonStory(), PersonStory(), PersonStory())
         )
     }
+
+    fun isComplete() = myProfile.let {
+        it.stories.isNotEmpty() &&
+                it.stories.all { story ->
+                    story.photo.isNotBlank() && story.story.isNotBlank()
+                } &&
+                it.fantasy.isNotBlank() &&
+                it.name.isNotBlank() &&
+                it.sex.isNotBlank() &&
+                it.age > 0
+    }
 }

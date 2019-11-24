@@ -13,16 +13,13 @@ class MoreOptionsFeature constructor(private val on: On) {
 
     fun start() {
         on<ViewFeature>().with {
-            moreOptionsText.onLinkClick = {
-                moreOptionsText.visible = false
-                on<StoryFeature>().event(StoryEvent.Resume)
-            }
-
             moreOptionsText.addTextChangedListener {
                 timeout()
             }
 
             moreOptionsButton.setOnClickListener {
+                timeout()
+
                 if (on<LayoutFeature>().showEditProfile.not()) {
                     moreOptionsText.text = getString(R.string.moreOptionsTemplate, on<PeopleFeature>().current.value!!.name)
                 } else {
@@ -86,25 +83,19 @@ class MoreOptionsFeature constructor(private val on: On) {
     private fun report(reason: String) {
         val person = on<PeopleFeature>().current.value!!
 
-        on<PeopleFeature>().hide(person.id!!)
-        on<Api>().person(person.id!!, PersonRequest(report = true, message = reason)) {
-            if (it.success) {
-                on<Say>().say("Thank you for reporting ${person.name}")
-            } else {
-                on<Say>().say("Something went wrong...")
-            }
-        }
+        on<PeopleFeature>().report(person, reason)
     }
 
     private fun timeout() {
         on<ViewFeature>().with {
-            moreOptionsButton.handler.removeCallbacks(closeCallback)
-            moreOptionsButton.handler.postDelayed(closeCallback, 7000)
+            on<Timer>().remove(closeCallback)
+            on<Timer>().post(closeCallback, 7000)
         }
     }
 
     fun close() {
-        on<ViewFeature>().with { moreOptionsButton.handler.removeCallbacks(closeCallback) }
+        on<StoryFeature>().event(StoryEvent.Resume)
+        on<ViewFeature>().with { on<Timer>().remove(closeCallback) }
         on<ViewFeature>().with { moreOptionsText }.visible = false
     }
 }

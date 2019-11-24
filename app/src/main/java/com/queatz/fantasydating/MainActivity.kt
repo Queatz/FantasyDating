@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         on<MoreOptionsFeature>().start()
         on<WalkthroughFeature>().start()
         on<PeopleFeature>().start()
+        on<CompleteProfileFeature>().start()
     }
 
     override fun onDestroy() {

@@ -12,21 +12,26 @@
     <string name="link"><![CDATA[<tap thin="true">%1$s</tap>]]></string>
     <string name="edit_who"><![CDATA[<tap data="Girls">Girls</tap>, <tap data="Boys">Boys</tap>, or <tap data="People">People</tap>]]></string>
     <string name="edit_where"><![CDATA[<tap data="Austin">Austin</tap>, or <tap data="nope">somewhere else</tap>]]></string>
-    <string name="choose_photo_modal"><![CDATA[Choose a photo. or <tap thin="true" data="reposition">reposition</tap> this one.<br /><br />We allow nudity that is artistic or cute. Read our <tap thin="true" data="guidebook">Photography Guidebook</tap>.<br /><br /><tap data="choose">Choose from your photo</tap><br /><tap data="hire">Hire a pro photographer</tap>]]></string>
+    <string name="upload_photo_modal"><![CDATA[
+        Choose a photo. We review all photos for authenticity and photo quality. We recommend hiring a pro photographer.<br /><br />We allow nudity so long as it is artistic or cute. Read our <tap thin="true" data="guidebook">Photography Guidebook</tap>.<br /><br />
+        <tap data="choose">Choose from your photo</tap>, or <tap data="close">close</tap> this]]></string>
+    <string name="choose_photo_modal"><![CDATA[
+        Choose a photo, or <tap data="reposition">reposition</tap> this one.<br /><br />We review all photos for authenticity and photo quality. We recommend hiring a pro photographer.<br /><br />We allow nudity so long as it is artistic or cute. Read our <tap thin="true" data="guidebook">Photography Guidebook</tap>.<br /><br />
+        <tap data="choose">Choose from your photo</tap>, or <tap data="close">close</tap> this]]></string>
     <string name="cont">Continue</string>
     <string name="moreOptionsTemplate"><![CDATA[<tap data="report">Report</tap>, or <tap data="hide">Hide</tap> %1$s]]></string>
     <string name="moreOptionsHideConfirmTemplate"><![CDATA[<tap data="hide:confirm">Yes</tap>, I want to hide %1$s]]></string>
-    <string name="moreOptionsReportConfirmTemplate"><![CDATA[Report %1$s as <tap data="report:confirm:fake">fake</tap> or <tap data="report:confirm:other">something else</tap>.]]></string>
+    <string name="moreOptionsReportConfirmTemplate"><![CDATA[Report %1$s as <tap data="report:confirm:fake">Fake</tap> or <tap data="report:confirm:other">Something else</tap>]]></string>
     <string name="moreOptionsProfileTemplate"><![CDATA[<tap data="deleteMyAccount">Delete my account</tap>]]></string>
     <string name="moreOptionsProfileConfirmTemplate"><![CDATA[Your account will die and you\'ll need to set up a new account to use Fantasy Dating again.<br /><br />Do you want this?<br /><br /><tap data="deleteMyAccount:confirm">Yes, delete my account</tap><br /><br /><tap data="cancel">No way, get me outta here</tap>]]></string>
-    <string name="confirm_your_love"><![CDATA[Love is our ingredient. <tap>Yes</tap>, I do love %1$s]]></string>
+    <string name="confirm_your_love"><![CDATA[Love is our ingredient. Yes, <tap data="love">I love %1$s</tap>]]></string>
     <string name="cancel">Cancel</string>
     <string name="done">Done</string>
     <string name="any">Any</string>
     <string name="your_name">Your name</string>
     <string name="your_age">your age</string>
     <string name="empty_fantasy">Tap here to start writing your sexual fantasy</string>
-    <string name="something_went_wrong">Something went wrong…</string>
+    <string name="something_went_wrong">Oh no, something went wrong…</string>
     <string name="photography_guidebook"><![CDATA[
         <b>Photography Guidebook</b><br /><br />
         <b>1.</b> &nbsp; <u>You</u> should be the highlight of the photograph.<br />
@@ -35,6 +40,10 @@
         <b>4.</b> &nbsp; Your photo should be <u>recent</u> (captured within the last twelve months.)<br /><br />
         <tap data="guidebook:close">Close Guidebook</tap>]]>
     </string>
-    <string name="choose__photo">EDIT\nPHOTO</string>
+    <string name="upload__photo">UPLOAD\nPHOTO</string>
+    <string name="choose__photo">CHANGE\nPHOTO</string>
     <string name="confirm__position">CONFIRM\nPOSITION</string>
+    <string name="complete_your_profile"><![CDATA[<tap data="love">Complete your profile</tap> to let %1$s discover you]]></string>
+    <string name="complete_your_profile_to_love"><![CDATA[<tap data="profile">Complete your profile</tap> to let %1$s know you better]]></string>
+    <string name="profile_in_review">Your profile is currently in review</string>
 </resources>
