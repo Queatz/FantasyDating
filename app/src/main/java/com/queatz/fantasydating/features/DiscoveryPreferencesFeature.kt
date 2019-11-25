@@ -7,7 +7,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class DiscoveryPreferencesFeature constructor(private val on: On) : OnLifecycle {
 
-    private val sexes = setOf("Girls", "Boys", "People")
+    private val sexes = setOf("Girl", "Boy", "Person")
     private val ages = listOf(18, 20, 22, 24, 26, 28, 30, 35, 40, 45, 50, 1000)
 
     private lateinit var discoveryPreferences: DiscoveryPreferences
@@ -29,7 +29,7 @@ class DiscoveryPreferencesFeature constructor(private val on: On) : OnLifecycle 
 
     override fun on() {
         discoveryPreferences = on<StoreFeature>().get(DiscoveryPreferences::class).all.firstOrNull() ?: DiscoveryPreferences(
-            "Girls",
+            "Girl",
             "Austin",
             25,
             35
@@ -39,11 +39,15 @@ class DiscoveryPreferencesFeature constructor(private val on: On) : OnLifecycle 
     fun start() {
         on<ViewFeature>().with {
             discoveryPreferencesText.onLinkClick = {
-                on<LayoutFeature>().showDiscoveryPreferences = true
+                on<State>{
+                    ui = ui.copy(showDiscoveryPreferences = true)
+                }
             }
 
             discoveryPreferencesLayout.setOnClickListener {
-                on<LayoutFeature>().showDiscoveryPreferences = false
+                on<State>{
+                    ui = ui.copy(showDiscoveryPreferences = false)
+                }
             }
 
             editPreferenceText.onLinkClick = {
@@ -107,18 +111,24 @@ class DiscoveryPreferencesFeature constructor(private val on: On) : OnLifecycle 
     private fun updateDiscoveryPreferences() {
         on<ViewFeature>().with {
             editDiscoveryPreferencesText.text = resources.getString(R.string.discovery_preferences_template,
-                discoveryPreferences.who,
+                pluralSex(discoveryPreferences.who),
                 discoveryPreferences.where,
                 discoveryPreferences.ageMin.toString(),
                 discoveryPreferences.ageMax.let { if (it == 1000) getString(R.string.any) else it.toString() }
             )
 
             discoveryPreferencesText.text = resources.getString(R.string.discovery_preferences,
-                discoveryPreferences.who,
+                pluralSex(discoveryPreferences.who),
                 discoveryPreferences.where,
                 discoveryPreferences.ageMin.toString(),
                 discoveryPreferences.ageMax.let { if (it == 1000) getString(R.string.any) else it.toString() }
             )
         }
+    }
+
+    private fun pluralSex(who: String) = when (who) {
+        "Girl" -> "Girls"
+        "Boy" -> "Boys"
+        else -> "People"
     }
 }

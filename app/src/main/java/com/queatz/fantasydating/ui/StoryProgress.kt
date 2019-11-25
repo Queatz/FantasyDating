@@ -23,8 +23,11 @@ class StoryProgress : View {
     var animate = true
         set(value) {
             field = value
+
             currentProgress = 1f
             animator?.pause()
+
+            invalidate()
         }
 
     var currentObservable = BehaviorSubject.createDefault(0)
@@ -47,6 +50,8 @@ class StoryProgress : View {
             next()
         }
     }
+
+    private val baseProgress get() = if (animate.not()) 1f else 0f
 
     constructor(context: Context) : super(context) { initialize(context) }
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) { initialize(context) }
@@ -76,7 +81,7 @@ class StoryProgress : View {
     fun set(bar: Int) {
         animator?.cancel()
         current = bar
-        currentProgress = 0f
+        currentProgress = baseProgress
         currentObservable.onNext(current)
         invalidate()
     }
@@ -85,7 +90,7 @@ class StoryProgress : View {
 
     fun next() {
         current += 1
-        currentProgress = 0f
+        currentProgress = baseProgress
         animator?.cancel()
         animator = null
 
@@ -97,7 +102,7 @@ class StoryProgress : View {
             return
         } else if (current < 0) {
             current = 0
-            currentProgress = if (animate.not()) 1f else 0f
+            currentProgress = baseProgress
             invalidate()
             exitObservable.onNext(-1)
             return

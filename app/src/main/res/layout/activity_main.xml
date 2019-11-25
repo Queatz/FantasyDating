@@ -10,7 +10,8 @@
     <com.queatz.fantasydating.ui.FancyImageView
         android:id="@+id/background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:src="@drawable/bkg" />
 
     <com.queatz.fantasydating.ui.StoryProgress
         android:id="@+id/stories"
@@ -578,6 +579,5 @@
             android:text="@string/done" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.queatz.fantasydating.features
 
+import com.queatz.fantasydating.State
 import com.queatz.fantasydating.otherwise
 import com.queatz.fantasydating.then
 import com.queatz.fantasydating.visible
@@ -8,128 +9,112 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class LayoutFeature constructor(private val on: On) {
 
-    var showEditProfile = false
-        set(value) {
-            if (field == value) {
-                return
-            }
+    fun start() {
+        on<ViewFeature>().with {
+            on<State>().observe(State.Area.Ui) {
+                discoveryPreferencesLayout.visible = ui.showDiscoveryPreferences
+                discoveryPreferencesText.visible = ui.showFeed && ui.showEditProfile.not() && ui.showDiscoveryPreferences.not()
+                feed.visible = ui.showFeed && ui.showEditProfile.not()
 
-            field = value
-
-            on<ViewFeature>().with {
-                stories.animate = value.not()
-
-                if (value) {
-                    on<GesturesFeature>().listener = on<GesturesFeature>().storyNavigationListener
-
-                    moreOptionsButton.elevation = 1f
-
-                    storyText.elevation = 1f
-
-                    choosePhotoButton.visible = true
-                } else {
-                    on<GesturesFeature>().listener = on<GesturesFeature>().storyNavigationListener
-
-                    choosePhotoButton.visible = false
-                    moreOptionsButton.elevation = 0f
-                    storyText.onLinkClick = { }
-                    storyText.elevation = 0f
-                    fantasyText.setOnClickListener { }
+                changed(it) { ui.showCompleteYourProfileButton } then {
+                    completeYourProfileButton.visible = ui.showCompleteYourProfileButton
                 }
-            }
-        }
 
-    var showFantasy = false
-        set(value) {
-            if (field == value) {
-                return
-            }
+                changed(it) { ui.showEditProfile } then {
+                    stories.animate = ui.showEditProfile.not()
 
-            field = value
+                    on<GesturesFeature>().listener =
+                        on<GesturesFeature>().storyNavigationListener
 
-            on<ViewFeature>().with {
-                confirmLove.visible = false
+                    if (ui.showEditProfile) {
+                        moreOptionsButton.elevation = 1f
 
-                if (value) {
-                    on<WalkthroughFeature>().closeBub(bub3)
-                    swipeUpArrow.rotation = 180f
-                    fantasy.visible = true
-                    choosePhotoButton.visible = false
-                    storyText.visible = false
-                    moreOptionsButton.visible = false
-                    on<MoreOptionsFeature>().close()
-                    on<StoryFeature>().event(StoryEvent.Pause)
+                        storyText.elevation = 1f
 
-                    showEditProfile otherwise {
-                        on<WalkthroughFeature>().showBub(bub4)
-                        on<WalkthroughFeature>().closeBub(bub5)
-                    }
-                } else {
-                    swipeUpArrow.rotation = 0f
-                    fantasy.visible = false
-                    storyText.visible = true
-                    moreOptionsButton.visible = true
-                    on<StoryFeature>().event(StoryEvent.Resume)
-
-                    showEditProfile then {
                         choosePhotoButton.visible = true
-                    } otherwise {
-                        on<WalkthroughFeature>().closeBub(bub4)
-                        on<WalkthroughFeature>().showBub(bub5)
+                    } else {
+                        on<PeopleFeature>().reset()
+
+                        if (ui.showFeed.not()) {
+                            ui = ui.copy(showFeed = true)
+                        }
+
+                        choosePhotoButton.visible = false
+                        moreOptionsButton.elevation = 0f
+                        storyText.onLinkClick = { }
+                        storyText.elevation = 0f
+                        fantasyText.setOnClickListener { }
+                    }
+                }
+
+                changed(it) { ui.showFantasy } then {
+                    confirmLove.visible = false
+
+                    if (ui.showFantasy) {
+                        on<WalkthroughFeature>().closeBub(bub3)
+                        swipeUpArrow.rotation = 180f
+                        fantasy.visible = true
+                        choosePhotoButton.visible = false
+                        storyText.visible = false
+                        moreOptionsButton.visible = false
+                        on<MoreOptionsFeature>().close()
+                        on<StoryFeature>().event(StoryEvent.Pause)
+
+                        ui.showEditProfile otherwise {
+                            on<WalkthroughFeature>().showBub(bub4)
+                            on<WalkthroughFeature>().closeBub(bub5)
+                        }
+                    } else {
+                        swipeUpArrow.rotation = 0f
+                        fantasy.visible = false
+                        storyText.visible = true
+                        moreOptionsButton.visible = true
+                        on<StoryFeature>().event(StoryEvent.Resume)
+
+                        ui.showEditProfile then {
+                            choosePhotoButton.visible = true
+                        } otherwise {
+                            on<WalkthroughFeature>().closeBub(bub4)
+                            on<WalkthroughFeature>().showBub(bub5)
+                        }
+                    }
+                }
+
+                changed(it) { ui.showFeed } then {
+                    if (ui.showFeed) {
+                        stories.post { on<StoryFeature>().event(StoryEvent.Reset) }
+                    }
+                }
+
+                changed(it) { ui.showDiscoveryPreferences } then {
+                    if (ui.showDiscoveryPreferences && ui.showCompleteYourProfileButton) {
+                        ui = ui.copy(showCompleteYourProfileButton = false)
+                    }
+
+                    if (ui.showFeed != ui.showDiscoveryPreferences.not()) {
+                        ui = ui.copy(showFeed = ui.showDiscoveryPreferences.not())
+                    }
+
+                    if (ui.showDiscoveryPreferences) {
+                        on<WalkthroughFeature>().closeBub(bub2)
+                    } else {
+                        editPreferenceText.visible = false
+                        editProfileText.visible = true
                     }
                 }
             }
         }
-
-    var showFeed = true
-        set(value) {
-            if (field == value) {
-                return
-            }
-
-            field = value
-
-            on<ViewFeature>().with {
-                showEditProfile = false
-
-                discoveryPreferencesText.visible = value
-                feed.visible = value
-
-                if (value) {
-                    on<PeopleFeature>().reset()
-                }
-            }
-        }
-
-    var showDiscoveryPreferences = false
-        set(value) {
-            if (field == value) {
-                return
-            }
-
-            field = value
-
-            on<ViewFeature>().with {
-                discoveryPreferencesLayout.visible = value
-                on<CompleteProfileFeature>().update()
-                showFeed = !value
-
-                if (value) {
-                    on<WalkthroughFeature>().closeBub(bub2)
-                } else {
-                    editPreferenceText.visible = false
-                    editProfileText.visible = true
-                }
-            }
-        }
+    }
 
     fun onBackPressed(): Boolean {
-        when {
-            showFantasy -> showFantasy = false
-            showEditProfile -> showEditProfile = false
-            showDiscoveryPreferences -> showDiscoveryPreferences = false
-            showFeed.not() -> showFeed = true
-            else -> return false
+        on<State>().apply {
+            ui = when {
+                ui.showFantasy -> ui.copy(showFantasy = false)
+                ui.showEditProfile -> ui.copy(showEditProfile = false)
+                ui.showDiscoveryPreferences -> ui.copy(showDiscoveryPreferences = false)
+                ui.showFeed.not() -> ui.copy(showFeed = true)
+                else -> return false
+            }
         }
 
         return true

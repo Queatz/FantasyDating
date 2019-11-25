@@ -20,8 +20,8 @@ class MoreOptionsFeature constructor(private val on: On) {
             moreOptionsButton.setOnClickListener {
                 timeout()
 
-                if (on<LayoutFeature>().showEditProfile.not()) {
-                    moreOptionsText.text = getString(R.string.moreOptionsTemplate, on<PeopleFeature>().current.value!!.name)
+                if (on<State>().ui.showEditProfile.not()) {
+                    moreOptionsText.text = getString(R.string.moreOptionsTemplate, on<State>().person.current?.name ?: "")
                 } else {
                     moreOptionsText.setText(R.string.moreOptionsProfileTemplate)
                 }
@@ -35,44 +35,44 @@ class MoreOptionsFeature constructor(private val on: On) {
             }
 
             moreOptionsText.onLinkClick = {
-                val person = on<PeopleFeature>().current.value!!
+                on<State>().person.current?.let { person ->
+                    when (it) {
+                        "hide" -> {
+                            moreOptionsText.text = getString(R.string.moreOptionsHideConfirmTemplate, person.name)
+                        }
+                        "hide:confirm" -> {
+                            on<PeopleFeature>().hide(person.id!!)
+                            close()
+                        }
+                        "report" -> {
+                            moreOptionsText.text = getString(R.string.moreOptionsReportConfirmTemplate, person.name)
+                        }
+                        "report:confirm:fake" -> {
+                            close()
+                            report("Fake account")
+                        }
+                        "report:confirm:other" -> {
+                            close()
+                            report("Other reason")
+                        }
+                        "deleteMyAccount" -> {
+                            close()
+                            fullscreenMessageText.setText(R.string.moreOptionsProfileConfirmTemplate)
+                            fullscreenMessageLayout.visible = true
 
-                when (it) {
-                    "hide" -> {
-                        moreOptionsText.text = getString(R.string.moreOptionsHideConfirmTemplate, person.name)
-                    }
-                    "hide:confirm" -> {
-                        on<PeopleFeature>().hide(person.id!!)
-                        close()
-                    }
-                    "report" -> {
-                        moreOptionsText.text = getString(R.string.moreOptionsReportConfirmTemplate, person.name)
-                    }
-                    "report:confirm:fake" -> {
-                        close()
-                        report("Fake account")
-                    }
-                    "report:confirm:other" -> {
-                        close()
-                        report("Other reason")
-                    }
-                    "deleteMyAccount" -> {
-                        close()
-                        fullscreenMessageText.setText(R.string.moreOptionsProfileConfirmTemplate)
-                        fullscreenMessageLayout.visible = true
-
-                        fullscreenMessageText.onLinkClick = {
-                            when (it) {
-                                "deleteMyAccount:confirm" -> {
-                                    on<Api>().deleteMe {
-                                        on<StoreFeature>().clear()
-                                        on<Say>().say("Byeeeee")
-                                        finish()
+                            fullscreenMessageText.onLinkClick = {
+                                when (it) {
+                                    "deleteMyAccount:confirm" -> {
+                                        on<Api>().deleteMe {
+                                            on<StoreFeature>().clear()
+                                            on<Say>().say("Byeeeee")
+                                            finish()
+                                        }
                                     }
                                 }
-                            }
 
-                            fullscreenMessageLayout.visible = false
+                                fullscreenMessageLayout.visible = false
+                            }
                         }
                     }
                 }
@@ -81,7 +81,7 @@ class MoreOptionsFeature constructor(private val on: On) {
     }
 
     private fun report(reason: String) {
-        val person = on<PeopleFeature>().current.value!!
+        val person = on<State>().person.current!!
 
         on<PeopleFeature>().report(person, reason)
     }

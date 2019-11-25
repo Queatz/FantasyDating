@@ -44,6 +44,8 @@ data class Person constructor(
     var approved: Boolean = false,
     var active: Boolean = false,
     var fantasy: String = "",
+    var youLove: Boolean = false,
+    var lovesYou: Boolean = false,
     @Convert(converter = PersonStoryListJsonConverter::class, dbType = String::class)
     var stories: List<PersonStory> = listOf()
 ) : BaseModel()

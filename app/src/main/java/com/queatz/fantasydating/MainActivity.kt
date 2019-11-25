@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         on<ViewFeature>().activity = this
+        on<LayoutFeature>().start()
         on<GesturesFeature>().start()
         on<FeedFeature>().start()
         on<StoryFeature>().start()

@@ -4,11 +4,8 @@ import coil.Coil
 import coil.api.load
 import com.queatz.fantasydating.*
 import com.queatz.on.On
-import io.reactivex.subjects.BehaviorSubject
 
 class PeopleFeature constructor(private val on: On) {
-
-    var current: BehaviorSubject<Person?> = BehaviorSubject.create()
 
     private var index = -1
     private var people = mutableListOf<Person>()
@@ -18,6 +15,8 @@ class PeopleFeature constructor(private val on: On) {
     }
 
     fun onDiscoveryPreferencesChanged() {
+        on<State>().person = PersonState(null)
+
         on<Api>().people {
             people = it.toMutableList()
             index = -1
@@ -26,7 +25,7 @@ class PeopleFeature constructor(private val on: On) {
     }
 
     fun showMe() {
-        current.onNext(on<MyProfileFeature>().myProfile)
+        show(on<MyProfileFeature>().myProfile)
     }
 
     fun nextPerson() {
@@ -42,6 +41,8 @@ class PeopleFeature constructor(private val on: On) {
 
         if (index >= 0) {
             show(people[index])
+        } else {
+            show(null)
         }
     }
 
@@ -75,10 +76,10 @@ class PeopleFeature constructor(private val on: On) {
         }
     }
 
-    private fun show(person: Person) {
-        current.onNext(person)
+    private fun show(person: Person?) {
+        on<State>().person = PersonState(person)
 
-        person.stories.forEach {
+        person?.stories?.forEach {
             preload(it.photo)
         }
     }

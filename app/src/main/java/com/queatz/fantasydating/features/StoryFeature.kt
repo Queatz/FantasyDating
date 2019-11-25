@@ -21,26 +21,11 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
 
     private val disposables = CompositeDisposable()
 
-    private var person: Person? = null
-        set(value) {
-            field = value
-
-            if (on<LayoutFeature>().showFeed) {
-                event(StoryEvent.Reset)
-            } else {
-                event(StoryEvent.Start)
-            }
-
-            on<ViewFeature>().with {
-                fantasyTitle.text = "${value?.name ?: ""}'s Fantasy"
-                fantasyText.text = value?.fantasy ?: ""
-                fantasyText.scrollTo(0, 0)
-
-                value?.stories?.apply { stories.count = size }
-            }
+    fun event(event: StoryEvent) {
+        if (on<State>().person.current == null) {
+            return
         }
 
-    fun event(event: StoryEvent) {
         on<ViewFeature>().with { stories }.apply {
             when (event) {
                 StoryEvent.Pause -> pause()
@@ -54,23 +39,76 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
     }
 
     fun start() {
-        disposables.add(on<PeopleFeature>().current.subscribe {
-            it?.let { person = it }
-        })
+        on<State>().observe(State.Area.Person) {
+            on<ViewFeature>().with {
+                if (ui.showFeed || ui.showDiscoveryPreferences || ui.showFantasy || ui.showEditProfile) {
+                    event(StoryEvent.Reset)
+                } else {
+                    event(StoryEvent.Start)
+                }
+
+                if (person.current == null) {
+                    if (on<State>().ui.showFantasy.not()) {
+                        on<State> {
+                            ui = ui.copy(showFantasy = true)
+                        }
+                    }
+
+                    stories.visible = false
+                    background.setImageResource(R.drawable.bkg)
+                    swipeUpArrow.visible = false
+                    moreOptionsButton.visible = false
+                    loveButton.visible = false
+                    fantasyTitle.text = "There's no more people to discover in Austin right now."
+                    fantasyText.text = ""
+                    storyText.text = ""
+                    return@with
+                } else {
+                    stories.visible = true
+                    loveButton.visible = true
+                    swipeUpArrow.visible = true
+                    moreOptionsButton.visible = true
+
+                    if (it.previous.person.current == null) {
+                        if (on<State>().ui.showFantasy) {
+                            on<State> {
+                                ui = ui.copy(showFantasy = false)
+                            }
+                        }
+                    }
+                }
+
+                if (ui.showEditProfile) {
+                    on<EditProfileFeature>().updateFantasy()
+                } else {
+                    fantasyTitle.text = "${person.current?.name ?: ""}'s Fantasy"
+                    fantasyText.text = person.current?.fantasy ?: ""
+                    person.current?.stories?.apply { stories.count = size }
+                }
+
+                fantasyText.scrollTo(0, 0)
+            }
+        }
 
         on<ViewFeature>().with {
-            background.setBackgroundColor(getColor(R.color.colorPrimaryDark))
+            background.setImageResource(R.drawable.bkg)
 
             fantasyText.movementMethod = ScrollingMovementMethod()
 
             loveButton.setOnClickListener {
-                if (on<MyProfileFeature>().myProfile.id == on<PeopleFeature>().current.value?.id) {
+                if (on<MyProfileFeature>().myProfile.id == on<State>().person.current?.id) {
                     confirmLove.text = getString(R.string.confirm_love_self)
                 } else {
-                    confirmLove.text = if (on<MyProfileFeature>().isComplete())
-                        getString(R.string.confirm_your_love, person!!.name)
-                    else
-                        getString(R.string.complete_your_profile, person!!.name)
+                    val person = on<State>().person.current!!
+                    confirmLove.text = when {
+                        person.youLove ->
+                            getString(R.string.remove_love, person.name)
+                        on<MyProfileFeature>().isComplete().not() ->
+                            getString(R.string.complete_your_profile, person.name)
+                        else ->
+                            getString(R.string.confirm_your_love, person.name)
+
+                    }
                 }
 
                 on<WalkthroughFeature>().closeBub(bub4)
@@ -79,10 +117,27 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                 confirmLove.onLinkClick = {
                     when (it) {
                         "love" -> {
-                            person?.id?.let {
-                                on<LayoutFeature>().showFantasy = false
+                            on<State>().person.current?.let {
+                                on<State> {
+                                    ui = ui.copy(showFantasy = false)
+                                }
 
-                                on<Api>().person(it, PersonRequest(love = true)) {}
+                                it.youLove = true
+                                on<StoreFeature>().get(Person::class).put(it)
+
+                                on<Api>().person(it.id!!, PersonRequest(love = true)) {}
+                            }
+                        }
+                        "love:remove" -> {
+                            on<State>().person.current?.let {
+                                on<State> {
+                                    ui = ui.copy(showFantasy = false)
+                                }
+
+                                it.youLove = false
+                                on<StoreFeature>().get(Person::class).put(it)
+
+                                on<Api>().person(it.id!!, PersonRequest(love = false)) {}
                             }
                         }
                         "profile" -> {
@@ -111,22 +166,18 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                 .subscribe {
                     moreOptionsText.visible = false
 
-                    if (on<LayoutFeature>().showEditProfile) {
-
+                    if (on<State>().ui.showEditProfile) {
                         stories.post { event(StoryEvent.Pause) }
                     }
 
-
-                    person ?: return@subscribe
-
-                    person?.apply {
+                    on<State>().person.current?.apply {
                         if (it >= stories.size) {
                             return@subscribe
                         }
 
                         setPhoto(stories[it].photo)
 
-                        if (on<LayoutFeature>().showEditProfile) {
+                        if (on<State>().ui.showEditProfile) {
                             on<EditProfileFeature>().updateMyStory()
                         } else {
                             storyText.text = "${name}, ${age}<br /><br />${stories[it].story}"
@@ -151,9 +202,10 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
         on<ViewFeature>().with {
             stories.post { event(StoryEvent.Pause) }
 
-            background.setImageDrawable(null)
+            background.setImageResource(R.drawable.bkg)
 
             background.load("$photo?s=1600") {
+                placeholder(R.drawable.bkg)
                 crossfade(true)
                 listener { _, _ ->
                     stories.post { event(StoryEvent.Resume) }

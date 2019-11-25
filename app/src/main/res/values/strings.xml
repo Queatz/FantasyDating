@@ -10,14 +10,14 @@
     <string name="not_in_austin"><![CDATA[Not in Austin?  Don\'t worry, keep Fantasy Dating installed and we\'ll let you know when we launch in more areas. <tap data="ok">Okay then</tap>.]]></string>
 
     <string name="link"><![CDATA[<tap thin="true">%1$s</tap>]]></string>
-    <string name="edit_who"><![CDATA[<tap data="Girls">Girls</tap>, <tap data="Boys">Boys</tap>, or <tap data="People">People</tap>]]></string>
+    <string name="edit_who"><![CDATA[<tap data="Girl">Girls</tap>, <tap data="Boy">Boys</tap>, or <tap data="Person">People</tap>]]></string>
     <string name="edit_where"><![CDATA[<tap data="Austin">Austin</tap>, or <tap data="nope">somewhere else</tap>]]></string>
     <string name="upload_photo_modal"><![CDATA[
         Choose a photo. We review all photos for authenticity and photo quality. We recommend hiring a pro photographer.<br /><br />We allow nudity so long as it is artistic or cute. Read our <tap thin="true" data="guidebook">Photography Guidebook</tap>.<br /><br />
-        <tap data="choose">Choose from your photo</tap>, or <tap data="close">close</tap> this]]></string>
+        <tap data="choose">Choose from your photo</tap>, or <tap data="close">close</tap>]]></string>
     <string name="choose_photo_modal"><![CDATA[
         Choose a photo, or <tap data="reposition">reposition</tap> this one.<br /><br />We review all photos for authenticity and photo quality. We recommend hiring a pro photographer.<br /><br />We allow nudity so long as it is artistic or cute. Read our <tap thin="true" data="guidebook">Photography Guidebook</tap>.<br /><br />
-        <tap data="choose">Choose from your photo</tap>, or <tap data="close">close</tap> this]]></string>
+        <tap data="choose">Choose from your photo</tap>, or <tap data="close">close</tap>]]></string>
     <string name="cont">Continue</string>
     <string name="moreOptionsTemplate"><![CDATA[<tap data="report">Report</tap>, or <tap data="hide">Hide</tap> %1$s]]></string>
     <string name="moreOptionsHideConfirmTemplate"><![CDATA[<tap data="hide:confirm">Yes</tap>, I want to hide %1$s]]></string>
@@ -46,4 +46,5 @@
     <string name="complete_your_profile"><![CDATA[<tap data="profile">Complete your profile</tap> to let %1$s discover you]]></string>
     <string name="profile_in_review">Your profile is currently in review</string>
     <string name="confirm_love_self">You lovely you</string>
+    <string name="remove_love"><![CDATA[You love %1$s. <tap data="love:remove">Remove</tap>]]></string>
 </resources>

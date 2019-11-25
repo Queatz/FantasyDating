@@ -36,17 +36,18 @@ class EditProfileFeature constructor(private val on: On) {
     }
 
     fun editProfile() {
-        on<LayoutFeature>().showFantasy = false
-        on<LayoutFeature>().showDiscoveryPreferences = false
-        on<LayoutFeature>().showFeed = false
+        on<State> {
+            ui = ui.copy(
+                showFantasy = false,
+                showDiscoveryPreferences = false,
+                showFeed = false,
+                showEditProfile = true
+            )
+        }
 
         on<PeopleFeature>().showMe()
 
-        // todo preload all mine
-
         on<ViewFeature>().with {
-            on<LayoutFeature>().showEditProfile = true
-
             on<MyProfileFeature>().myProfile.let { myProfile ->
                 storyText.onLinkClick = {
                     when (it) {
@@ -110,14 +111,7 @@ class EditProfileFeature constructor(private val on: On) {
                 }
             }
 
-            on<ViewFeature>().with {
-                choosePhotoButton.text = getString(
-                    if (currentStoryHasPhoto())
-                        R.string.choose__photo
-                    else
-                        R.string.upload__photo
-                )
-            }
+            updatePhotoButton()
 
             on<GesturesFeature>().listener = on<GesturesFeature>().storyNavigationListener
             return
@@ -160,6 +154,17 @@ class EditProfileFeature constructor(private val on: On) {
         }
     }
 
+    private fun updatePhotoButton() {
+        on<ViewFeature>().with {
+            choosePhotoButton.text = getString(
+                if (currentStoryHasPhoto())
+                    R.string.choose__photo
+                else
+                    R.string.upload__photo
+            )
+        }
+    }
+
     private fun currentStoryHasPhoto(): Boolean {
         return on<MyProfileFeature>().myProfile.stories[on<StoryFeature>().getCurrentStory()].photo.isNotBlank()
     }
@@ -183,6 +188,9 @@ class EditProfileFeature constructor(private val on: On) {
     }
 
     fun updateMyStory() {
+        updatePhotoButton()
+        updateFantasy()
+
         on<ViewFeature>().with {
             val me = on<MyProfileFeature>().myProfile
 
@@ -193,6 +201,12 @@ class EditProfileFeature constructor(private val on: On) {
                     else -> it
                 }
             }}</tap>" }
+        }
+    }
+
+    fun updateFantasy() {
+        on<ViewFeature>().with {
+            val me = on<MyProfileFeature>().myProfile
             fantasyTitle.text = if (me.name.isNotBlank()) "${me.name}'s Fantasy" else "Your Fantasy"
             fantasyText.text = on<MyProfileFeature>().myProfile.fantasy.let { if (it.isBlank()) getString(R.string.empty_fantasy) else it }
         }
