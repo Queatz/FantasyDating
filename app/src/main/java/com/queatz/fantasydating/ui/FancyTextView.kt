@@ -26,6 +26,7 @@ import org.jsoup.nodes.TextNode
 class FancyTextView : TextView {
 
     private var bold: Boolean = false
+    private var highlight: Boolean = true
     private var textChangeLock: Boolean = false
     private var theme: Resources.Theme? = null
 
@@ -64,6 +65,7 @@ class FancyTextView : TextView {
             val textSize = styledAttrs.getDimension(R.styleable.FancyTextView_android_textSize, 0f)
             val textColor = styledAttrs.getColor(R.styleable.FancyTextView_android_textColor, -1)
             bold = !styledAttrs.getBoolean(R.styleable.FancyTextView_thin, false)
+            highlight = styledAttrs.getBoolean(R.styleable.FancyTextView_highlight, true)
             lineSpacing = styledAttrs.getFloat(R.styleable.FancyTextView_android_lineSpacingMultiplier, lineSpacing)
             styledAttrs.recycle()
 
@@ -135,7 +137,7 @@ class FancyTextView : TextView {
             setSpan(
                 BackgroundSpan(
                     resources.getColor(
-                        R.color.white,
+                        if (highlight) R.color.white else android.R.color.transparent,
                         theme
                     ), pad * .75f
                 ) { line, width ->

@@ -49,6 +49,7 @@
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/rightTouchTarget"
+        android:background="@android:color/transparent"
         tools:visibility="gone"/>
 
     <View
@@ -57,6 +58,7 @@
         android:layout_height="match_parent"
         app:layout_constraintStart_toEndOf="@+id/leftTouchTarget"
         app:layout_constraintEnd_toEndOf="parent"
+        android:background="@android:color/transparent"
         tools:visibility="gone"/>
 
     <ImageView
@@ -262,6 +264,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/pad2x"
+        android:clipToPadding="false"
         android:orientation="vertical"
         android:visibility="gone"
         tools:visibility="visible">
@@ -305,6 +308,21 @@
             android:textColor="@color/colorPrimary"
             android:text="@string/edit_your_profile" />
 
+        <com.queatz.fantasydating.ui.FancyTextView
+            android:id="@+id/bossOverview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pad"
+            android:background="@drawable/white_rounded"
+            android:padding="@dimen/pad2x"
+            app:thin="true"
+            android:gravity="center_horizontal"
+            android:elevation="@dimen/pad"
+            android:textColor="@color/colorPrimary"
+            tools:text="22 Approvals, 14 Reports"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
     </LinearLayout>
 
     <com.queatz.fantasydating.ui.FancyTextView
@@ -327,6 +345,30 @@
         app:layout_constraintWidth_default="wrap"
         android:text="@string/complete_your_profile"
         android:visibility="gone" />
+
+    <com.queatz.fantasydating.ui.FancyTextView
+        android:id="@+id/bossOptions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/pad2x"
+        android:layout_marginStart="@dimen/pad"
+        app:layout_goneMarginStart="@dimen/pad2x"
+        android:padding="@dimen/pad"
+        android:clickable="true"
+        android:background="@drawable/green_rounded_2dp"
+        app:thin="true"
+        app:highlight="false"
+        android:elevation="@dimen/pad2z"
+        app:layout_constraintBottom_toBottomOf="@+id/moreOptionsButton"
+        app:layout_constraintTop_toTopOf="@+id/moreOptionsButton"
+        app:layout_constraintStart_toEndOf="@id/moreOptionsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintWidth_default="wrap"
+        app:layout_constrainedWidth="true"
+        tools:text="Approve Jane"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
     <TextView
         android:id="@+id/bub1"

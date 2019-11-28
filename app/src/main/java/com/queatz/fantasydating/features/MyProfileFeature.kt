@@ -1,17 +1,27 @@
 package com.queatz.fantasydating.features
 
-import com.queatz.fantasydating.Api
-import com.queatz.fantasydating.MeRequest
-import com.queatz.fantasydating.Person
-import com.queatz.fantasydating.PersonStory
+import com.queatz.fantasydating.*
 import com.queatz.on.On
 import com.queatz.on.OnLifecycle
 
 class MyProfileFeature constructor(private val on: On) : OnLifecycle {
     lateinit var myProfile: Person
 
+    fun reload() {
+        on<Api>().me {
+            myProfile.active = it.active
+            myProfile.approved = it.approved
+            myProfile.boss = it.boss
+            on<StoreFeature>().get(Person::class).put(myProfile)
+            on<State>().profile = ProfileState(myProfile)
+            on<LayoutFeature>().isBoss = myProfile.boss
+        }
+    }
+
     fun edit(function: Person.() -> Unit) {
         function.invoke(myProfile)
+
+        on<StoreFeature>().get(Person::class).put(myProfile)
 
         on<Api>().me(MeRequest(
             sex = myProfile.sex,
@@ -21,8 +31,6 @@ class MyProfileFeature constructor(private val on: On) : OnLifecycle {
             fantasy = myProfile.fantasy,
             stories = myProfile.stories
         )) {}
-
-        on<StoreFeature>().get(Person::class).put(myProfile)
     }
 
     override fun on() {
@@ -35,6 +43,8 @@ class MyProfileFeature constructor(private val on: On) : OnLifecycle {
             fantasy = "",
             stories = listOf(PersonStory(), PersonStory(), PersonStory())
         )
+
+        reload()
     }
 
     fun isComplete() = myProfile.let {

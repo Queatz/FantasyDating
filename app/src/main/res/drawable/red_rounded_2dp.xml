@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:width="64dp" android:height="64dp">
+    <item>
         <shape android:shape="rectangle">
-            <gradient android:startColor="@color/colorPrimaryDark" android:endColor="@color/colorPrimary" android:angle="45" />
+            <solid android:color="@color/red" />
+            <corners android:radius="2dp" />
         </shape>
     </item>
 </layer-list>

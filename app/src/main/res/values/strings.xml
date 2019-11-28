@@ -47,4 +47,5 @@
     <string name="profile_in_review">Your profile is currently in review</string>
     <string name="confirm_love_self">You lovely you</string>
     <string name="remove_love"><![CDATA[You love %1$s. <tap data="love:remove">Remove</tap>]]></string>
+    <string name="submit_profile_for_review"><![CDATA[Your profile is complete. <tap data="submit">Submit for review</tap>]]></string>
 </resources>

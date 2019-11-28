@@ -21,8 +21,15 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
 
     private val disposables = CompositeDisposable()
 
+    var overrideEvent: StoryEventListener? = null
+    var personNavigationListener: PersonNavigationListener? = null
+
     fun event(event: StoryEvent) {
         if (on<State>().person.current == null) {
+            return
+        }
+
+        if (overrideEvent?.invoke(event) == true) {
             return
         }
 
@@ -150,7 +157,7 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
             disposables.add(stories.exitObservable
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe {
-                    if (stories.animate.not()) {
+                    if (personNavigationListener?.invoke(it) == true) {
                         return@subscribe
                     }
 
@@ -204,8 +211,11 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
 
             background.setImageResource(R.drawable.bkg)
 
+            if (photo.isBlank()) {
+                return@with
+            }
+
             background.load("$photo?s=1600") {
-                placeholder(R.drawable.bkg)
                 crossfade(true)
                 listener { _, _ ->
                     stories.post { event(StoryEvent.Resume) }
@@ -241,6 +251,9 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
 
     fun getCurrentStory() = on<ViewFeature>().activity.stories.currentObservable.value!!
 }
+
+typealias StoryEventListener = (event: StoryEvent) -> Boolean
+typealias PersonNavigationListener = (direction: Int) -> Boolean
 
 enum class StoryEvent {
     Pause,

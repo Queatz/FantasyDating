@@ -57,6 +57,7 @@ class MoreOptionsFeature constructor(private val on: On) {
                         }
                         "deleteMyAccount" -> {
                             close()
+                            on<LayoutFeature>().canCloseFullscreenModal = true
                             fullscreenMessageText.setText(R.string.moreOptionsProfileConfirmTemplate)
                             fullscreenMessageLayout.visible = true
 

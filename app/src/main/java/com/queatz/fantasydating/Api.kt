@@ -36,8 +36,33 @@ class Api constructor(private val on: On) {
         on<Http>().post("person/${person}/messages", request, type<SuccessResponse>(), this::error, callback)
     }
 
+    fun person(person: String, callback: (Person) -> Unit) {
+        on<Http>().get("person/${person}", type<Person>(), this::error, callback)
+    }
+
     fun person(person: String, request: PersonRequest, callback: (SuccessResponse) -> Unit) {
         on<Http>().post("person/${person}", request, type<SuccessResponse>(), this::error, callback)
+    }
+
+    fun bossInfo(callback: (BossInfo) -> Unit) {
+        on<Http>().get("boss/info", type<BossInfo>(), this::error, callback)
+    }
+
+
+    fun bossReports(callback: (List<Report>) -> Unit) {
+        on<Http>().get("boss/reports", type<List<Report>>(), this::error, callback)
+    }
+
+    fun bossApprovals(callback: (List<Person>) -> Unit) {
+        on<Http>().get("boss/approvals", type<List<Person>>(), this::error, callback)
+    }
+
+    fun boss(request: WhoIsTheBossRequest, callback: (SuccessResponse) -> Unit) {
+        on<Http>().post("boss/me", request, type<SuccessResponse>(), this::error, callback)
+    }
+
+    fun bossApprove(request: BossApproveRequest, callback: (SuccessResponse) -> Unit) {
+        on<Http>().post("boss/approve", request, type<SuccessResponse>(), this::error, callback)
     }
 
     private fun error(throwable: Throwable) {

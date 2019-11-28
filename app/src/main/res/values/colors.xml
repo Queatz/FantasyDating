@@ -4,8 +4,10 @@
     <color name="colorPrimaryDark">#3D222F</color>
     <color name="colorAccent">#880E4F</color>
     <color name="colorPrimaryBright">#FF007D</color>
-    <color name="highlight">#F8BBD0</color>
+    <color name="highlight">#FFCDD2</color>
     <color name="white">#ffffff</color>
+    <color name="green">#C8E6C9</color>
+    <color name="red">#FFCCBC</color>
     <color name="story_background">#54000000</color>
     <color name="black">#000000</color>
     <color name="white50">#80ffffff</color>

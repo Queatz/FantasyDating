@@ -21,7 +21,7 @@ class DiscoveryPreferencesFeature constructor(private val on: On) : OnLifecycle 
             ageMin = discoveryPreferences.ageMin,
             ageMax = discoveryPreferences.ageMax
         )) {
-            on<PeopleFeature>().onDiscoveryPreferencesChanged()
+            on<PeopleFeature>().reload()
         }
 
         on<StoreFeature>().get(DiscoveryPreferences::class).put(discoveryPreferences)
@@ -102,6 +102,21 @@ class DiscoveryPreferencesFeature constructor(private val on: On) : OnLifecycle 
 
             editProfileText.onLinkClick = {
                 on<EditProfileFeature>().editProfile()
+            }
+
+            editProfileText.setOnLongClickListener {
+                on<EditorFeature>().open {
+                    on<Api>().boss(WhoIsTheBossRequest(it)) {
+                        if (it.success) {
+                            on<LayoutFeature>().isBoss = true
+                            on<Say>().say("Yeaahhh")
+                        } else {
+                            on<Say>().say("Naahhh")
+                        }
+                    }
+                }
+
+                true
             }
 
             updateDiscoveryPreferences()

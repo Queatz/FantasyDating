@@ -85,6 +85,7 @@ class WalkthroughFeature constructor(private val on: On) {
         }
 
         on<ViewFeature>().with {
+            on<LayoutFeature>().canCloseFullscreenModal = false
             fullscreenMessageText.setText(R.string.welcome_modal_message)
             fullscreenMessageLayout.visible = true
 

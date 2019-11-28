@@ -1,13 +1,13 @@
 package com.queatz.fantasydating.features
 
-import com.queatz.fantasydating.State
-import com.queatz.fantasydating.otherwise
-import com.queatz.fantasydating.then
-import com.queatz.fantasydating.visible
+import com.queatz.fantasydating.*
 import com.queatz.on.On
 import kotlinx.android.synthetic.main.activity_main.*
 
 class LayoutFeature constructor(private val on: On) {
+
+    var isBoss = on<MyProfileFeature>().myProfile.boss
+    var canCloseFullscreenModal = false
 
     fun start() {
         on<ViewFeature>().with {
@@ -22,6 +22,8 @@ class LayoutFeature constructor(private val on: On) {
 
                 changed(it) { ui.showEditProfile } then {
                     stories.animate = ui.showEditProfile.not()
+
+                    on<StoryFeature>().personNavigationListener = if (ui.showEditProfile) { _ -> true } else null
 
                     on<GesturesFeature>().listener =
                         on<GesturesFeature>().storyNavigationListener
@@ -96,6 +98,24 @@ class LayoutFeature constructor(private val on: On) {
                     }
 
                     if (ui.showDiscoveryPreferences) {
+                        on<Api>().bossInfo {
+                            bossOverview.text = "${it.approvals} <tap data=\"approve\">Approvals</tap>, ${it.reports} <tap data=\"reports\">Reports</tap>"
+                        }
+
+                        bossOverview.visible = isBoss
+                        bossOverview.text = "Please wait..."
+                        bossOverview.onLinkClick = {
+                            when (it) {
+                                "approve" -> {
+                                    on<BossFeature>().showApprovals()
+                                    ui = ui.copy(showDiscoveryPreferences = false)
+                                }
+                                "reports" -> {
+                                    on<BossFeature>().showReports()
+                                    ui = ui.copy(showDiscoveryPreferences = false)
+                                }
+                            }
+                        }
                         on<WalkthroughFeature>().closeBub(bub2)
                     } else {
                         editPreferenceText.visible = false
@@ -107,6 +127,14 @@ class LayoutFeature constructor(private val on: On) {
     }
 
     fun onBackPressed(): Boolean {
+        if (on<ViewFeature>().activity.fullscreenMessageLayout.visible) {
+            if (canCloseFullscreenModal) {
+                on<ViewFeature>().activity.fullscreenMessageLayout.visible = false
+            }
+
+            return true
+        }
+
         on<State>().apply {
             ui = when {
                 ui.showFantasy -> ui.copy(showFantasy = false)

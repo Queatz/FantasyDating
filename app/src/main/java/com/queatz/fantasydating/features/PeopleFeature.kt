@@ -11,17 +11,13 @@ class PeopleFeature constructor(private val on: On) {
     private var people = mutableListOf<Person>()
 
     fun start() {
-        onDiscoveryPreferencesChanged()
+        reload()
     }
 
-    fun onDiscoveryPreferencesChanged() {
+    fun reload() {
+        on<StoryFeature>().personNavigationListener = null
         on<State>().person = PersonState(null)
-
-        on<Api>().people {
-            people = it.toMutableList()
-            index = -1
-            nextPerson()
-        }
+        on<Api>().people { show(it) }
     }
 
     fun showMe() {
@@ -53,7 +49,7 @@ class PeopleFeature constructor(private val on: On) {
 
     fun reset() {
         index = -1
-        nextPerson()
+        reload()
     }
 
     fun hide(person: String) {
@@ -76,6 +72,18 @@ class PeopleFeature constructor(private val on: On) {
         }
     }
 
+    fun show(person: String) {
+        on<Api>().person(person) {
+            show(it)
+        }
+    }
+
+    fun show(people: List<Person>) {
+        this.people = people.toMutableList()
+        index = -1
+        nextPerson()
+    }
+
     private fun show(person: Person?) {
         on<State>().person = PersonState(person)
 
@@ -89,4 +97,9 @@ class PeopleFeature constructor(private val on: On) {
             Coil.load(this, url)
         }
     }
+}
+
+enum class PeopleListVariant {
+    Discover,
+    Approvals
 }

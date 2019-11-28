@@ -14,7 +14,7 @@ class GesturesFeature constructor(private val on: On) {
 
     private lateinit var gestureDetector: GestureDetectorCompat
 
-    var storyNavigationListener = object : InteractionListener {
+    val storyNavigationListener = object : InteractionListener {
         override fun click(gravity: Int) {
             if (on<State>().person.current == null) {
                 return
@@ -80,7 +80,9 @@ class GesturesFeature constructor(private val on: On) {
                 on<WalkthroughFeature>().closeBub(on<ViewFeature>().with { bub6 })
 
                 on<State> {
-                    ui = ui.copy(showFeed = true)
+                    ui = ui.copy(showFeed = true, showEditProfile = false)
+                    on<PeopleFeature>().reload()
+                    on<MyProfileFeature>().reload()
                 }
             }
 
@@ -104,7 +106,6 @@ class GesturesFeature constructor(private val on: On) {
     }
 
     var listener: InteractionListener = storyNavigationListener
-
 
     fun start() {
         val gestures = object : GestureDetector.SimpleOnGestureListener() {

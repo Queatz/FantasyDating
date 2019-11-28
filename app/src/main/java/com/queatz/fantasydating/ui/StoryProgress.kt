@@ -89,6 +89,10 @@ class StoryProgress : View {
     fun isPaused() = animator?.isPaused ?: true
 
     fun next() {
+        if (count == 0) {
+            return
+        }
+
         current += 1
         currentProgress = baseProgress
         animator?.cancel()

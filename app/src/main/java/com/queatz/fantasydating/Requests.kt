@@ -27,3 +27,13 @@ data class PersonRequest constructor(
     var hide: Boolean? = null,
     var message: String? = null
 )
+
+data class BossApproveRequest constructor(
+    var person: String? = null,
+    var approve: Boolean? = null,
+    var message: Boolean? = null
+)
+
+data class WhoIsTheBossRequest constructor(
+    var whoIsTheBoss: String? = null
+)
