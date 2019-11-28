@@ -12,6 +12,10 @@ class Api constructor(private val on: On) {
         on<Http>().post("me", request, type<Person>(), this::error, callback)
     }
 
+    fun events(callback: (List<Event>) -> Unit) {
+        on<Http>().get("me/events", type<List<Event>>(), this::error, callback)
+    }
+
     fun deleteMe(callback: (SuccessResponse) -> Unit) {
         on<Http>().post("me/delete", Any(), type<SuccessResponse>(), this::error, callback)
     }

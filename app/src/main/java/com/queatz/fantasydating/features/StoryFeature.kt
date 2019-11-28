@@ -216,6 +216,7 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
             }
 
             background.load("$photo?s=1600") {
+                placeholder(R.drawable.bkg)
                 crossfade(true)
                 listener { _, _ ->
                     stories.post { event(StoryEvent.Resume) }

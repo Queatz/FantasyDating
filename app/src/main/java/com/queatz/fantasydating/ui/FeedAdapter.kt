@@ -6,7 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.queatz.fantasydating.Event
+import com.queatz.fantasydating.Pretty
 import com.queatz.fantasydating.R
+import com.queatz.fantasydating.features.ViewFeature
 import com.queatz.fantasydating.visible
 import com.queatz.on.On
 import kotlinx.android.synthetic.main.item_feed.view.*
@@ -30,10 +32,19 @@ class FeedAdapter constructor(private val on: On) : RecyclerView.Adapter<FeedVie
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         val item = items[position]
 
-        holder.title.text = listOf("TODAY", "YESTERDAY", "MAY 23RD").random()
-        holder.text.text = item.name
+        val day = on<Pretty>().date(item.created)
 
-        holder.title.visible = position % 2 == 0
+        holder.title.text = day
+
+        if (position > 0) {
+            val itemBefore = items[position - 1]
+            val itemBeforeDay = on<Pretty>().date(itemBefore.created)
+            holder.title.visible = itemBeforeDay != day
+        } else {
+            holder.title.visible = true
+        }
+
+        holder.text.text = on<ViewFeature>().activity.getString(R.string.link, item.name)
     }
 }
 

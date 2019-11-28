@@ -7,7 +7,10 @@ import java.time.Instant
 
 class Json constructor(private val on: On) {
 
-    private val gson = GsonBuilder().registerTypeAdapter(Instant::class.java, InstantTypeConverter()).create()
+    private val gson = GsonBuilder()
+        .registerTypeAdapter(Instant::class.java, InstantTypeConverter())
+        .setDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+        .create()
 
     fun to(any: Any): String = gson.toJson(any)
 

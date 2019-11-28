@@ -76,12 +76,17 @@ class BossFeature constructor(private val on: On) {
 
     private fun approveCurrent(approve: Boolean) {
         on<State>().person.current?.let { person ->
-            on<Api>().bossApprove(BossApproveRequest(person.id!!, approve = approve)) {
-                on<Say>().say("${person.name} has been ${if (approve) "" else "un"}approved")
-                if (approve) {
+            if (approve) {
+                on<Api>().bossApprove(BossApproveRequest(person.id!!, approve = true)) {
+                    on<Say>().say("${person.name} has been approved")
                     on<PeopleFeature>().nextPerson()
-                } else {
-                    showNextReport()
+                }
+            } else {
+                on<EditorFeature>().open(prefix = "Comments for ${person.name}: ") { reason ->
+                    on<Api>().bossApprove(BossApproveRequest(person.id!!, approve = false, message = reason)) {
+                        on<Say>().say("${person.name} has been unapproved")
+                        showNextReport()
+                    }
                 }
             }
         }

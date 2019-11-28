@@ -4,6 +4,7 @@ import io.objectbox.annotation.BaseEntity
 import io.objectbox.annotation.Convert
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
+import java.util.*
 
 
 @BaseEntity
@@ -32,6 +33,7 @@ data class WalkthroughStep constructor(
 @Entity
 data class Event constructor(
     var person: String = "",
+    var created: Date? = null,
     var name: String = "",
     var data: String = ""
 ) : BaseModel()
