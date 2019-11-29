@@ -63,7 +63,7 @@ class FancyTextView : TextView {
             val styledAttrs = context.obtainStyledAttributes(attrs,
                 R.styleable.FancyTextView, defStyleAttr, defStyleRes)
             val textSize = styledAttrs.getDimension(R.styleable.FancyTextView_android_textSize, 0f)
-            val textColor = styledAttrs.getColor(R.styleable.FancyTextView_android_textColor, -1)
+            val textColor = styledAttrs.getColor(R.styleable.FancyTextView_android_textColor, Color.TRANSPARENT)
             bold = !styledAttrs.getBoolean(R.styleable.FancyTextView_thin, false)
             highlight = styledAttrs.getBoolean(R.styleable.FancyTextView_highlight, true)
             lineSpacing = styledAttrs.getFloat(R.styleable.FancyTextView_android_lineSpacingMultiplier, lineSpacing)
@@ -73,7 +73,7 @@ class FancyTextView : TextView {
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
             }
 
-            if (textColor > 0) {
+            if (textColor != Color.TRANSPARENT) {
                 setTextColor(textColor)
             }
         }

@@ -107,7 +107,7 @@
         android:visibility="gone"
         tools:visibility="visible">
 
-        <TextView
+        <com.queatz.fantasydating.ui.FancyTextView
             android:id="@+id/fantasyTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -117,9 +117,8 @@
             android:paddingTop="@dimen/pad4x"
             android:paddingStart="@dimen/pad4x"
             android:paddingEnd="@dimen/pad4x"
-            android:textAppearance="@style/Text.Medium"
             android:textColor="@color/white"
-            android:textStyle="bold"
+            app:highlight="false"
             android:scrollbars="vertical"
             tools:text="Emi’s Fantasy" />
 
@@ -175,7 +174,6 @@
             app:thin="true"
             android:gravity="center_horizontal"
             android:elevation="@dimen/pad"
-            android:textColor="@color/colorPrimary"
             android:visibility="gone"
             tools:visibility="visible"
             android:text="@string/confirm_your_love" />

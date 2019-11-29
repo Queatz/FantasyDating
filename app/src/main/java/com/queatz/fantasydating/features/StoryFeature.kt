@@ -66,7 +66,10 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                     swipeUpArrow.visible = false
                     moreOptionsButton.visible = false
                     loveButton.visible = false
-                    fantasyTitle.text = "There's no more people to discover in Austin right now."
+                    fantasyTitle.text = "There's no more people to discover in Austin right now. <tap data=\"reload\">Reload</tap>"
+                    fantasyTitle.onLinkClick = {
+                        on<PeopleFeature>().reload()
+                    }
                     fantasyText.text = ""
                     storyText.text = ""
                     return@with
@@ -109,7 +112,7 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                     val person = on<State>().person.current!!
                     confirmLove.text = when {
                         person.youLove && person.lovesYou ->
-                            getString(R.string.you_love_each_other, person.name, on<PeopleFeature>().referToAs(person.sex))
+                            getString(R.string.you_love_each_other, person.name, on<ValueFeature>().referToAs(person.sex))
                         person.youLove ->
                             getString(R.string.remove_love, person.name)
                         on<MyProfileFeature>().isComplete().not() ->
@@ -153,7 +156,9 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                             on<EditProfileFeature>().editProfile()
                         }
                         "message" -> {
-
+                            on<State>().person.current?.let {
+                                on<NavigationFeature>().showMessages(it.id!!)
+                            }
                         }
                     }
                 }
