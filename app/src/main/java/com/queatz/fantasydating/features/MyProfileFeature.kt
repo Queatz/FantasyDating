@@ -9,6 +9,7 @@ class MyProfileFeature constructor(private val on: On) : OnLifecycle {
 
     fun reload() {
         on<Api>().me {
+            myProfile.id = it.id
             myProfile.active = it.active
             myProfile.approved = it.approved
             myProfile.boss = it.boss

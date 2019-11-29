@@ -108,6 +108,8 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                 } else {
                     val person = on<State>().person.current!!
                     confirmLove.text = when {
+                        person.youLove && person.lovesYou ->
+                            getString(R.string.you_love_each_other, person.name, on<PeopleFeature>().referToAs(person.sex))
                         person.youLove ->
                             getString(R.string.remove_love, person.name)
                         on<MyProfileFeature>().isComplete().not() ->
@@ -149,6 +151,9 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                         }
                         "profile" -> {
                             on<EditProfileFeature>().editProfile()
+                        }
+                        "message" -> {
+
                         }
                     }
                 }
