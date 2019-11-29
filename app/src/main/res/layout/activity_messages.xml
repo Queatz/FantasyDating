@@ -14,6 +14,15 @@
         android:src="@drawable/bkg"
         android:alpha=".1"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/messagesRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/sendLayout"
+        android:paddingTop="@dimen/pad2x"
+        android:clipToPadding="false" />
+
     <com.queatz.fantasydating.ui.FancyTextView
         android:id="@+id/viewStoryButton"
         android:layout_width="0dp"
@@ -34,33 +43,41 @@
         app:layout_constraintWidth_default="wrap"
         tools:text="View her story" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/messagesRecyclerView"
-        android:layout_width="match_parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewStoryButton"
-        app:layout_constraintBottom_toTopOf="@+id/sendLayout"
-        android:layout_height="0dp" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/sendLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/messagesRecyclerView"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="@dimen/pad">
 
         <EditText
             android:id="@+id/sendMessageInput"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/sendMessageButton"
             app:layout_constraintBottom_toBottomOf="parent"
             android:padding="@dimen/pad2x"
             android:inputType="textShortMessage"
             android:maxLines="1"
             android:imeOptions="actionSend"
             android:hint="Send message" />
+
+        <ImageButton
+            android:id="@+id/sendMessageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/sendMessageInput"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/ic_send_black_24dp"
+            android:tint="@color/colorPrimary"
+            android:padding="@dimen/pad2x"
+            android:background="@android:color/transparent"
+            android:contentDescription="Send message button"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

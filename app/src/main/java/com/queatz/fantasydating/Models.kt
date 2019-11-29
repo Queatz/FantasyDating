@@ -55,6 +55,7 @@ data class Person constructor(
 
 @Entity
 class Message constructor(
+    var created: Date? = null,
     var from: String = "",
     var to: String = "",
     var message: String? = null,

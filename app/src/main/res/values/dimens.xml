@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="dp">1dp</dimen>
+    <dimen name="pad4z">2dp</dimen>
     <dimen name="pad2z">4dp</dimen>
     <dimen name="pad">8dp</dimen>
     <dimen name="pad2x">16dp</dimen>

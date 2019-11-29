@@ -3,6 +3,7 @@ package com.queatz.fantasydating
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.queatz.fantasydating.features.NavigationFeature
 import com.queatz.fantasydating.ui.MessagesAdapter
@@ -21,18 +22,46 @@ class MessagesActivity : BaseActivity() {
             show(it)
         } ?: finish()
 
-        messagesRecyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = MessagesAdapter(on)
+        messagesRecyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, true)
+        adapter = MessagesAdapter(on) { person.name }
         messagesRecyclerView.adapter = adapter
 
         sendMessageInput.setOnEditorActionListener { _, action, _ ->
             if (action == EditorInfo.IME_ACTION_SEND) {
-
+                sendMessage()
                 return@setOnEditorActionListener true
             }
 
             return@setOnEditorActionListener false
         }
+
+        sendMessageButton.setOnClickListener {
+            sendMessage()
+        }
+    }
+
+    private fun reload() {
+        on<Api>().messages(person.id!!) {
+            adapter.items = it.toMutableList()
+        }
+    }
+
+    private fun sendMessage() {
+        val message = sendMessageInput.text.toString()
+
+        if (message.isBlank()) {
+            return
+        }
+
+        on<Api>().sendMessage(person.id!!, MessageRequest(message)) {
+            if (it.success.not()) {
+                on<Say>().say("Message not sent")
+            } else {
+                reload()
+            }
+        }
+
+        sendMessageInput.setText("")
     }
 
     private fun show(person: String) {
@@ -51,6 +80,8 @@ class MessagesActivity : BaseActivity() {
             on<NavigationFeature>().showPerson(person.id!!)
         }
         sendMessageInput.hint = "Send $refer a message"
+
+        reload()
     }
 
     private fun setPhoto(photo: String?) {
