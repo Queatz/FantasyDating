@@ -10,6 +10,7 @@ import androidx.core.graphics.get
 import coil.Coil
 import coil.api.load
 import com.queatz.fantasydating.*
+import com.queatz.fantasydating.ui.MoveZoomHandler
 import com.queatz.on.On
 import com.queatz.on.OnLifecycle
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -21,8 +22,17 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
 
     private val disposables = CompositeDisposable()
 
+    var currentOrigin = PointF()
     var overrideEvent: StoryEventListener? = null
     var personNavigationListener: PersonNavigationListener? = null
+
+    val scaleHandler =
+        MoveZoomHandler(on) { scale, origin ->
+            on<ViewFeature>().with {
+                background.scale = scale
+                background.origin = origin
+            }
+        }
 
     fun event(event: StoryEvent) {
         if (on<State>().person.current == null) {
@@ -207,7 +217,9 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                             storyText.text = "${name}, ${age}<br /><br />${stories[it].story}"
                         }
 
-                        background.origin = PointF(stories[it].x, stories[it].y)
+                        currentOrigin = PointF(stories[it].x, stories[it].y)
+
+                        scaleHandler.reset(1f, currentOrigin)
                     }
                 })
 

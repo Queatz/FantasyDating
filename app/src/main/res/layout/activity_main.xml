@@ -44,20 +44,10 @@
         android:background="@null" />
 
     <View
-        android:id="@+id/leftTouchTarget"
+        android:id="@+id/touchTarget"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/rightTouchTarget"
-        android:background="@android:color/transparent"
-        android:foreground="@android:color/transparent"
-        tools:visibility="gone"/>
-
-    <View
-        android:id="@+id/rightTouchTarget"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        app:layout_constraintStart_toEndOf="@+id/leftTouchTarget"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@android:color/transparent"
         android:foreground="@android:color/transparent"

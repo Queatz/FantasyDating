@@ -111,6 +111,9 @@ class LayoutFeature constructor(private val on: On) {
                                     on<BossFeature>().showReports()
                                     ui = ui.copy(showDiscoveryPreferences = false)
                                 }
+                                "reload" -> {
+                                    loadBossInfo()
+                                }
                             }
                         }
                         on<WalkthroughFeature>().closeBub(bub2)

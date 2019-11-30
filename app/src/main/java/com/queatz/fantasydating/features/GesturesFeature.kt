@@ -1,18 +1,19 @@
 package com.queatz.fantasydating.features
 
-import android.view.GestureDetector
-import android.view.Gravity
-import android.view.MotionEvent
-import android.view.View
+import android.graphics.PointF
+import android.view.*
 import androidx.core.view.GestureDetectorCompat
 import com.queatz.fantasydating.State
+import com.queatz.fantasydating.clamp
 import com.queatz.on.On
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.math.abs
 
+
 class GesturesFeature constructor(private val on: On) {
 
     private lateinit var gestureDetector: GestureDetectorCompat
+    private lateinit var scaleDetector: ScaleGestureDetector
 
     val storyNavigationListener = object : InteractionListener {
         override fun click(gravity: Int) {
@@ -116,6 +117,16 @@ class GesturesFeature constructor(private val on: On) {
                 velocityY: Float
             ) = listener.fling(velocityX, velocityY)
 
+            override fun onSingleTapUp(e: MotionEvent): Boolean {
+                if (e.rawX < on<ViewFeature>().with { background.measuredWidth } / 2) {
+                    listener.click(Gravity.START)
+                } else {
+                    listener.click(Gravity.END)
+                }
+
+                return true
+            }
+
             override fun onScroll(
                 e1: MotionEvent,
                 e2: MotionEvent,
@@ -126,26 +137,40 @@ class GesturesFeature constructor(private val on: On) {
 
         on<ViewFeature>().with {
             gestureDetector = GestureDetectorCompat(this, gestures)
+            scaleDetector = ScaleGestureDetector(this, object :
+                ScaleGestureDetector.OnScaleGestureListener {
+
+                override fun onScaleEnd(detector: ScaleGestureDetector) {
+                    on<StoryFeature>().scaleHandler.set(1f, on<StoryFeature>().currentOrigin)
+                }
+                override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {
+                    return true
+                }
+
+                override fun onScale(detector: ScaleGestureDetector): Boolean {
+                    on<StoryFeature>().scaleHandler.set(detector.scaleFactor, PointF(
+                        (detector.focusX / background.width).clamp(),
+                        (detector.focusY / background.height).clamp()
+                    ))
+                    return false
+                }
+            })
 
             View.OnTouchListener { _, event ->
                 listener.event(event)
 
-                gestureDetector.onTouchEvent(event)
+                if (listener == storyNavigationListener) {
+                    scaleDetector.onTouchEvent(event)
+                }
+
+                if (scaleDetector.isInProgress.not()) {
+                    gestureDetector.onTouchEvent(event)
+                } else false
             }.let {
-                leftTouchTarget.setOnTouchListener(it)
-                rightTouchTarget.setOnTouchListener(it)
+                touchTarget.setOnTouchListener(it)
             }
 
-            leftTouchTarget.setOnClickListener {
-                listener.click(Gravity.START)
-            }
-
-            rightTouchTarget.setOnClickListener {
-                listener.click(Gravity.END)
-            }
-
-            leftTouchTarget.setOnLongClickListener { true }
-            rightTouchTarget.setOnLongClickListener { true }
+            touchTarget.setOnLongClickListener { true }
         }
     }
 }
