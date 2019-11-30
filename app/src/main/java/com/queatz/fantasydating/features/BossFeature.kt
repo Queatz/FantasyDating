@@ -45,7 +45,7 @@ class BossFeature constructor(private val on: On) {
 
                         if (needsApproval) {
                             bossOptions.setBackgroundResource(R.drawable.green_rounded_2dp)
-                            bossOptions.text = "<tap data=\"approve\">Approve</tap> ${person.current!!.name}"
+                            bossOptions.text = "<tap data=\"approve\">Approve</tap> ${person.current!!.name}, or <tap data=\"unapprove\">Unapprove</tap> with a comment"
                         }
                     }
                 } else {
@@ -56,6 +56,8 @@ class BossFeature constructor(private val on: On) {
     }
 
     fun showApprovals() {
+        reports = listOf()
+
         on<Api>().bossApprovals {
             on<PeopleFeature>().show(it)
             on<Timer>().post(Runnable {
@@ -90,16 +92,30 @@ class BossFeature constructor(private val on: On) {
             if (approve) {
                 on<Api>().bossApprove(BossApproveRequest(person.id!!, approve = true)) {
                     on<Say>().say("${person.name} has been approved")
-                    on<PeopleFeature>().nextPerson()
+                    next(person.id!!)
                 }
             } else {
                 on<EditorFeature>().open(prefix = "Comments for ${person.name}: ") { reason ->
-                    on<Api>().bossApprove(BossApproveRequest(person.id!!, approve = false, message = reason)) {
+                    on<Api>().bossApprove(
+                        BossApproveRequest(
+                            person.id!!,
+                            approve = false,
+                            message = reason
+                        )
+                    ) {
                         on<Say>().say("${person.name} has been unapproved")
-                        showNextReport()
+                        next(person.id!!)
                     }
                 }
             }
+        }
+    }
+
+    private fun next(person: String) {
+        if (currentReport() == null) {
+            on<PeopleFeature>().remove(person)
+        } else {
+            showNextReport()
         }
     }
 
@@ -119,6 +135,9 @@ class BossFeature constructor(private val on: On) {
             })
             return true
         }
+
+        on<PeopleFeature>().reload()
+        on<State>().ui = on<State>().ui.copy(showFeed = true, showEditProfile = false)
 
         return false
     }

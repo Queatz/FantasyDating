@@ -12,3 +12,11 @@ data class ProfileLiveEventType constructor(
 data class LoveEventType constructor(
     val person: String
 ) : EventType("love")
+
+data class UnloveEventType constructor(
+    val person: String
+) : EventType("unlove")
+
+data class StoryUpdateEventType constructor(
+    val person: String
+) : EventType("story")

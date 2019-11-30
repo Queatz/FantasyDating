@@ -81,7 +81,7 @@ class PeopleFeature constructor(private val on: On) {
         nextPerson()
     }
 
-    private fun remove(person: String) {
+    fun remove(person: String) {
         people.removeIf { it.id == person } then {
             index--
             nextPerson()

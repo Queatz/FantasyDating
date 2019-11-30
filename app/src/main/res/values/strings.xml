@@ -14,10 +14,10 @@
     <string name="edit_where"><![CDATA[<tap data="Austin">Austin</tap>, or <tap data="nope">somewhere else</tap>]]></string>
     <string name="upload_photo_modal"><![CDATA[
         Choose a photo. We review all photos for authenticity and photo quality. We recommend hiring a pro photographer.<br /><br />We allow nudity so long as it is artistic or cute. Read our <tap thin="true" data="guidebook">Photography Guidebook</tap>.<br /><br />
-        <tap data="choose">Choose from your photo</tap>, or <tap data="close">close</tap>]]></string>
+        <tap data="choose">Choose from your photo</tap>, or <tap data="close">Close</tap>]]></string>
     <string name="choose_photo_modal"><![CDATA[
         Choose a photo, or <tap data="reposition">reposition</tap> this one.<br /><br />We review all photos for authenticity and photo quality. We recommend hiring a pro photographer.<br /><br />We allow nudity so long as it is artistic or cute. Read our <tap thin="true" data="guidebook">Photography Guidebook</tap>.<br /><br />
-        <tap data="choose">Choose from your photo</tap>, or <tap data="close">close</tap>]]></string>
+        <tap data="choose">Choose from your photo</tap>, or <tap data="close">Close</tap>]]></string>
     <string name="cont">Continue</string>
     <string name="moreOptionsTemplate"><![CDATA[<tap data="report">Report</tap>, or <tap data="hide">Hide</tap> %1$s]]></string>
     <string name="moreOptionsHideConfirmTemplate"><![CDATA[<tap data="hide:confirm">Yes</tap>, I want to hide %1$s]]></string>

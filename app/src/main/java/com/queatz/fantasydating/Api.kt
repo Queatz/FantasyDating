@@ -5,7 +5,6 @@ import com.queatz.on.On
 import io.ktor.client.utils.EmptyContent
 import io.ktor.util.KtorExperimentalAPI
 
-@KtorExperimentalAPI
 class Api constructor(private val on: On) {
     fun me(callback: (Person) -> Unit) =
         get("me", callback)

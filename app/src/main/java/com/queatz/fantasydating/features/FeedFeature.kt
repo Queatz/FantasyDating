@@ -50,6 +50,12 @@ class FeedFeature constructor(private val on: On) {
                 "love" -> {
                     open(on<Json>().from<LoveEventType>(event.data, LoveEventType::class.java))
                 }
+                "unlove" -> {
+                    open(on<Json>().from<UnloveEventType>(event.data, LoveEventType::class.java))
+                }
+                "story" -> {
+                    open(on<Json>().from<StoryUpdateEventType>(event.data, StoryUpdateEventType::class.java))
+                }
             }
         }
     }
@@ -62,16 +68,25 @@ class FeedFeature constructor(private val on: On) {
                 } else {
                     on<ViewFeature>().with {
                         on<LayoutFeature>().canCloseFullscreenModal = true
-                        fullscreenMessageText.text = "${event.message}<br /><br /><tap>Close</tap>"
+                        fullscreenMessageText.text = "${event.message}<br /><br /><tap data=\"profile\">Edit your profile</tap> or <tap data=\"close\">Close</tap>"
                         fullscreenMessageLayout.visible = true
 
                         fullscreenMessageText.onLinkClick = {
+                            when (it) {
+                                "profile" -> on<EditProfileFeature>().editProfile()
+                            }
                             fullscreenMessageLayout.visible = false
                         }
                     }
                 }
             }
             is LoveEventType -> {
+                on<NavigationFeature>().showMessages(event.person)
+            }
+            is UnloveEventType -> {
+                on<NavigationFeature>().showMessages(event.person)
+            }
+            is StoryUpdateEventType -> {
                 on<NavigationFeature>().showMessages(event.person)
             }
         }

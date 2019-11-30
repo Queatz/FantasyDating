@@ -33,6 +33,15 @@ class EditProfileFeature constructor(private val on: On) {
 
             return true
         }
+
+        override fun event(event: MotionEvent) {
+            on<ViewFeature>().with {
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> choosePhotoButton.visible = false
+                    MotionEvent.ACTION_UP -> choosePhotoButton.visible = true
+                }
+            }
+        }
     }
 
     fun editProfile() {
