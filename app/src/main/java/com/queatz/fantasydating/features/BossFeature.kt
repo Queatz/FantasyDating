@@ -29,6 +29,7 @@ class BossFeature constructor(private val on: On) {
                     "approve" -> approveCurrent(true)
                     "unapprove" -> approveCurrent(false)
                     "resolve" -> resolveCurrent()
+                    "remove" -> removeCurrent()
                 }
             }
 
@@ -38,7 +39,7 @@ class BossFeature constructor(private val on: On) {
                         bossOptions.visible = true
                         bossOptions.setBackgroundResource(R.drawable.red_rounded_2dp)
                         bossOptions.text = "(${index + 1}/${reports.size}) Reported for \"${report.report}\"" +
-                                "${if (person.current!!.approved) " <tap data=\"unapprove\">Unapprove</tap> or <tap data=\"resolve\">Resolve</tap>" else ". ${person.current!!.name} is currently unapproved. <tap data=\"resolve\">Resolve</tap>"}"
+                                "${if (person.current!!.approved) " <tap data=\"unapprove\">Unapprove</tap> ${person.current?.name}, <tap data=\"remove\">Remove</tap> this profile, or <tap data=\"resolve\">Resolve</tap> this report." else ". ${person.current!!.name} is currently unapproved. <tap data=\"remove\">Remove</tap> this profile, or <tap data=\"resolve\">Resolve</tap> this report."}"
                     } ?: run {
                         val needsApproval = person.current?.approved?.not() ?: false
                         bossOptions.visible = needsApproval
@@ -106,6 +107,32 @@ class BossFeature constructor(private val on: On) {
                         on<Say>().say("${person.name} has been unapproved")
                         next(person.id!!)
                     }
+                }
+            }
+        }
+    }
+
+    private fun removeCurrent() {
+        on<State>().person.current?.let { person ->
+            person.id ?: return@let
+
+            on<ViewFeature>().with {
+                on<LayoutFeature>().canCloseFullscreenModal = true
+                fullscreenMessageText.text = "Completely remove this profile?<br /><br /><tap data=\"confirm\">Confirm</tap> or <tap data=\"no\">No way</tap>"
+                fullscreenMessageLayout.visible = true
+
+                fullscreenMessageText.onLinkClick = {
+                    when (it) {
+                        "confirm" -> {
+                            on<Api>().bossRemoveProfile(BossRemoveProfileRequest(person.id!!)) {
+                                if (it.success) {
+                                    on<Say>().say("Profile removed")
+                                }
+                            }
+                        }
+                    }
+
+                    fullscreenMessageLayout.visible = false
                 }
             }
         }

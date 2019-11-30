@@ -48,6 +48,13 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
     fun start() {
         on<State>().observe(State.Area.Person) {
             on<ViewFeature>().with {
+                disposables.add(lifecycle.subscribe {
+                    when (it) {
+                        LifecycleEvent.Pause -> event(StoryEvent.Pause)
+                        LifecycleEvent.Resume -> event(StoryEvent.Resume)
+                    }
+                })
+
                 if (ui.showFeed || ui.showDiscoveryPreferences || ui.showFantasy || ui.showEditProfile) {
                     event(StoryEvent.Reset)
                 } else {

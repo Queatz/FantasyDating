@@ -3,7 +3,6 @@ package com.queatz.fantasydating
 import com.google.gson.reflect.TypeToken
 import com.queatz.on.On
 import io.ktor.client.utils.EmptyContent
-import io.ktor.util.KtorExperimentalAPI
 
 class Api constructor(private val on: On) {
     fun me(callback: (Person) -> Unit) =
@@ -57,6 +56,9 @@ class Api constructor(private val on: On) {
 
     fun bossResolveReport(request: BossReportRequest, callback: (SuccessResponse) -> Unit) =
         post("boss/report", request, callback)
+
+    fun bossRemoveProfile(request: BossRemoveProfileRequest, callback: (SuccessResponse) -> Unit) =
+        post("boss/removeProfile", request, callback)
 
     private inline fun <reified T : Any> get(url: String, noinline callback: (T) -> Unit) = CallbackHandle { error(it) }.apply {
         on<Http>().get(url, type<T>(), { errorCallback(it) }, callback)

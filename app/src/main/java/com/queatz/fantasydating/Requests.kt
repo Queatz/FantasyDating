@@ -39,6 +39,10 @@ data class BossReportRequest constructor(
     var resolve: Boolean = true
 )
 
+data class BossRemoveProfileRequest constructor(
+    var person: String? = null
+)
+
 data class WhoIsTheBossRequest constructor(
     var whoIsTheBoss: String? = null
 )

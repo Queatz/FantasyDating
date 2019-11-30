@@ -62,7 +62,7 @@
             app:layout_constraintEnd_toStartOf="@+id/sendMessageButton"
             app:layout_constraintBottom_toBottomOf="parent"
             android:padding="@dimen/pad2x"
-            android:inputType="textShortMessage"
+            android:inputType="textCapSentences|textShortMessage"
             android:maxLines="1"
             android:imeOptions="actionSend"
             android:hint="Send message" />

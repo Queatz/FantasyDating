@@ -40,6 +40,10 @@ class PeopleFeature constructor(private val on: On) {
         } else {
             show(null)
         }
+
+        if (index + 1 < people.size) {
+            preload(people[index + 1])
+        }
     }
 
     fun previousPerson() {
@@ -91,6 +95,10 @@ class PeopleFeature constructor(private val on: On) {
     private fun show(person: Person?) {
         on<State>().person = PersonState(person)
 
+        preload(person)
+    }
+
+    private fun preload(person: Person?) {
         person?.stories?.forEach {
             preload(it.photo)
         }

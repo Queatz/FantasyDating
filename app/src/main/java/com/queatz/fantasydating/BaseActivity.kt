@@ -7,9 +7,12 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.queatz.fantasydating.features.ViewFeature
 import com.queatz.on.On
+import io.reactivex.subjects.BehaviorSubject
 
 abstract class BaseActivity : AppCompatActivity() {
     protected val on = On()
+
+    val lifecycle = BehaviorSubject.create<LifecycleEvent>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -17,6 +20,16 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         on<ViewFeature>().activity = this
+    }
+
+    override fun onResume() {
+        super.onResume()
+        lifecycle.onNext(LifecycleEvent.Resume)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        lifecycle.onNext(LifecycleEvent.Pause)
     }
 
     override fun onDestroy() {
@@ -28,4 +41,9 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         on<MediaRequest>().onActivityResult(requestCode, resultCode, data)
     }
+}
+
+enum class LifecycleEvent {
+    Pause,
+    Resume
 }
