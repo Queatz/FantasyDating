@@ -48,7 +48,7 @@ class MessagesAdapter constructor(private val on: On, val personName: () -> Stri
         val item = items[position]
         val isFromMe = on<MyProfileFeature>().myProfile.id == item.from
 
-        holder.name.visible = isFromMe.not()
+        holder.name.visible = isFromMe.not() && personName().isNotBlank()
 
         if (isFromMe.not()) {
             holder.name.text = personName()

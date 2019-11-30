@@ -66,7 +66,7 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                     swipeUpArrow.visible = false
                     moreOptionsButton.visible = false
                     loveButton.visible = false
-                    fantasyTitle.text = "There's no more people to discover in Austin right now. <tap data=\"reload\">Reload</tap>"
+                    fantasyTitle.text = "There's no more ${on<ValueFeature>().pluralSex(on<DiscoveryPreferencesFeature>().discoveryPreferences.who).toLowerCase()} to discover in Austin right now. <tap data=\"reload\">Reload</tap>"
                     fantasyTitle.onLinkClick = {
                         on<PeopleFeature>().reload()
                     }
@@ -112,7 +112,7 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                     val person = on<State>().person.current!!
                     confirmLove.text = when {
                         person.youLove && person.lovesYou ->
-                            getString(R.string.you_love_each_other, person.name, on<ValueFeature>().referToAs(person.sex))
+                            getString(R.string.you_love_each_other, person.name, on<ValueFeature>().referToAs(person.sex, true))
                         person.youLove ->
                             getString(R.string.remove_love, person.name)
                         on<MyProfileFeature>().isComplete().not() ->
@@ -233,7 +233,7 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                 }
             }
 
-            Coil.load(this, "$photo?s=1600") {
+            Coil.load(this, "$photo?s=4") {
                 allowHardware(false)
                 target({}, {}, { drawable ->
                     val color = drawable.toBitmap(4, 4, Bitmap.Config.ARGB_8888)[0, 3]

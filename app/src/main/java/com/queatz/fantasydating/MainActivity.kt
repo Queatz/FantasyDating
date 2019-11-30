@@ -34,14 +34,11 @@ class MainActivity : BaseActivity() {
         intent?.let { handle(it) }
     }
 
-    private fun handle(intent: Intent): Boolean {
+    private fun handle(intent: Intent) =
         intent.getStringExtra(NavigationFeature.ExtraPersonId)?.let {
             on<PeopleFeature>().show(it)
-            return true
-        }
-
-        return false
-    }
+            true
+        } ?: false
 
     override fun onBackPressed() = when {
         on<EditProfileFeature>().onBackPressed() -> {}

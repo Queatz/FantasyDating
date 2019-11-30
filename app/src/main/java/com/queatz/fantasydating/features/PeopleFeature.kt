@@ -54,17 +54,14 @@ class PeopleFeature constructor(private val on: On) {
 
     fun hide(person: String) {
         on<Api>().person(person, PersonRequest(hide = true)) {}
-        people.removeIf { it.id == person }
-
-        index--
-        nextPerson()
+        remove(person)
     }
 
     fun report(person: Person, message: String) {
-        hide(person.id!!)
-
+        remove(person.id!!)
         on<Api>().person(person.id!!, PersonRequest(report = true, message = message)) {
             if (it.success) {
+                hide(person.id!!)
                 on<Say>().say("Thank you for reporting ${person.name}")
             } else {
                 on<Say>().say(R.string.something_went_wrong)
@@ -84,6 +81,13 @@ class PeopleFeature constructor(private val on: On) {
         nextPerson()
     }
 
+    private fun remove(person: String) {
+        people.removeIf { it.id == person } then {
+            index--
+            nextPerson()
+        }
+    }
+
     private fun show(person: Person?) {
         on<State>().person = PersonState(person)
 
@@ -92,9 +96,9 @@ class PeopleFeature constructor(private val on: On) {
         }
     }
 
-    private fun preload(url: String) {
+    private fun preload(photo: String) {
         on<ViewFeature>().with {
-            Coil.load(this, url)
+            Coil.load(this, "$photo?s=1600")
         }
     }
 }

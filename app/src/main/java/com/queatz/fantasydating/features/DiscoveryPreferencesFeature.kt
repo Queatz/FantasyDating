@@ -10,7 +10,7 @@ class DiscoveryPreferencesFeature constructor(private val on: On) : OnLifecycle 
     private val sexes = setOf("Girl", "Boy", "Person")
     private val ages = listOf(18, 20, 22, 24, 26, 28, 30, 35, 40, 45, 50, 1000)
 
-    private lateinit var discoveryPreferences: DiscoveryPreferences
+    lateinit var discoveryPreferences: DiscoveryPreferences
 
     fun edit(function: DiscoveryPreferences.() -> Unit) {
         function.invoke(discoveryPreferences)
@@ -126,24 +126,18 @@ class DiscoveryPreferencesFeature constructor(private val on: On) : OnLifecycle 
     private fun updateDiscoveryPreferences() {
         on<ViewFeature>().with {
             editDiscoveryPreferencesText.text = resources.getString(R.string.discovery_preferences_template,
-                pluralSex(discoveryPreferences.who),
+                on<ValueFeature>().pluralSex(discoveryPreferences.who),
                 discoveryPreferences.where,
                 discoveryPreferences.ageMin.toString(),
                 discoveryPreferences.ageMax.let { if (it == 1000) getString(R.string.any) else it.toString() }
             )
 
             discoveryPreferencesText.text = resources.getString(R.string.discovery_preferences,
-                pluralSex(discoveryPreferences.who),
+                on<ValueFeature>().pluralSex(discoveryPreferences.who),
                 discoveryPreferences.where,
                 discoveryPreferences.ageMin.toString(),
                 discoveryPreferences.ageMax.let { if (it == 1000) getString(R.string.any) else it.toString() }
             )
         }
-    }
-
-    private fun pluralSex(who: String) = when (who) {
-        "Girl" -> "Girls"
-        "Boy" -> "Boys"
-        else -> "People"
     }
 }

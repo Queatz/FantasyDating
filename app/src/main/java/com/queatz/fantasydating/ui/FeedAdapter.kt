@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.queatz.fantasydating.Event
 import com.queatz.fantasydating.Pretty
 import com.queatz.fantasydating.R
+import com.queatz.fantasydating.features.FeedFeature
 import com.queatz.fantasydating.features.ViewFeature
 import com.queatz.fantasydating.visible
 import com.queatz.on.On
@@ -45,10 +46,14 @@ class FeedAdapter constructor(private val on: On) : RecyclerView.Adapter<FeedVie
         }
 
         holder.text.text = on<ViewFeature>().activity.getString(R.string.link, item.name)
+
+        holder.text.onLinkClick = {
+            on<FeedFeature>().open(item)
+        }
     }
 }
 
 class FeedViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val title: TextView = view.title
-    val text: TextView = view.text
+    val text: FancyTextView = view.text
 }

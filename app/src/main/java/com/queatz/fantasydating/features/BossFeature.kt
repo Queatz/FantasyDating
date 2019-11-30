@@ -28,6 +28,7 @@ class BossFeature constructor(private val on: On) {
                 when (it) {
                     "approve" -> approveCurrent(true)
                     "unapprove" -> approveCurrent(false)
+                    "resolve" -> resolveCurrent()
                 }
             }
 
@@ -36,7 +37,8 @@ class BossFeature constructor(private val on: On) {
                     currentReport()?.let { report ->
                         bossOptions.visible = true
                         bossOptions.setBackgroundResource(R.drawable.red_rounded_2dp)
-                        bossOptions.text = "(${index + 1}/${reports.size}) Reported for \"${report.report}\"${if (person.current!!.approved) " <tap data=\"unapprove\">Unapprove</tap>" else ". ${person.current!!.name} is currently unapproved."}"
+                        bossOptions.text = "(${index + 1}/${reports.size}) Reported for \"${report.report}\"" +
+                                "${if (person.current!!.approved) " <tap data=\"unapprove\">Unapprove</tap> or <tap data=\"resolve\">Resolve</tap>" else ". ${person.current!!.name} is currently unapproved. <tap data=\"resolve\">Resolve</tap>"}"
                     } ?: run {
                         val needsApproval = person.current?.approved?.not() ?: false
                         bossOptions.visible = needsApproval
@@ -70,6 +72,13 @@ class BossFeature constructor(private val on: On) {
             on<StoryFeature>().personNavigationListener = personNavigationListener
             on<PeopleFeature>().show(listOf())
             on<State>().ui = on<State>().ui.copy(showFeed = false)
+            showNextReport()
+        }
+    }
+
+    private fun resolveCurrent() {
+        on<Api>().bossResolveReport(BossReportRequest(reports[index].id)) {
+            on<Say>().say("Report has been resolved")
             showNextReport()
         }
     }

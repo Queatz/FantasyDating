@@ -1,5 +1,6 @@
 package com.queatz.fantasydating
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,19 +12,20 @@ import kotlinx.android.synthetic.main.activity_messages.*
 
 class MessagesActivity : BaseActivity() {
 
-    private lateinit var person: Person
+    private var person: Person? = null
+    private lateinit var personId: String
     private lateinit var adapter: MessagesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_messages)
 
-        intent?.getStringExtra(NavigationFeature.ExtraPersonId)?.let {
-            show(it)
-        } ?: finish()
+        if (handle(intent).not()) {
+            finish()
+        }
 
         messagesRecyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, true)
-        adapter = MessagesAdapter(on) { person.name }
+        adapter = MessagesAdapter(on) { person?.name ?: "" }
         messagesRecyclerView.adapter = adapter
 
         sendMessageInput.setOnEditorActionListener { _, action, _ ->
@@ -40,8 +42,19 @@ class MessagesActivity : BaseActivity() {
         }
     }
 
-    private fun reload() {
-        on<Api>().messages(person.id!!) {
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        handle(intent)
+    }
+
+    private fun handle(intent: Intent?) =
+        intent?.getStringExtra(NavigationFeature.ExtraPersonId)?.let {
+            show(it)
+            true
+        } ?: false
+
+    private fun reloadMessages() {
+        on<Api>().messages(personId) {
             adapter.items = it.toMutableList()
         }
     }
@@ -49,15 +62,15 @@ class MessagesActivity : BaseActivity() {
     private fun sendMessage() {
         val message = sendMessageInput.text.toString()
 
-        if (message.isBlank()) {
+        if (person?.id == null || message.isBlank()) {
             return
         }
 
-        on<Api>().sendMessage(person.id!!, MessageRequest(message)) {
+        on<Api>().sendMessage(person!!.id!!, MessageRequest(message)) {
             if (it.success.not()) {
                 on<Say>().say("Message not sent")
             } else {
-                reload()
+                reloadMessages()
             }
         }
 
@@ -65,34 +78,50 @@ class MessagesActivity : BaseActivity() {
     }
 
     private fun show(person: String) {
+        personId = person
+
+        reloadMessages()
+
+        setPhoto(null)
+
         on<Api>().person(person) {
             show(it)
-        }
+        } error { show(null) }
     }
 
-    private fun show(person: Person) {
+    private fun show(person: Person?) {
         this.person = person
-        val refer = on<ValueFeature>().referToAs(person.sex)
 
-        setPhoto(person.stories.firstOrNull()?.photo)
-        viewStoryButton.text = getString(R.string.view_story, refer)
-        viewStoryButton.onLinkClick = {
-            on<NavigationFeature>().showPerson(person.id!!)
+        person?.let { person ->
+            setPhoto(person.stories.firstOrNull()?.photo)
+            viewStoryButton.visible = true
+            viewStoryButton.text = getString(R.string.view_story,  on<ValueFeature>().referToAs(person.sex))
+            viewStoryButton.onLinkClick = {
+                on<NavigationFeature>().showPerson(person.id!!)
+            }
+            sendMessageInput.hint = "Send ${ on<ValueFeature>().referToAs(person.sex, true)} a message"
+            sendMessageInput.isEnabled = true
+            sendMessageButton.isEnabled = true
+        } ?: run {
+            setPhoto(null)
+            viewStoryButton.visible = true
+            viewStoryButton.text = "Viewing archived messages"
+            viewStoryButton.onLinkClick = {}
+            sendMessageInput.hint = "Send ${ on<ValueFeature>().referToAs("Person", true)} a message"
+            sendMessageInput.isEnabled = false
+            sendMessageButton.isEnabled = false
         }
-        sendMessageInput.hint = "Send $refer a message"
-
-        reload()
     }
 
     private fun setPhoto(photo: String?) {
-        background.setImageResource(R.drawable.bkg)
+        background.setImageResource(R.color.white)
 
         if (photo.isNullOrBlank()) {
             return
         }
 
         background.load("$photo?s=1600") {
-            placeholder(R.drawable.bkg)
+            placeholder(R.color.white)
             crossfade(true)
             listener { _, _ -> }
         }

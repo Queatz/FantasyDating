@@ -34,6 +34,11 @@ data class BossApproveRequest constructor(
     var message: String? = null
 )
 
+data class BossReportRequest constructor(
+    var report: String? = null,
+    var resolve: Boolean = true
+)
+
 data class WhoIsTheBossRequest constructor(
     var whoIsTheBoss: String? = null
 )

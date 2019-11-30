@@ -1,8 +1,8 @@
 package com.queatz.fantasydating.features
 
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.queatz.fantasydating.Api
-import com.queatz.fantasydating.State
+import com.google.gson.JsonObject
+import com.queatz.fantasydating.*
 import com.queatz.fantasydating.ui.FeedAdapter
 import com.queatz.on.On
 import kotlinx.android.synthetic.main.activity_main.*
@@ -33,6 +33,47 @@ class FeedFeature constructor(private val on: On) {
     private fun reload() {
         on<Api>().events {
             adapter.items = it.toMutableList()
+        }
+    }
+
+    fun open(event: Event) {
+        if (event.data.isNotBlank()) {
+            val json = on<Json>().from<JsonObject>(event.data, JsonObject::class.java)
+            if (json.has("type").not()) {
+                return
+            }
+
+            when (json.getAsJsonPrimitive("type").asString) {
+                "live" -> {
+                    open(on<Json>().from<ProfileLiveEventType>(event.data, ProfileLiveEventType::class.java))
+                }
+                "love" -> {
+                    open(on<Json>().from<LoveEventType>(event.data, LoveEventType::class.java))
+                }
+            }
+        }
+    }
+
+    private fun open(event: EventType) {
+        when (event) {
+            is ProfileLiveEventType -> {
+                if (event.live) {
+                    on<EditProfileFeature>().editProfile()
+                } else {
+                    on<ViewFeature>().with {
+                        on<LayoutFeature>().canCloseFullscreenModal = true
+                        fullscreenMessageText.text = "${event.message}<br /><br /><tap>Close</tap>"
+                        fullscreenMessageLayout.visible = true
+
+                        fullscreenMessageText.onLinkClick = {
+                            fullscreenMessageLayout.visible = false
+                        }
+                    }
+                }
+            }
+            is LoveEventType -> {
+                on<NavigationFeature>().showMessages(event.person)
+            }
         }
     }
 }

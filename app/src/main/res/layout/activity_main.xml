@@ -50,6 +50,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/rightTouchTarget"
         android:background="@android:color/transparent"
+        android:foreground="@android:color/transparent"
         tools:visibility="gone"/>
 
     <View
@@ -59,6 +60,7 @@
         app:layout_constraintStart_toEndOf="@+id/leftTouchTarget"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@android:color/transparent"
+        android:foreground="@android:color/transparent"
         tools:visibility="gone"/>
 
     <ImageView
@@ -93,7 +95,6 @@
         app:thin="true"
         android:elevation="@dimen/pad"
         android:scrollbars="none"
-        android:textColor="@color/colorPrimary"
         android:visibility="gone"
         tools:visibility="visible"
         android:text="@string/moreOptionsTemplate" />
@@ -160,15 +161,13 @@
         <com.queatz.fantasydating.ui.FancyTextView
             android:id="@+id/confirmLove"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_margin="@dimen/pad2x"
             app:layout_constraintBottom_toTopOf="@+id/loveButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constrainedWidth="true"
-            app:layout_constrainedHeight="true"
             app:layout_constraintWidth_default="wrap"
-            app:layout_constraintHeight_default="wrap"
             android:background="@drawable/white_rounded"
             android:padding="@dimen/pad2x"
             app:thin="true"
@@ -289,7 +288,6 @@
             android:gravity="center_horizontal"
             android:elevation="@dimen/pad"
             app:thin="true"
-            android:textColor="@color/colorPrimary"
             android:text="@string/edit_who"
             android:visibility="gone" />
 
@@ -303,7 +301,6 @@
             app:thin="true"
             android:gravity="center_horizontal"
             android:elevation="@dimen/pad"
-            android:textColor="@color/colorPrimary"
             android:text="@string/edit_your_profile" />
 
         <com.queatz.fantasydating.ui.FancyTextView
@@ -316,7 +313,6 @@
             app:thin="true"
             android:gravity="center_horizontal"
             android:elevation="@dimen/pad"
-            android:textColor="@color/colorPrimary"
             tools:text="22 Approvals, 14 Reports"
             android:visibility="gone"
             tools:visibility="visible" />

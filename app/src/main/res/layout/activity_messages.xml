@@ -41,6 +41,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constrainedWidth="true"
         app:layout_constraintWidth_default="wrap"
+        android:visibility="gone"
+        tools:visibility="visible"
         tools:text="View her story" />
 
     <androidx.constraintlayout.widget.ConstraintLayout

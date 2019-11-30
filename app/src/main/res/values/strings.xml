@@ -21,7 +21,7 @@
     <string name="cont">Continue</string>
     <string name="moreOptionsTemplate"><![CDATA[<tap data="report">Report</tap>, or <tap data="hide">Hide</tap> %1$s]]></string>
     <string name="moreOptionsHideConfirmTemplate"><![CDATA[<tap data="hide:confirm">Yes</tap>, I want to hide %1$s]]></string>
-    <string name="moreOptionsReportConfirmTemplate"><![CDATA[Report %1$s as <tap data="report:confirm:fake">Fake</tap> or <tap data="report:confirm:other">Something else</tap>]]></string>
+    <string name="moreOptionsReportConfirmTemplate"><![CDATA[Hide %1$s and report as <tap data="report:confirm:fake">Fake</tap> or <tap data="report:confirm:other">Something else</tap>]]></string>
     <string name="moreOptionsProfileTemplate"><![CDATA[<tap data="deleteMyAccount">Delete my account</tap>]]></string>
     <string name="moreOptionsProfileConfirmTemplate"><![CDATA[Your account will die and you\'ll need to set up a new account to use Fantasy Dating again.<br /><br />Do you want this?<br /><br /><tap data="deleteMyAccount:confirm">Yes, delete my account</tap><br /><br /><tap data="cancel">No way, get me outta here</tap>]]></string>
     <string name="confirm_your_love"><![CDATA[Love is our ingredient. Yes, <tap data="love">I love %1$s</tap>]]></string>
