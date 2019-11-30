@@ -98,12 +98,9 @@ class LayoutFeature constructor(private val on: On) {
                     }
 
                     if (ui.showDiscoveryPreferences) {
-                        on<Api>().bossInfo {
-                            bossOverview.text = "${it.approvals} <tap data=\"approve\">Approvals</tap>, ${it.reports} <tap data=\"reports\">Reports</tap>"
-                        }
+                        loadBossInfo()
 
                         bossOverview.visible = isBoss
-                        bossOverview.text = "Please wait..."
                         bossOverview.onLinkClick = {
                             when (it) {
                                 "approve" -> {
@@ -122,6 +119,17 @@ class LayoutFeature constructor(private val on: On) {
                         editProfileText.visible = true
                     }
                 }
+            }
+        }
+    }
+
+    private fun loadBossInfo() {
+        on<ViewFeature>().with {
+            bossOverview.text = "Please wait..."
+            on<Api>().bossInfo {
+                bossOverview.text = "${it.approvals} <tap data=\"approve\">Approvals</tap>, ${it.reports} <tap data=\"reports\">Reports</tap>"
+            } error {
+                bossOverview.text = "Failed to load. <tap data=\"reload\">Reload</tap>"
             }
         }
     }
