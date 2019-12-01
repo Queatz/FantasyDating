@@ -419,7 +419,7 @@
         android:elevation="@dimen/pad2x"
         android:lineSpacingMultiplier="1.4"
         android:visibility="gone"
-        android:text="Swipe up to view Emi's fantasy." />
+        tools:text="@string/bub3" />
 
     <TextView
         android:id="@+id/bub4"
@@ -442,7 +442,7 @@
         android:elevation="@dimen/pad2x"
         android:visibility="gone"
         android:lineSpacingMultiplier="1.4"
-        android:text="Tap show you love her.  If she loves you back, you’ll both be able to talk with each other." />
+        tools:text="@string/bub4" />
 
     <TextView
         android:id="@+id/bub5"

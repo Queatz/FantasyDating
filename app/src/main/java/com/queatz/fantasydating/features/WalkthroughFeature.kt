@@ -3,10 +3,7 @@ package com.queatz.fantasydating.features
 import android.animation.Animator
 import android.view.View
 import android.view.ViewGroup
-import com.queatz.fantasydating.R
-import com.queatz.fantasydating.WalkthroughStep
-import com.queatz.fantasydating.WalkthroughStep_
-import com.queatz.fantasydating.visible
+import com.queatz.fantasydating.*
 import com.queatz.on.On
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -79,7 +76,11 @@ class WalkthroughFeature constructor(private val on: On) {
 
                 showBub(bub1)
                 showBub(bub2)
-                showBub(bub3)
+
+                on<State>().person.current?.let {
+                    bub3?.text = getString(R.string.bub3, it.name)
+                    showBub(bub3)
+                }
             }
             return
         }
@@ -96,7 +97,11 @@ class WalkthroughFeature constructor(private val on: On) {
 
                 showBub(bub1)
                 showBub(bub2)
-                showBub(bub3)
+
+                on<State>().person.current?.let {
+                    bub3?.text = getString(R.string.bub3, it.name)
+                    showBub(bub3)
+                }
             }
         }
     }

@@ -9,6 +9,12 @@ class ValueFeature constructor(private val on: On) {
         else -> "them"
     }
 
+    fun pronoun(sex: String) = when (sex) {
+        "Boy" -> "he"
+        "Girl" -> "she"
+        else -> "they"
+    }
+
     fun pluralSex(who: String) = when (who) {
         "Girl" -> "Girls"
         "Boy" -> "Boys"

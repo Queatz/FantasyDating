@@ -21,34 +21,34 @@ android {
     packagingOptions {
         exclude 'META-INF/*'
     }
-//    signingConfigs {
-//        release {
-//            storeFile file("../../../android.jks")
-//            storePassword "closertome"
-//            keyAlias "closer"
-//            keyPassword "closertome"
-//            v1SigningEnabled true
-//            v2SigningEnabled true
-//        }
-//        debug {
-//            storeFile file("../../../android.jks")
-//            storePassword "closertome"
-//            keyAlias "closer"
-//            keyPassword "closertome"
-//            v1SigningEnabled true
-//            v2SigningEnabled true
-//        }
-//    }
-//    buildTypes {
-//        release {
-//            minifyEnabled false
-//            signingConfig signingConfigs.release
-//        }
-//        debug {
-//            minifyEnabled false
-//            signingConfig signingConfigs.debug
-//        }
-//    }
+    signingConfigs {
+        release {
+            storeFile file("../fantasy.jks")
+            storePassword "fantasy"
+            keyAlias "fantasy"
+            keyPassword "fantasy"
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+        debug {
+            storeFile file("../fantasy.jks")
+            storePassword "fantasy"
+            keyAlias "fantasy"
+            keyPassword "fantasy"
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+        }
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+        }
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

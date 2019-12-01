@@ -63,14 +63,17 @@ class LayoutFeature constructor(private val on: On) {
                         on<StoryFeature>().event(StoryEvent.Pause)
 
                         ui.showEditProfile otherwise {
-                            on<WalkthroughFeature>().showBub(bub4)
+                            on<State>().person.current?.let {
+                                bub4?.text = getString(R.string.bub4, on<ValueFeature>().referToAs(it.sex, true), on<ValueFeature>().pronoun(it.sex))
+                                on<WalkthroughFeature>().showBub(bub4)
+                            }
                             on<WalkthroughFeature>().closeBub(bub5)
                         }
                     } else {
                         swipeUpArrow.rotation = 0f
                         fantasy.visible = false
                         storyText.visible = true
-                        moreOptionsButton.visible = true
+                        moreOptionsButton.visible = person.current != null
                         on<StoryFeature>().event(StoryEvent.Resume)
 
                         ui.showEditProfile then {

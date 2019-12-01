@@ -13,10 +13,10 @@
     <string name="edit_who"><![CDATA[<tap data="Girl">Girls</tap>, <tap data="Boy">Boys</tap>, or <tap data="Person">People</tap>]]></string>
     <string name="edit_where"><![CDATA[<tap data="Austin">Austin</tap>, or <tap data="nope">somewhere else</tap>]]></string>
     <string name="upload_photo_modal"><![CDATA[
-        Choose a photo. We review all photos for authenticity and realness. We recommend hiring a pro photographer.<br /><br />We allow nudity so long as it is artistic or cute. Read our <tap thin="true" data="guidebook">Photography Guidebook</tap>.<br /><br />
+        Choose a photo. We review all photos for authenticity and naturalness. We recommend hiring a pro photographer.<br /><br />We allow nudity so long as it is artistic or cute. Read our <tap thin="true" data="guidebook">Photography Guidebook</tap>.<br /><br />
         <tap data="choose">Choose from your photo</tap>, or <tap data="close">Close</tap>]]></string>
     <string name="choose_photo_modal"><![CDATA[
-        Choose a photo, or <tap data="reposition">reposition</tap> this one.<br /><br />We review all photos for authenticity and photo quality. We recommend hiring a pro photographer.<br /><br />We allow nudity so long as it is artistic or cute. Read our <tap thin="true" data="guidebook">Photography Guidebook</tap>.<br /><br />
+        Choose a photo, or <tap data="reposition">reposition</tap> this one.<br /><br />We review all photos for authenticity and naturalness. We recommend hiring a pro photographer.<br /><br />We allow nudity so long as it is artistic or cute. Read our <tap thin="true" data="guidebook">Photography Guidebook</tap>.<br /><br />
         <tap data="choose">Choose from your photo</tap>, or <tap data="close">Close</tap>]]></string>
     <string name="cont">Continue</string>
     <string name="moreOptionsTemplate"><![CDATA[<tap data="report">Report</tap>, or <tap data="hide">Hide</tap> %1$s]]></string>
@@ -37,7 +37,7 @@
         <b>1.</b> &nbsp; <u>You</u> should be the highlight of the photograph.<br />
         <b>2.</b> &nbsp; Use a <u>pro camera</u> and <u>interesting location</u>.<br />
         <b>3.</b> &nbsp; Be artistic!  Pose in a new way. <u>Expressive yourself</u> fully.<br />
-        <b>4.</b> &nbsp; Your photo should be natural (some color correction and some post edited is okay.)<br /><br />
+        <b>4.</b> &nbsp; Your photo should be appear natural (some color correction and post editing is totally okay.)<br /><br />
         <tap data="guidebook:close">Close Guidebook</tap>]]>
     </string>
     <string name="upload__photo">UPLOAD\nPHOTO</string>
@@ -55,4 +55,6 @@
     <string name="reply">Reply</string>
     <string name="message_sent">Message sent</string>
     <string name="message_not_sent">Message not sent</string>
+    <string name="bub3">Swipe up to view %1$s\'s fantasy.</string>
+    <string name="bub4">Tap show you love %1$s. If %2$s loves you back, you’ll both be able to talk with each other.</string>
 </resources>
