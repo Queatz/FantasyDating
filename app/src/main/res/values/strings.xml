@@ -13,7 +13,7 @@
     <string name="edit_who"><![CDATA[<tap data="Girl">Girls</tap>, <tap data="Boy">Boys</tap>, or <tap data="Person">People</tap>]]></string>
     <string name="edit_where"><![CDATA[<tap data="Austin">Austin</tap>, or <tap data="nope">somewhere else</tap>]]></string>
     <string name="upload_photo_modal"><![CDATA[
-        Choose a photo. We review all photos for authenticity and photo quality. We recommend hiring a pro photographer.<br /><br />We allow nudity so long as it is artistic or cute. Read our <tap thin="true" data="guidebook">Photography Guidebook</tap>.<br /><br />
+        Choose a photo. We review all photos for authenticity and realness. We recommend hiring a pro photographer.<br /><br />We allow nudity so long as it is artistic or cute. Read our <tap thin="true" data="guidebook">Photography Guidebook</tap>.<br /><br />
         <tap data="choose">Choose from your photo</tap>, or <tap data="close">Close</tap>]]></string>
     <string name="choose_photo_modal"><![CDATA[
         Choose a photo, or <tap data="reposition">reposition</tap> this one.<br /><br />We review all photos for authenticity and photo quality. We recommend hiring a pro photographer.<br /><br />We allow nudity so long as it is artistic or cute. Read our <tap thin="true" data="guidebook">Photography Guidebook</tap>.<br /><br />
@@ -37,7 +37,7 @@
         <b>1.</b> &nbsp; <u>You</u> should be the highlight of the photograph.<br />
         <b>2.</b> &nbsp; Use a <u>pro camera</u> and <u>interesting location</u>.<br />
         <b>3.</b> &nbsp; Be artistic!  Pose in a new way. <u>Expressive yourself</u> fully.<br />
-        <b>4.</b> &nbsp; Your photo should be <u>recent</u> (captured within the last twelve months.)<br /><br />
+        <b>4.</b> &nbsp; Your photo should be natural (some color correction and some post edited is okay.)<br /><br />
         <tap data="guidebook:close">Close Guidebook</tap>]]>
     </string>
     <string name="upload__photo">UPLOAD\nPHOTO</string>

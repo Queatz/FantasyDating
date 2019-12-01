@@ -60,11 +60,16 @@ class BossFeature constructor(private val on: On) {
         reports = listOf()
 
         on<Api>().bossApprovals {
-            on<PeopleFeature>().show(it)
-            on<Timer>().post(Runnable {
-                on<StoryFeature>().event(StoryEvent.Start)
-                on<State>().ui = on<State>().ui.copy(showFeed = false)
-            })
+            if (it.isEmpty()) {
+                on<PeopleFeature>().reload()
+                on<State>().ui = on<State>().ui.copy(showFeed = true, showEditProfile = false)
+            } else {
+                on<PeopleFeature>().show(it)
+                on<Timer>().post(Runnable {
+                    on<StoryFeature>().event(StoryEvent.Start)
+                    on<State>().ui = on<State>().ui.copy(showFeed = false)
+                })
+            }
         }
     }
 

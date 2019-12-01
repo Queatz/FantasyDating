@@ -95,7 +95,8 @@ data class UiState internal constructor(
 )
 
 data class PersonState internal constructor(
-    val current: Person?
+    val current: Person?,
+    val loading: Boolean = false
 )
 
 data class ProfileState internal constructor(

@@ -16,7 +16,7 @@ class PeopleFeature constructor(private val on: On) {
 
     fun reload() {
         on<StoryFeature>().personNavigationListener = null
-        on<State>().person = PersonState(null)
+        on<State>().person = PersonState(null, loading = true)
         on<Api>().people { show(it) }
     }
 
