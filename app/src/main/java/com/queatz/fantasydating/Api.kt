@@ -60,6 +60,9 @@ class Api constructor(private val on: On) {
     fun bossRemoveProfile(request: BossRemoveProfileRequest, callback: (SuccessResponse) -> Unit) =
         post("boss/removeProfile", request, callback)
 
+    fun phone(request: PhoneRequest, callback: (SuccessResponse) -> Unit) =
+        post("phone", request, callback)
+
     private inline fun <reified T : Any> get(url: String, noinline callback: (T) -> Unit) = CallbackHandle { error(it) }.apply {
         on<Http>().get(url, type<T>(), { errorCallback(it) }, callback)
     }

@@ -20,6 +20,7 @@ class MainActivity : BaseActivity() {
         on<WalkthroughFeature>().start()
         on<CompleteProfileFeature>().start()
         on<BossFeature>().start()
+        on<NotificationFeature>().start()
 
         if (intent?.let { handle(it) } != true) {
             on<PeopleFeature>().start()

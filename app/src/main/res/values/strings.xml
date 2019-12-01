@@ -50,4 +50,9 @@
     <string name="you_love_each_other"><![CDATA[You and %1$s love each other. <tap data="message">Talk with %2$s</tap>]]></string>
     <string name="submit_profile_for_review"><![CDATA[Your profile is complete. <tap data="submit">Submit for review</tap>]]></string>
     <string name="view_story"><![CDATA[<tap data="story">View %1$s story</tap>]]></string>
+    <string name="notification_channel">notifications</string>
+    <string name="notifications_channel_name">Notifications</string>
+    <string name="reply">Reply</string>
+    <string name="message_sent">Message sent</string>
+    <string name="message_not_sent">Message not sent</string>
 </resources>

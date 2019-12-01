@@ -5,7 +5,6 @@ import com.queatz.fantasydating.features.MeFeature
 import com.queatz.on.On
 import com.queatz.on.OnLifecycle
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.android.Android
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.features.DefaultRequest
 import io.ktor.client.features.json.GsonSerializer
@@ -35,7 +34,7 @@ class Http constructor(private val on: On) : OnLifecycle {
         false -> "https://mage.camp/"
     }
 
-    private val contentHttp = HttpClient(Android) {
+    private val contentHttp = HttpClient(CIO) {
         install(DefaultRequest) {
             headers.append("X-CLOSER-UPLOAD", "iamsupersupersecret")
         }

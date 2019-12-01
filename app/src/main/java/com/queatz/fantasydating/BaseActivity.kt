@@ -19,6 +19,7 @@ abstract class BaseActivity : AppCompatActivity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         super.onCreate(savedInstanceState)
 
+        on<ContextFeature>().context = application
         on<ViewFeature>().activity = this
     }
 

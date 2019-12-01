@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.queatz.fantasydating.features.NavigationFeature
+import com.queatz.fantasydating.features.ViewFeature
 import com.queatz.fantasydating.ui.MessagesAdapter
 import kotlinx.android.synthetic.main.activity_messages.*
 
@@ -56,6 +57,9 @@ class MessagesActivity : BaseActivity() {
     private fun reloadMessages() {
         on<Api>().messages(personId) {
             adapter.items = it.toMutableList()
+            on<ViewFeature>().with {
+                messagesRecyclerView.scrollToPosition(0)
+            }
         }
     }
 

@@ -17,6 +17,9 @@ open class BaseModel {
 data class Token constructor(var token: String = "") : BaseModel()
 
 @Entity
+data class Phone constructor(var token: String = "", var synced: Boolean = false) : BaseModel()
+
+@Entity
 data class DiscoveryPreferences constructor(
     var who: String = "",
     var where: String = "",

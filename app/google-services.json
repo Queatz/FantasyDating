@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "206656318378",
+    "firebase_url": "https://fantasy-dating.firebaseio.com",
+    "project_id": "fantasy-dating",
+    "storage_bucket": "fantasy-dating.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:206656318378:android:a8f8136c16f3c395fad9d3",
+        "android_client_info": {
+          "package_name": "com.queatz.fantasydating"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "206656318378-714veu2021sbsuon5scdbjoe1r07bdrc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZVt_mKsNeYv13xrIcQcNxDbV2PD-9fxc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "206656318378-714veu2021sbsuon5scdbjoe1r07bdrc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
