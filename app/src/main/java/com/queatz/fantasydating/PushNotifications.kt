@@ -10,6 +10,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.RemoteInput
 import com.queatz.fantasydating.features.NavigationFeature
+import com.queatz.fantasydating.features.TopFeature
 import com.queatz.on.On
 
 open class PushNotification constructor(val action: String)
@@ -20,6 +21,11 @@ data class MessagePushNotification constructor(
     val message: String
 ) : PushNotification("message")
 
+data class BossPushNotification constructor(
+    val reports: Int,
+    val approvals: Int
+) : PushNotification("boss")
+
 class PushNotifications constructor(private val on: On) {
 
     fun handle(data: Map<String, String>) {
@@ -28,12 +34,38 @@ class PushNotifications constructor(private val on: On) {
                 "message" -> {
                     showMessageNotification(on<Json>().from(on<Json>().to(data), MessagePushNotification::class))
                 }
+                "boss" -> {
+                    showBossNotification(on<Json>().from(on<Json>().to(data), BossPushNotification::class))
+                }
             }
         }
     }
 
+    private fun showBossNotification(boss: BossPushNotification) {
+        val context = on<ContextFeature>().context
+
+        val intent = Intent(context, MainActivity::class.java)
+
+        val contentIntent = PendingIntent.getActivity(
+            context,
+            REQUEST_CODE_NOTIFICATION,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        show(contentIntent, null, null,
+            context.getString(R.string.app_name),
+            "${boss.approvals} Approvals, ${boss.reports} Reports",
+            "boss", false)
+    }
+
     private fun showMessageNotification(message: MessagePushNotification) {
-        val context: Context = on<ContextFeature>().context
+        if (on<TopFeature>().topPerson == message.id) {
+            on<TopFeature>().caught()
+            return
+        }
+
+        val context = on<ContextFeature>().context
 
         val intent = Intent(context, MessagesActivity::class.java)
         intent.action = Intent.ACTION_VIEW
@@ -81,7 +113,7 @@ class PushNotifications constructor(private val on: On) {
         ).apply {
             lightColor = context.getColor(R.color.colorPrimary)
             enableLights(true)
-            vibrationPattern = longArrayOf(100)
+            vibrationPattern = longArrayOf(200)
             enableVibration(true)
         }
 

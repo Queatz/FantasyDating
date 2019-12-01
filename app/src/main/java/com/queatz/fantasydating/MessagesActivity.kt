@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.queatz.fantasydating.features.NavigationFeature
+import com.queatz.fantasydating.features.TopFeature
 import com.queatz.fantasydating.features.ViewFeature
 import com.queatz.fantasydating.ui.MessagesAdapter
 import kotlinx.android.synthetic.main.activity_messages.*
@@ -46,6 +47,18 @@ class MessagesActivity : BaseActivity() {
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         handle(intent)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        on<TopFeature>().topPerson = ""
+        on<TopFeature>().onCaught = {}
+    }
+
+    override fun onResume() {
+        super.onResume()
+        on<TopFeature>().topPerson = personId
+        on<TopFeature>().onCaught = { reloadMessages() }
     }
 
     private fun handle(intent: Intent?) =
