@@ -29,10 +29,10 @@ class DiscoveryPreferencesFeature constructor(private val on: On) : OnLifecycle 
 
     override fun on() {
         discoveryPreferences = on<StoreFeature>().get(DiscoveryPreferences::class).all.firstOrNull() ?: DiscoveryPreferences(
-            "Girl",
+            "Person",
             "Austin",
-            25,
-            35
+            18,
+            1000
         )
     }
 

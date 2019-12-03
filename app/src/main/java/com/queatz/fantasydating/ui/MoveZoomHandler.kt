@@ -5,6 +5,7 @@ import android.graphics.PointF
 import com.queatz.fantasydating.mix
 import com.queatz.on.On
 import kotlin.math.abs
+import kotlin.math.max
 
 class MoveZoomHandler constructor(private val on: On, private val callback: MoveZoomHandlerCallback) {
 
@@ -38,7 +39,7 @@ class MoveZoomHandler constructor(private val on: On, private val callback: Move
     }
 
     fun set(scale: Float, origin: PointF) {
-        targetScale = scale
+        targetScale = max(0.25f, scale)
         targetOrigin = origin
 
         if (animationInterval.isStarted.not()) {
