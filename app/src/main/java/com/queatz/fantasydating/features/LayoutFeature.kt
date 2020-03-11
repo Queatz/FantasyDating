@@ -1,6 +1,8 @@
 package com.queatz.fantasydating.features
 
+import android.graphics.Shader
 import com.queatz.fantasydating.*
+import com.queatz.fantasydating.ui.TileDrawable
 import com.queatz.on.On
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -11,6 +13,8 @@ class LayoutFeature constructor(private val on: On) {
 
     fun start() {
         on<ViewFeature>().with {
+            polka.setImageDrawable(TileDrawable(getDrawable(R.drawable.polka)!!, Shader.TileMode.REPEAT))
+
             on<State>().observe(State.Area.Ui) {
                 discoveryPreferencesLayout.visible = ui.showDiscoveryPreferences
                 discoveryPreferencesText.visible = ui.showFeed && ui.showEditProfile.not() && ui.showDiscoveryPreferences.not()
@@ -86,6 +90,7 @@ class LayoutFeature constructor(private val on: On) {
                 }
 
                 changed(it) { ui.showFeed } then {
+                    polka.visible = ui.showFeed
                     if (ui.showFeed) {
                         stories.post { on<StoryFeature>().event(StoryEvent.Reset) }
                     }

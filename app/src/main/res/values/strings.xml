@@ -35,9 +35,9 @@
     <string name="photography_guidebook"><![CDATA[
         <b>Photography Guidebook</b><br /><br />
         <b>1.</b> &nbsp; <u>You</u> should be the highlight of the photograph.<br />
-        <b>2.</b> &nbsp; Use a <u>pro camera</u> and <u>interesting location</u>.<br />
-        <b>3.</b> &nbsp; Be artistic!  Pose in a new way. <u>Expressive yourself</u> fully.<br />
-        <b>4.</b> &nbsp; Your photo should be appear natural (some color correction and post editing is totally okay.)<br /><br />
+        <b>2.</b> &nbsp; Use a <u>pro camera</u> and an <u>interesting location</u>.<br />
+        <b>3.</b> &nbsp; Be artistic!  Pose in a new way. <u>Express yourself</u> fully.<br />
+        <b>4.</b> &nbsp; Your photo should appear natural (some color correction and post editing is totally okay.)<br /><br />
         <tap data="guidebook:close">Close Guidebook</tap>]]>
     </string>
     <string name="upload__photo">UPLOAD\nPHOTO</string>

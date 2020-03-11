@@ -13,6 +13,13 @@
         android:layout_height="match_parent"
         android:src="@drawable/bkg" />
 
+    <ImageView
+        android:id="@+id/polka"
+        android:importantForAccessibility="no"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY" />
+
     <com.queatz.fantasydating.ui.StoryProgress
         android:id="@+id/stories"
         android:layout_width="match_parent"

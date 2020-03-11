@@ -15,6 +15,12 @@ class DiscoveryPreferencesFeature constructor(private val on: On) : OnLifecycle 
     fun edit(function: DiscoveryPreferences.() -> Unit) {
         function.invoke(discoveryPreferences)
 
+        save(discoveryPreferences)
+
+        on<StoreFeature>().get(DiscoveryPreferences::class).put(discoveryPreferences)
+    }
+
+    private fun save(discoveryPreferences: DiscoveryPreferences) {
         on<Api>().discoveryPreferences(MeDiscoveryPreferencesRequest(
             where = discoveryPreferences.where,
             who = discoveryPreferences.who,
@@ -23,17 +29,21 @@ class DiscoveryPreferencesFeature constructor(private val on: On) : OnLifecycle 
         )) {
             on<PeopleFeature>().reload()
         }
-
-        on<StoreFeature>().get(DiscoveryPreferences::class).put(discoveryPreferences)
     }
 
     override fun on() {
-        discoveryPreferences = on<StoreFeature>().get(DiscoveryPreferences::class).all.firstOrNull() ?: DiscoveryPreferences(
-            "Person",
-            "Austin",
-            18,
-            1000
-        )
+        discoveryPreferences = on<StoreFeature>().get(DiscoveryPreferences::class).all.firstOrNull() ?: let {
+            val defaultDiscoveryPreferences = DiscoveryPreferences(
+                "Person",
+                "Austin",
+                18,
+                1000
+            )
+
+            save(defaultDiscoveryPreferences)
+
+            defaultDiscoveryPreferences
+        }
     }
 
     fun start() {
