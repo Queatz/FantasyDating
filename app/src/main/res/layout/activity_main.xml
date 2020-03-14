@@ -303,6 +303,18 @@
             android:text="@string/edit_your_profile" />
 
         <com.queatz.fantasydating.ui.FancyTextView
+            android:id="@+id/inviteAFriend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pad"
+            android:background="@drawable/white_rounded"
+            android:padding="@dimen/pad2x"
+            app:thin="true"
+            android:gravity="center_horizontal"
+            android:elevation="@dimen/pad"
+            android:text="@string/invite_a_friend" />
+
+        <com.queatz.fantasydating.ui.FancyTextView
             android:id="@+id/bossOverview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

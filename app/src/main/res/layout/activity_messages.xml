@@ -1,29 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MessagesActivity"
-    android:background="@color/white">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:animateLayoutChanges="true">
 
     <com.queatz.fantasydating.ui.FancyImageView
         android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/bkg"
-        android:alpha=".1"/>
+        android:alpha=".125"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/messagesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/pad"
+        app:layout_constraintTop_toBottomOf="@+id/fantasy"
         app:layout_constraintBottom_toTopOf="@+id/sendLayout"
         android:paddingTop="@dimen/pad2x"
         android:clipToPadding="false" />
 
-    <com.queatz.fantasydating.ui.FancyTextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fantasy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/story_background_light_2dp"
+        android:layout_margin="@dimen/pad"
+        android:elevation="@dimen/pad"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <com.queatz.fantasydating.ui.FancyTextView
+            android:id="@+id/fantasyTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingTop="@dimen/pad4x"
+            android:paddingStart="@dimen/pad4x"
+            android:paddingEnd="@dimen/pad4x"
+            android:textColor="@color/white"
+            app:highlight="false"
+            android:scrollbars="vertical"
+            tools:text="Emi’s Fantasy" />
+
+        <TextView
+            android:id="@+id/fantasyText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/fantasyTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingStart="@dimen/pad4x"
+            android:paddingEnd="@dimen/pad4x"
+            android:paddingTop="@dimen/pad2x"
+            android:background="@null"
+            android:maxHeight="180dp"
+            android:minHeight="80dp"
+            android:paddingBottom="@dimen/pad2x"
+            android:textAppearance="@style/Text.Medium"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:scrollbars="vertical"
+            tools:text="I want a boy to masturbate and kiss me on a bench overlooking the lake." />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.queatz.fantasydating.ui.FancyTextView
         android:id="@+id/viewStoryButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -37,7 +88,6 @@
         android:gravity="center_horizontal"
         app:layout_goneMarginTop="@dimen/pad4x"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constrainedWidth="true"
         app:layout_constraintWidth_default="wrap"

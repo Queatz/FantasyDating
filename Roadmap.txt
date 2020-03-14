@@ -1,4 +1,27 @@
-each value should only change in one place
 
-    i.e. completeProfile.visible
-    i.e. completeProfile.text
+TODO
+=========
+
+ [ ] P0 Ultra polished onboarding
+    [ ] Enforce signing up before seeing other people
+    [ ] Enforce getting reviewed before "getting in"
+    [ ] Scan invite on app launch
+    [ ] Also, select discovery preferences
+    [ ] fix bubbles (never show more than one at a time)
+
+ [X] P0 Add invite someone under edit profile button
+    [ ] Shows 1 time use QR code
+
+ [X] P0 Show the other person's fantasy on messages screen
+
+
+
+
+ COMPLETED
+ =========
+
+ [X] Fix polka
+ [X] Reduce min age to 17
+    [X] Server
+    [X] Client
+ [X] Darken Fantasy box a bit, due to newsprint

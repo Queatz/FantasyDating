@@ -25,6 +25,7 @@ class LayoutFeature constructor(private val on: On) {
                 }
 
                 changed(it) { ui.showEditProfile } then {
+                    polka.visible = ui.showEditProfile.not() && ui.showFeed || ui.showDiscoveryPreferences
                     stories.animate = ui.showEditProfile.not()
 
                     on<StoryFeature>().personNavigationListener = if (ui.showEditProfile) { _ -> true } else null
@@ -90,7 +91,8 @@ class LayoutFeature constructor(private val on: On) {
                 }
 
                 changed(it) { ui.showFeed } then {
-                    polka.visible = ui.showFeed
+                    polka.visible = ui.showFeed && ui.showEditProfile.not() || ui.showDiscoveryPreferences
+
                     if (ui.showFeed) {
                         stories.post { on<StoryFeature>().event(StoryEvent.Reset) }
                     }

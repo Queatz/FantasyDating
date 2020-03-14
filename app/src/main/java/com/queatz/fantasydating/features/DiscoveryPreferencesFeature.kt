@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class DiscoveryPreferencesFeature constructor(private val on: On) : OnLifecycle {
 
     private val sexes = setOf("Girl", "Boy", "Person")
-    private val ages = listOf(18, 20, 22, 24, 26, 28, 30, 35, 40, 45, 50, 1000)
+    private val ages = listOf(17, 18, 19, 20, 21, 22, 24, 26, 28, 30, 35, 40, 45, 50, 1000)
 
     lateinit var discoveryPreferences: DiscoveryPreferences
 
@@ -36,7 +36,7 @@ class DiscoveryPreferencesFeature constructor(private val on: On) : OnLifecycle 
             val defaultDiscoveryPreferences = DiscoveryPreferences(
                 "Person",
                 "Austin",
-                18,
+                17,
                 1000
             )
 

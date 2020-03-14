@@ -85,7 +85,7 @@ class MessagesActivity : BaseActivity() {
 
         on<Api>().sendMessage(person!!.id!!, MessageRequest(message)) {
             if (it.success.not()) {
-                on<Say>().say("Message not sent")
+                on<Say>().say(getString(R.string.message_not_sent))
             } else {
                 reloadMessages()
             }
@@ -116,14 +116,18 @@ class MessagesActivity : BaseActivity() {
             viewStoryButton.onLinkClick = {
                 on<NavigationFeature>().showPerson(person.id!!)
             }
+            fantasy.visible = true
+            fantasyTitle.text = "${person.name ?: ""}'s Fantasy"
+            fantasyText.text = person.fantasy
             sendMessageInput.hint = "Send ${ on<ValueFeature>().referToAs(person.sex, true)} a message"
             sendMessageInput.isEnabled = true
             sendMessageButton.isEnabled = true
         } ?: run {
             setPhoto(null)
             viewStoryButton.visible = true
-            viewStoryButton.text = "Viewing archived messages"
+            viewStoryButton.text = getString(R.string.viewing_archived_messages)
             viewStoryButton.onLinkClick = {}
+            fantasy.visible = false
             sendMessageInput.hint = "Send ${ on<ValueFeature>().referToAs("Person", true)} a message"
             sendMessageInput.isEnabled = false
             sendMessageButton.isEnabled = false

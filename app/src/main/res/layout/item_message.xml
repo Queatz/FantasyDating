@@ -39,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/Text.Medium"
+            android:textIsSelectable="true"
             android:padding="@dimen/pad2x"
             tools:text="I love you"/>
 

@@ -9,7 +9,8 @@
     <color name="white">#ffffff</color>
     <color name="green">#C8E6C9</color>
     <color name="red">#FFCCBC</color>
-    <color name="story_background">#54000000</color>
+    <color name="story_background">#84000000</color>
+    <color name="story_background_light">#C7000000</color>
     <color name="black">#000000</color>
     <color name="white50">#80ffffff</color>
     <color name="white75">#BFFFFFFF</color>
