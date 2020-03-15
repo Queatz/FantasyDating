@@ -110,6 +110,11 @@ class LayoutFeature constructor(private val on: On) {
                     if (ui.showDiscoveryPreferences) {
                         loadBossInfo()
 
+                        inviteAFriend.visible = on<MyProfileFeature>().myProfile.approved
+                        inviteAFriend.onLinkClick = {
+                            on<InviteFeature>().showInviteCode()
+                        }
+
                         bossOverview.visible = isBoss
                         bossOverview.onLinkClick = {
                             when (it) {

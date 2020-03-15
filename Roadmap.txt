@@ -3,22 +3,21 @@ TODO
 =========
 
  [ ] P0 Ultra polished onboarding
-    [ ] Enforce signing up before seeing other people
-    [ ] Enforce getting reviewed before "getting in"
-    [ ] Scan invite on app launch
-    [ ] Also, select discovery preferences
-    [ ] fix bubbles (never show more than one at a time)
-
- [X] P0 Add invite someone under edit profile button
-    [ ] Shows 1 time use QR code
-
- [X] P0 Show the other person's fantasy on messages screen
-
+    [ ] Enforce invite needed before "getting in" and seeing other people
+        [ ] Scan invite on app launch (blocking screen)
+    [ ] Also, select discovery preferences prior to entering the app
+        [ ] Sex modal, Min age modal, Max age modal
+    [ ] Fix bubbles (never show more than one at a time)
 
 
 
  COMPLETED
  =========
+
+ [X] P0 Add invite someone under edit profile button
+    [X] Shows 1 time use QR code
+
+ [X] P0 Show the other person's fantasy on messages screen
 
  [X] Fix polka
  [X] Reduce min age to 17

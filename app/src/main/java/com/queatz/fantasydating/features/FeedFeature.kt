@@ -70,6 +70,8 @@ class FeedFeature constructor(private val on: On) {
                         on<LayoutFeature>().canCloseFullscreenModal = true
                         fullscreenMessageText.text = "${event.message}<br /><br /><tap data=\"profile\">Edit your profile</tap> or <tap data=\"close\">Close</tap>"
                         fullscreenMessageLayout.visible = true
+                        fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
+
 
                         fullscreenMessageText.onLinkClick = {
                             when (it) {

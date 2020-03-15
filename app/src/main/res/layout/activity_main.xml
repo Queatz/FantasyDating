@@ -505,7 +505,7 @@
         android:elevation="@dimen/pad2x"
         android:visibility="gone"
         android:lineSpacingMultiplier="1.4"
-        android:text="Swipe up to go back to your news feed." />
+        android:text="Swipe down to go back to your news feed." />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fullscreenMessageLayout"
@@ -521,6 +521,7 @@
             android:id="@+id/fullscreenMessageText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/pad2x"
             android:layout_margin="@dimen/pad4x"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

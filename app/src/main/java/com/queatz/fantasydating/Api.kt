@@ -60,6 +60,12 @@ class Api constructor(private val on: On) {
     fun bossRemoveProfile(request: BossRemoveProfileRequest, callback: (SuccessResponse) -> Unit) =
         post("boss/removeProfile", request, callback)
 
+    fun createInviteCode(callback: (InviteCode) -> Unit) =
+        post("invite", callback = callback)
+
+    fun useInviteCode(code: String, callback: (SuccessResponse) -> Unit) =
+        post("invite/${code}", callback = callback)
+
     fun phone(request: PhoneRequest, callback: (SuccessResponse) -> Unit) =
         post("phone", request, callback)
 

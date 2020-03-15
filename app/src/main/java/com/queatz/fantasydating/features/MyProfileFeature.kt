@@ -11,6 +11,7 @@ class MyProfileFeature constructor(private val on: On) : OnLifecycle {
         on<Api>().me {
             myProfile.id = it.id
             myProfile.active = it.active
+            myProfile.invited = it.invited
             myProfile.approved = it.approved
             myProfile.boss = it.boss
             on<StoreFeature>().get(Person::class).put(myProfile)

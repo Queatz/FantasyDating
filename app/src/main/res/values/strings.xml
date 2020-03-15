@@ -59,4 +59,5 @@
     <string name="bub4">Tap show you love %1$s. If %2$s loves you back, you’ll both be able to talk with each other.</string>
     <string name="invite_a_friend"><![CDATA[<tap>Invite a friend</tap>]]></string>
     <string name="viewing_archived_messages">Viewing archived messages</string>
+    <string name="invite_code_didnt_work">That invite code didn\'t work</string>
 </resources>

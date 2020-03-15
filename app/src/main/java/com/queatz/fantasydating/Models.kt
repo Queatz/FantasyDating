@@ -48,6 +48,7 @@ data class Person constructor(
     var age: Int = 0,
     var approved: Boolean = false,
     var active: Boolean = false,
+    var invited: Boolean = false,
     var fantasy: String = "",
     var youLove: Boolean = false,
     var lovesYou: Boolean = false,

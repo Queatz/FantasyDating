@@ -89,6 +89,7 @@ class WalkthroughFeature constructor(private val on: On) {
             on<LayoutFeature>().canCloseFullscreenModal = false
             fullscreenMessageText.setText(R.string.welcome_modal_message)
             fullscreenMessageLayout.visible = true
+            fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
 
             fullscreenMessageText.onLinkClick = {
                 on<MyProfileFeature>().edit { sex = it }

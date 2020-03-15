@@ -60,6 +60,7 @@ class MoreOptionsFeature constructor(private val on: On) {
                             on<LayoutFeature>().canCloseFullscreenModal = true
                             fullscreenMessageText.setText(R.string.moreOptionsProfileConfirmTemplate)
                             fullscreenMessageLayout.visible = true
+                            fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
 
                             fullscreenMessageText.onLinkClick = {
                                 when (it) {

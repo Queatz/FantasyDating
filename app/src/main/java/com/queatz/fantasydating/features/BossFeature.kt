@@ -125,6 +125,7 @@ class BossFeature constructor(private val on: On) {
                 on<LayoutFeature>().canCloseFullscreenModal = true
                 fullscreenMessageText.text = "Completely remove this profile?<br /><br /><tap data=\"confirm\">Confirm</tap> or <tap data=\"no\">No way</tap>"
                 fullscreenMessageLayout.visible = true
+                fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
 
                 fullscreenMessageText.onLinkClick = {
                     when (it) {
