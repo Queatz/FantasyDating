@@ -47,6 +47,9 @@ class FeedFeature constructor(private val on: On) {
                 "live" -> {
                     open(on<Json>().from<ProfileLiveEventType>(event.data, ProfileLiveEventType::class.java))
                 }
+                "invited" -> {
+                    open(on<Json>().from<ProfileLiveEventType>(event.data, InvitedEventType::class.java))
+                }
                 "love" -> {
                     open(on<Json>().from<LoveEventType>(event.data, LoveEventType::class.java))
                 }
@@ -81,6 +84,9 @@ class FeedFeature constructor(private val on: On) {
                         }
                     }
                 }
+            }
+            is InvitedEventType -> {
+                on<NavigationFeature>().showPerson(event.person)
             }
             is LoveEventType -> {
                 on<NavigationFeature>().showMessages(event.person)

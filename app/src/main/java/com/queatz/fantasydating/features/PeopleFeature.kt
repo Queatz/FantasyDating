@@ -35,9 +35,7 @@ class PeopleFeature constructor(private val on: On) {
 
         if (index >= people.size) {
             index = people.size - 1
-        }
-
-        if (index >= 0) {
+        } else if (index >= 0) {
             show(people[index])
         } else {
             show(null)

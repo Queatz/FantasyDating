@@ -125,8 +125,8 @@ class WalkthroughFeature constructor(private val on: On) {
 
                 fullscreenMessageLayout.visible = false
 
-                showBub(bub1)
                 showBub(bub2)
+                showBub(bub1)
 
                 on<State>().person.current?.let {
                     bub3?.text = getString(R.string.bub3, it.name)

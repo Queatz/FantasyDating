@@ -34,12 +34,12 @@ class InviteFeature constructor(private val on: On) {
     fun showInviteCode() {
         on<ViewFeature>().with {
             on<LayoutFeature>().canCloseFullscreenModal = true
-            fullscreenMessageText.text = "Please wait... <tap data=\"close\">close</tap>"
+            fullscreenMessageText.text = "Please wait... <tap data=\"close\">Close</tap>"
             fullscreenMessageLayout.visible = true
             fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
 
             generateInviteCode {
-                fullscreenMessageText.text = "Scan this QR Code to join Fantasy Dating, or <tap data=\"close\">close</tap>"
+                fullscreenMessageText.text = "Scan this QR Code to join Fantasy Dating, or <tap data=\"close\">Close</tap>"
                 fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(
                     null, BitmapDrawable(resources, it), null, null
                 )

@@ -9,6 +9,10 @@ data class ProfileLiveEventType constructor(
     val message: String
 ) : EventType("live")
 
+data class InvitedEventType constructor(
+    val person: String
+) : EventType("invited")
+
 data class LoveEventType constructor(
     val person: String
 ) : EventType("love")
