@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import com.queatz.fantasydating.features.ScanQrCodeFeature
 import com.queatz.fantasydating.features.ViewFeature
 import com.queatz.on.On
 import io.reactivex.subjects.BehaviorSubject
@@ -41,6 +42,7 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         on<MediaRequest>().onActivityResult(requestCode, resultCode, data)
+        on<ScanQrCodeFeature>().onActivityResult(requestCode, resultCode, data)
     }
 }
 

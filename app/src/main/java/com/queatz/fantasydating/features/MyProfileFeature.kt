@@ -9,6 +9,8 @@ class MyProfileFeature constructor(private val on: On) : OnLifecycle {
 
     fun reload() {
         on<Api>().me {
+            val invited = myProfile.invited.not() && it.invited
+
             myProfile.id = it.id
             myProfile.active = it.active
             myProfile.invited = it.invited
@@ -17,6 +19,10 @@ class MyProfileFeature constructor(private val on: On) : OnLifecycle {
             on<StoreFeature>().get(Person::class).put(myProfile)
             on<State>().profile = ProfileState(myProfile)
             on<LayoutFeature>().isBoss = myProfile.boss
+
+            if (invited) {
+                on<WalkthroughFeature>().start()
+            }
         }
     }
 

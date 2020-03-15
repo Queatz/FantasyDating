@@ -85,7 +85,9 @@ class LayoutFeature constructor(private val on: On) {
                             choosePhotoButton.visible = true
                         } otherwise {
                             on<WalkthroughFeature>().closeBub(bub4)
-                            on<WalkthroughFeature>().showBub(bub5)
+                            person.current?.let {
+                                on<WalkthroughFeature>().showBub(bub5)
+                            }
                         }
                     }
                 }

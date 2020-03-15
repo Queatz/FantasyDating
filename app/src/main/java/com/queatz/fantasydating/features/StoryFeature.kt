@@ -83,9 +83,16 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                     swipeUpArrow.visible = false
                     moreOptionsButton.visible = false
                     loveButton.visible = false
-                    fantasyTitle.text = if(person.loading) "Finding ${
-                        on<ValueFeature>().pluralSex(on<DiscoveryPreferencesFeature>().discoveryPreferences.who).toLowerCase()
-                    }, please wait..." else "There's no more ${on<ValueFeature>().pluralSex(on<DiscoveryPreferencesFeature>().discoveryPreferences.who).toLowerCase()} to discover in Austin right now. <tap data=\"reload\">Reload</tap>"
+                    fantasyTitle.text = when {
+                        person.failed && on<MyProfileFeature>().myProfile.invited.not() -> "Scan someone's invite code to join Fantasy Dating."
+                        person.failed && on<MyProfileFeature>().myProfile.invited -> "Failed to load ${
+                            on<ValueFeature>().pluralSex(on<DiscoveryPreferencesFeature>().discoveryPreferences.who).toLowerCase()
+                        }. <tap data=\"reload\">Reload</tap>"
+                        person.loading -> "Finding ${
+                            on<ValueFeature>().pluralSex(on<DiscoveryPreferencesFeature>().discoveryPreferences.who).toLowerCase()
+                        }, please wait..."
+                        else -> "There's no more ${on<ValueFeature>().pluralSex(on<DiscoveryPreferencesFeature>().discoveryPreferences.who).toLowerCase()} to discover in Austin right now. <tap data=\"reload\">Reload</tap>"
+                    }
                     fantasyTitle.onLinkClick = {
                         on<PeopleFeature>().reload()
                     }

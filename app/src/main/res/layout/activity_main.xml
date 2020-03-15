@@ -418,7 +418,7 @@
         android:elevation="@dimen/pad2x"
         android:lineSpacingMultiplier="1.4"
         android:visibility="gone"
-        android:text="Tap here to change your discovery options." />
+        android:text="Tap here to change your discovery preferences." />
 
     <TextView
         android:id="@+id/bub3"
@@ -483,7 +483,7 @@
         android:elevation="@dimen/pad2x"
         android:visibility="gone"
         android:lineSpacingMultiplier="1.4"
-        android:text="If ever there's something wrong, tap here to let us know." />
+        android:text="Tap here to hide or report someone's profile." />
     <TextView
         android:id="@+id/bub6"
         android:layout_width="wrap_content"

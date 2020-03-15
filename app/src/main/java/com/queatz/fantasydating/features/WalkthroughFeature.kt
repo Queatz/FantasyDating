@@ -9,14 +9,25 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class WalkthroughFeature constructor(private val on: On) {
 
+    private val anyBubIsVisible: Boolean get() = on<ViewFeature>().with {
+        bub1?.visible ?: false ||
+        bub2?.visible ?: false ||
+        bub3?.visible ?: false ||
+        bub4?.visible ?: false ||
+        bub5?.visible ?: false ||
+        bub6?.visible ?: false
+    }
+
     fun start() {
         showWelcomeModal()
     }
 
     fun showBub(view: View?) = view?.apply {
-        if (step(view.id.toString())?.shown == true) {
+        if (step(id.toString())?.shown == true) {
             return this
         }
+
+        if (anyBubIsVisible) return@apply
 
         setOnClickListener { closeBub(this) }
 
@@ -71,17 +82,35 @@ class WalkthroughFeature constructor(private val on: On) {
     }
 
     private fun showWelcomeModal() {
+        if (on<MyProfileFeature>().myProfile.invited.not()) {
+            on<ViewFeature>().with {
+                on<LayoutFeature>().canCloseFullscreenModal = false
+                fullscreenMessageText.setText(R.string.welcome_modal_scan_invite)
+                fullscreenMessageLayout.visible = true
+                fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
+
+                fullscreenMessageText.onLinkClick = {
+                    on<ScanQrCodeFeature>().scan {
+                        fullscreenMessageLayout.visible = false
+                    }
+                }
+            }
+
+            return
+        }
+
         if (on<MyProfileFeature>().myProfile.sex.isNotBlank()) {
             on<ViewFeature>().with {
 
-                showBub(bub1)
                 showBub(bub2)
+                showBub(bub1)
 
                 on<State>().person.current?.let {
                     bub3?.text = getString(R.string.bub3, it.name)
                     showBub(bub3)
                 }
             }
+
             return
         }
 

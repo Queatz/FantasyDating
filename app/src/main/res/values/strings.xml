@@ -2,7 +2,7 @@
     <string name="app_name">Fantasy Dating</string>
     <string name="enable_location">Enable location</string>
     <string name="location_modal_message">We need your location to find people near you.</string>
-    <string name="welcome_modal_message"><![CDATA[Welcome to <b>Fantasy Dating</b>!<br /><br />We believe in fantasies being real, and we’re so happy to have you here!<br /><br />Let’s get started by selecting your sex.<br /><br />I am a <tap data="Girl">Girl</tap>, <tap data="Boy">Boy</tap>, or <tap data="Person">Person</tap>.]]></string>
+    <string name="welcome_modal_message"><![CDATA[Welcome to Fantasy Dating!<br /><br />We\'re super excited to have you here!<br /><br />Let’s get started by selecting your sex.<br /><br />I am a <tap data="Girl">Girl</tap>, <tap data="Boy">Boy</tap>, or <tap data="Person">Person</tap>.]]></string>
     <string name="swipe_up">Swipe up</string>
     <string name="edit_your_profile"><![CDATA[<tap>Edit your profile</tap>]]></string>
     <string name="discovery_preferences_template"><![CDATA[Show me <tap data="who">%1$s</tap> in <tap data="where">%2$s</tap> between the ages of <tap data="ageMin">%3$s</tap> and <tap data="ageMax">%4$s</tap>]]></string>
@@ -60,4 +60,5 @@
     <string name="invite_a_friend"><![CDATA[<tap>Invite a friend</tap>]]></string>
     <string name="viewing_archived_messages">Viewing archived messages</string>
     <string name="invite_code_didnt_work">That invite code didn\'t work</string>
+    <string name="welcome_modal_scan_invite"><![CDATA[Hey friend!<br /><br /><b>Fantasy Dating</b> is an app for Austinites to learn about each other by doing things together.<br /><br />Start by <tap data="scan">scanning someone\'s invite code</tap>]]></string>
 </resources>
