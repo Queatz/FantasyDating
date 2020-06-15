@@ -1,0 +1,1 @@
+ [ ] Include URL in QR code so people can scan it to download the app, too
