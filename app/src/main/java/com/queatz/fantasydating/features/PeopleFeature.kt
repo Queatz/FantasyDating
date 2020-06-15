@@ -106,7 +106,7 @@ class PeopleFeature constructor(private val on: On) {
 
     private fun preload(photo: String) {
         on<ViewFeature>().with {
-            Coil.load(this, "$photo?s=1600")
+            on<PhotoFeature>().preload("$photo?s=1600")
         }
     }
 }

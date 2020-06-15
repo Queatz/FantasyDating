@@ -7,8 +7,6 @@ import android.text.method.ScrollingMovementMethod
 import android.view.ViewGroup
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.get
-import coil.Coil
-import coil.api.load
 import com.queatz.fantasydating.*
 import com.queatz.fantasydating.ui.MoveZoomHandler
 import com.queatz.on.On
@@ -253,25 +251,18 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                 return@with
             }
 
-            background.load("$photo?s=1600") {
-                placeholder(R.drawable.bkg)
-                crossfade(true)
-                listener { _, _ ->
-                    stories.post { event(StoryEvent.Resume) }
-                }
+            on<PhotoFeature>().load("$photo?s=1600", background, R.color.colorPrimaryDark) {
+                stories.post { event(StoryEvent.Resume) }
             }
 
-            Coil.load(this, "$photo?s=4") {
-                allowHardware(false)
-                target({}, {}, { drawable ->
-                    val color = drawable.toBitmap(4, 4, Bitmap.Config.ARGB_8888)[0, 3]
-                    val hsv = floatArrayOf(0f, 0f, 0f)
-                    Color.colorToHSV(color, hsv)
-                    hsv[2] = min(hsv[2], .333f)
-                    val c = Color.HSVToColor(hsv)
-                    storyText.setTextColor(c)
-                    fantasy.setBackgroundColor(Color.argb(163, Color.red(c) / 4, Color.green(c) / 4, Color.blue(c) / 4))
-                })
+            on<PhotoFeature>().load("$photo?s=4") { drawable ->
+                val color = drawable.toBitmap(4, 4, Bitmap.Config.ARGB_8888)[0, 3]
+                val hsv = floatArrayOf(0f, 0f, 0f)
+                Color.colorToHSV(color, hsv)
+                hsv[2] = min(hsv[2], .333f)
+                val c = Color.HSVToColor(hsv)
+                storyText.setTextColor(c)
+                fantasy.setBackgroundColor(Color.argb(163, Color.red(c) / 4, Color.green(c) / 4, Color.blue(c) / 4))
             }
         }
     }

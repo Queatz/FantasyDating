@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import coil.api.load
 import com.queatz.fantasydating.features.NavigationFeature
 import com.queatz.fantasydating.features.TopFeature
 import com.queatz.fantasydating.features.ViewFeature
@@ -141,10 +140,6 @@ class MessagesActivity : BaseActivity() {
             return
         }
 
-        background.load("$photo?s=1600") {
-            placeholder(R.color.white)
-            crossfade(true)
-            listener { _, _ -> }
-        }
+        on<PhotoFeature>().load("$photo?s=1600", background, R.color.white)
     }
 }
