@@ -24,6 +24,12 @@ class LayoutFeature constructor(private val on: On) {
                     completeYourProfileButton.visible = ui.showCompleteYourProfileButton
                 }
 
+                changed(it) { ui.showStoryDetails } then {
+                    moreOptionsButton.visible = ui.showStoryDetails
+                    swipeUpArrow.visible = ui.showStoryDetails
+                    storyText.visible = ui.showStoryDetails
+                }
+
                 changed(it) { ui.showEditProfile } then {
                     polka.visible = ui.showEditProfile.not() && ui.showFeed || ui.showDiscoveryPreferences
                     stories.animate = ui.showEditProfile.not()

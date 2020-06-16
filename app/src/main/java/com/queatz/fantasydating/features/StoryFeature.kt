@@ -251,7 +251,7 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                 return@with
             }
 
-            on<PhotoFeature>().load("$photo?s=1600", background, R.color.colorPrimaryDark) {
+            on<PhotoFeature>().load("$photo?s=1600", background, R.drawable.bkg) {
                 stories.post { event(StoryEvent.Resume) }
             }
 

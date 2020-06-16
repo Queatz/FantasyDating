@@ -514,7 +514,6 @@
         android:elevation="@dimen/pad4x"
         android:clickable="true"
         android:visibility="gone"
-        tools:visibility="visible"
         android:background="@color/story_background">
 
         <com.queatz.fantasydating.ui.FancyTextView

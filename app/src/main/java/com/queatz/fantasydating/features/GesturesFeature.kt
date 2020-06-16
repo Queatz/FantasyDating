@@ -141,9 +141,17 @@ class GesturesFeature constructor(private val on: On) {
                 ScaleGestureDetector.OnScaleGestureListener {
 
                 override fun onScaleEnd(detector: ScaleGestureDetector) {
+                    on<State> {
+                        ui = ui.copy(showStoryDetails = true)
+                    }
+
                     on<StoryFeature>().scaleHandler.set(1f, on<StoryFeature>().currentOrigin)
                 }
                 override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {
+                    on<State> {
+                        ui = ui.copy(showStoryDetails = false)
+                    }
+
                     return true
                 }
 

@@ -63,7 +63,8 @@ class State constructor(private val on: On) : OnLifecycle {
             showEditProfile = false,
             showFeed = true,
             showDiscoveryPreferences = false,
-            showCompleteYourProfileButton = false
+            showCompleteYourProfileButton = false,
+            showStoryDetails = false
         )
     )
 
@@ -90,6 +91,7 @@ data class UiState internal constructor(
     val showFantasy: Boolean,
     val showEditProfile: Boolean,
     val showFeed: Boolean,
+    val showStoryDetails: Boolean,
     val showDiscoveryPreferences: Boolean,
     val showCompleteYourProfileButton: Boolean
 )
