@@ -12,9 +12,14 @@ import kotlinx.android.synthetic.main.item_style_small.view.*
 
 class StyleAdapter constructor(
     private val on: On,
-    private val showAdd: Boolean = false,
     private val addCallback: (() -> Unit)? = null,
     private val callback: (style: Style, longPress: Boolean) -> Unit) : RecyclerView.Adapter<StyleViewHolder>() {
+
+    var showAdd: Boolean = false
+    set(value) {
+        field = value
+        notifyDataSetChanged()
+    }
 
     var items = mutableListOf<Style>()
         set(value) {

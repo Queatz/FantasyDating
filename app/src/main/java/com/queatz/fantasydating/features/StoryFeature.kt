@@ -66,20 +66,34 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
         on<ViewFeature>().with {
             styleRecyclerView.layoutManager = FlexboxLayoutManager(this, FlexDirection.ROW, FlexWrap.WRAP)
 
-            adapter = StyleAdapter(on, true, {
+            adapter = StyleAdapter(on, {
                 on<ViewFeature>().with {
-                    val adapter = StyleAdapter(on, false) { it, longPress ->
+                    val adapter = StyleAdapter(on) { style, longPress ->
                         if (longPress) return@StyleAdapter
 
-                        on<Api>().linkStyle(MeStyleRequest(link = it.id)) {
-                            on<Say>().say(R.string.style_added_to_your_profile)
-                            on<MyProfileFeature>().reload()
+                        on<LayoutFeature>().canCloseFullscreenModal = true
+                        fullscreenMessageText.text = "<b>${style.name}</b><br />${style.about}<br /><br /><tap data=\"add\">Add</tap>, or <tap data=\"close\">Close</tap>"
+                        fullscreenMessageLayout.visible = true
+                        fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
+
+                        fullscreenMessageText.onLinkClick = {
+                            when (it) {
+                                "add" -> {
+                                    on<Api>().linkStyle(MeStyleRequest(link = style.id)) {
+                                        on<Say>().say(R.string.style_added_to_your_profile)
+                                        on<MyProfileFeature>().reload()
+                                    }
+                                }
+                            }
+
+                            fullscreenMessageLayout.visible = false
                         }
-                        searchLayout.visible = false
                     }
 
                     on<Api>().getStyles {
-                        adapter.items = it.toMutableList()
+                        on<State>().person.current?.let { person ->
+                            adapter.items = it.filter { style -> person.styles.all { it.id != style.id } }.toMutableList()
+                        }
                     }
 
                     searchLayout.searchEditText.setText("")
@@ -87,14 +101,14 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                     searchLayout.searchRecyclerView.adapter = adapter
                     searchLayout.searchRecyclerView.layoutManager = FlexboxLayoutManager(this, FlexDirection.ROW, FlexWrap.WRAP)
 
-                    searchModalText.text = "Tap on a Cuddle Style to add it to your profile.<br /><br /><tap data=\"create\">Create one</tap>, or <tap data=\"close\">Close</tap>"
+                    searchModalText.text = "Tap on a Cuddle Style to add it to your profile.<br /><br /><tap data=\"create\">Add new</tap>, or <tap data=\"close\">Close</tap>"
                     searchModalText.onLinkClick = {
                         when (it) {
                             "create" -> {
                                 addStyleModalLayout.visible = true
                                 addStyleModalLayout.addStyleNameEditText.setText("")
                                 addStyleModalLayout.addStyleAboutEditText.setText("")
-                                addStyleModalLayout.addStyleModalText.text = "<tap data=\"create\">Create</tap>, or <tap data=\"close\">Cancel</tap>"
+                                addStyleModalLayout.addStyleModalText.text = "<tap data=\"create\">Add</tap>, or <tap data=\"close\">Cancel</tap>"
 
                                 addStyleModalLayout.addStyleModalText.onLinkClick = {
                                     when (it) {
@@ -125,7 +139,7 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
             }) { style, _ ->
                 on<ViewFeature>().with {
                     on<LayoutFeature>().canCloseFullscreenModal = true
-                    fullscreenMessageText.text = "<b>${style.name}</b><br />${style.about}<br /><br /><tap data=\"close\">Close</tap>, or <tap data=\"remove\">Remove</tap>"
+                    fullscreenMessageText.text = "<b>${style.name}</b><br />${style.about}<br /><br /><tap data=\"close\">Close</tap>${if (adapter.showAdd) ", or <tap data=\"remove\">Remove</tap>" else ""}"
                     fullscreenMessageLayout.visible = true
                     fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
 
@@ -145,10 +159,6 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
             }
 
             styleRecyclerView.adapter = adapter
-        }
-
-        on<Api>().me {
-            adapter.items = it.styles.toMutableList()
         }
 
         on<State>().observe(State.Area.Person) {
@@ -188,14 +198,20 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                         }, please wait..."
                         else -> "There's no more ${on<ValueFeature>().pluralSex(on<DiscoveryPreferencesFeature>().discoveryPreferences.who).toLowerCase()} to discover in Austin right now. <tap data=\"reload\">Reload</tap>"
                     }
+
                     fantasyTitle.onLinkClick = {
                         on<PeopleFeature>().reload()
                     }
+
                     fantasyText.text = ""
                     storyText.text = ""
 
+                    styleTitle.text = ""
+                    styleRecyclerView.visible = false
+
                     return@with
                 } else {
+                    styleRecyclerView.visible = true
                     stories.visible = true
                     loveButton.visible = true
                     swipeUpArrow.visible = true
@@ -209,6 +225,9 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                         }
                     }
                 }
+
+                adapter.showAdd = ui.showEditProfile
+                adapter.items = person.current?.styles?.toMutableList() ?: mutableListOf()
 
                 if (ui.showEditProfile) {
                     on<EditProfileFeature>().updateFantasy()
