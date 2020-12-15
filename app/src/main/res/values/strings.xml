@@ -69,4 +69,8 @@
     <string name="persons_cuddle_styles">%1$s\'s Cuddle Style</string>
     <string name="your_styles">Your cuddle styles</string>
     <string name="search">Search</string>
+    <string name="style_name">Style name</string>
+    <string name="style_about">Description</string>
+    <string name="style_added_to_your_profile">Style added to your profile</string>
+    <string name="style_removed_from_your_profile">Style removed from your profile</string>
 </resources>

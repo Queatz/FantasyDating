@@ -54,6 +54,7 @@ data class Person constructor(
     var lovesYou: Boolean = false,
     @Convert(converter = PersonStoryListJsonConverter::class, dbType = String::class)
     var stories: List<PersonStory> = listOf(),
+    @Convert(converter = PersonStyleListJsonConverter::class, dbType = String::class)
     var styles: List<Style> = listOf(),
     var boss: Boolean = false
 ) : BaseModel()

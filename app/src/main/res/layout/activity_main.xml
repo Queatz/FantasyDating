@@ -608,7 +608,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintVertical_bias=".4"
             android:background="@drawable/white_rounded"
-            android:padding="@dimen/pad4x"
+            android:paddingTop="@dimen/pad4x"
+            android:paddingBottom="@dimen/pad4x"
             android:elevation="@dimen/pad2x">
 
             <com.queatz.fantasydating.ui.FancyEditText
@@ -623,7 +624,10 @@
                 android:gravity="start"
                 android:hint="@string/search"
                 android:lineSpacingMultiplier="1.4"
-                android:padding="@dimen/pad"
+                android:paddingTop="@dimen/pad"
+                android:paddingBottom="@dimen/pad"
+                android:paddingStart="@dimen/pad4x"
+                android:paddingEnd="@dimen/pad4x"
                 android:textColor="@color/black"
                 android:imeOptions="actionDone"
                 android:inputType="textCapSentences|textMultiLine"/>
@@ -636,6 +640,8 @@
                 android:clipChildren="false"
                 android:paddingTop="@dimen/pad2x"
                 android:paddingBottom="@dimen/pad2x"
+                android:paddingStart="@dimen/pad4x"
+                android:paddingEnd="@dimen/pad4x"
                 app:layout_constraintTop_toBottomOf="@+id/searchEditText"
                 app:layout_constraintBottom_toTopOf="@+id/searchModalText"
                 app:layout_constraintHeight_max="154dp"
@@ -655,6 +661,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/searchRecyclerView"
                 android:layout_marginTop="@dimen/pad2x"
+                android:paddingStart="@dimen/pad4x"
+                android:paddingEnd="@dimen/pad4x"
                 app:thin="true"
                 android:textAppearance="@style/Text.Medium"
                 tools:text="Close" />
@@ -662,6 +670,8 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include layout="@layout/add_style_modal" android:visibility="gone" />
 
     <com.queatz.fantasydating.ui.FancyTextView
         android:id="@+id/choosePhotoModal"

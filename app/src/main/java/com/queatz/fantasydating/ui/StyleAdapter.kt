@@ -14,7 +14,7 @@ class StyleAdapter constructor(
     private val on: On,
     private val showAdd: Boolean = false,
     private val addCallback: (() -> Unit)? = null,
-    private val callback: (style: Style) -> Unit) : RecyclerView.Adapter<StyleViewHolder>() {
+    private val callback: (style: Style, longPress: Boolean) -> Unit) : RecyclerView.Adapter<StyleViewHolder>() {
 
     var items = mutableListOf<Style>()
         set(value) {
@@ -47,7 +47,12 @@ class StyleAdapter constructor(
         holder.name.text = item.name
 
         holder.name.setOnClickListener {
-            callback(item)
+            callback(item, false)
+        }
+
+        holder.name.setOnLongClickListener {
+            callback(item, true)
+            true
         }
     }
 }

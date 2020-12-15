@@ -42,3 +42,4 @@ Polish
  [ ] (S) Animations on modals
  [ ] (S) Approve box doesn't go away...?
  [ ] (S) Don't send approve notification if already approved
+ [ ] (M) Upgrade backend

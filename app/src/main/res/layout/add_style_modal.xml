@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/addStyleModalLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:elevation="@dimen/pad4x"
+    android:clickable="true"
+    android:background="@color/story_background">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/addStyleModal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/pad4x"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias=".4"
+            android:background="@drawable/white_rounded"
+            android:padding="@dimen/pad4x"
+            android:elevation="@dimen/pad2x">
+
+            <com.queatz.fantasydating.ui.FancyEditText
+                android:id="@+id/addStyleNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/addStyleAboutEditText"
+                android:textAppearance="@style/Text.Medium"
+                android:textSize="24sp"
+                android:background="@null"
+                android:gravity="start"
+                android:hint="@string/style_name"
+                android:lineSpacingMultiplier="1.4"
+                android:padding="@dimen/pad"
+                android:textColor="@color/black"
+                android:imeOptions="actionDone"
+                android:inputType="textCapSentences|textMultiLine"/>
+
+            <com.queatz.fantasydating.ui.FancyEditText
+                android:id="@+id/addStyleAboutEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/addStyleNameEditText"
+                app:layout_constraintBottom_toTopOf="@+id/addStyleModalText"
+                android:textAppearance="@style/Text.Medium"
+                android:textSize="24sp"
+                android:background="@null"
+                android:gravity="start"
+                android:hint="@string/style_about"
+                android:lineSpacingMultiplier="1.4"
+                android:padding="@dimen/pad"
+                android:textColor="@color/black"
+                android:imeOptions="actionDone"
+                android:inputType="textCapSentences|textMultiLine"/>
+
+            <com.queatz.fantasydating.ui.FancyTextView
+                android:id="@+id/addStyleModalText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addStyleAboutEditText"
+                android:layout_marginTop="@dimen/pad2x"
+                app:thin="true"
+                android:textAppearance="@style/Text.Medium"
+                tools:text="Close" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

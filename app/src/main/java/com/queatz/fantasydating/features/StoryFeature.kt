@@ -1,6 +1,5 @@
 package com.queatz.fantasydating.features
 
-import android.app.backup.FullBackupDataOutput
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.PointF
@@ -20,6 +19,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.add_style_modal.*
+import kotlinx.android.synthetic.main.add_style_modal.view.*
 import kotlin.math.min
 
 class StoryFeature constructor(private val on: On) : OnLifecycle {
@@ -67,25 +68,51 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
 
             adapter = StyleAdapter(on, true, {
                 on<ViewFeature>().with {
-                    val adapter = StyleAdapter(on, false) {
-                        adapter.items = mutableListOf(*adapter.items.toTypedArray(), it)
+                    val adapter = StyleAdapter(on, false) { it, longPress ->
+                        if (longPress) return@StyleAdapter
+
+                        on<Api>().linkStyle(MeStyleRequest(link = it.id)) {
+                            on<Say>().say(R.string.style_added_to_your_profile)
+                            on<MyProfileFeature>().reload()
+                        }
                         searchLayout.visible = false
+                    }
+
+                    on<Api>().getStyles {
+                        adapter.items = it.toMutableList()
                     }
 
                     searchLayout.searchEditText.setText("")
 
                     searchLayout.searchRecyclerView.adapter = adapter
-                    adapter.items = mutableListOf(
-                        Style(name = "\uD83D\uDC59 Boobs", about = "The boobies are out to play."),
-                        Style(name = "\uD83C\uDF03 Overnight", about = "If we're up past 9pm, we're staying together.")
-                    )
                     searchLayout.searchRecyclerView.layoutManager = FlexboxLayoutManager(this, FlexDirection.ROW, FlexWrap.WRAP)
 
                     searchModalText.text = "Tap on a Cuddle Style to add it to your profile.<br /><br /><tap data=\"create\">Create one</tap>, or <tap data=\"close\">Close</tap>"
                     searchModalText.onLinkClick = {
                         when (it) {
                             "create" -> {
+                                addStyleModalLayout.visible = true
+                                addStyleModalLayout.addStyleNameEditText.setText("")
+                                addStyleModalLayout.addStyleAboutEditText.setText("")
+                                addStyleModalLayout.addStyleModalText.text = "<tap data=\"create\">Create</tap>, or <tap data=\"close\">Cancel</tap>"
 
+                                addStyleModalLayout.addStyleModalText.onLinkClick = {
+                                    when (it) {
+                                        "create" -> {
+                                            val name = addStyleModalLayout.addStyleNameEditText.text.toString()
+                                            val about = addStyleModalLayout.addStyleAboutEditText.text.toString()
+
+                                            on<Api>().createStyle(StyleRequest(name, about)) {
+                                                on<Say>().say(R.string.style_added_to_your_profile)
+                                                on<MyProfileFeature>().reload()
+                                            }
+                                        }
+                                        "close" -> {
+                                        }
+                                    }
+
+                                    addStyleModalLayout.visible = false
+                                }
                             }
                             "close" -> { }
                         }
@@ -95,7 +122,7 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
 
                     searchLayout.visible = true
                 }
-            }) { style ->
+            }) { style, _ ->
                 on<ViewFeature>().with {
                     on<LayoutFeature>().canCloseFullscreenModal = true
                     fullscreenMessageText.text = "<b>${style.name}</b><br />${style.about}<br /><br /><tap data=\"close\">Close</tap>, or <tap data=\"remove\">Remove</tap>"
@@ -105,7 +132,10 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                     fullscreenMessageText.onLinkClick = {
                         when (it) {
                             "remove" -> {
-                                on<Api>().linkStyle(MeStyleRequest(unlink = style.id)) {}
+                                on<Api>().linkStyle(MeStyleRequest(unlink = style.id)) {
+                                    on<Say>().say(R.string.style_removed_from_your_profile)
+                                    on<MyProfileFeature>().reload()
+                                }
                             }
                         }
 
@@ -115,10 +145,10 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
             }
 
             styleRecyclerView.adapter = adapter
-            adapter.items = mutableListOf(
-                Style(name = "\uD83D\uDC59 Boobs", about = "The boobies are out to play."),
-                Style(name = "\uD83C\uDF03 Overnight", about = "If we're up past 9pm, we're staying together.")
-            )
+        }
+
+        on<Api>().me {
+            adapter.items = it.styles.toMutableList()
         }
 
         on<State>().observe(State.Area.Person) {
@@ -339,6 +369,10 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
         when {
             searchLayout.visible -> {
                 searchLayout.visible = false
+                true
+            }
+            addStyleModalLayout.visible -> {
+                addStyleModalLayout.visible = false
                 true
             }
             confirmLove.visible -> {

@@ -52,3 +52,10 @@ class PersonStoryListJsonConverter : PropertyConverter<List<PersonStory>, String
         null else gson.fromJson<List<PersonStory>>(databaseValue, object : TypeToken<List<PersonStory>>() {}.type)
     override fun convertToDatabaseValue(entityProperty: List<PersonStory>): String = gson.toJson(entityProperty)
 }
+
+
+class PersonStyleListJsonConverter : PropertyConverter<List<Style>, String> {
+    override fun convertToEntityProperty(databaseValue: String?): List<Style>? = if (databaseValue == null)
+        null else gson.fromJson<List<Style>>(databaseValue, object : TypeToken<List<Style>>() {}.type)
+    override fun convertToDatabaseValue(entityProperty: List<Style>): String = gson.toJson(entityProperty)
+}

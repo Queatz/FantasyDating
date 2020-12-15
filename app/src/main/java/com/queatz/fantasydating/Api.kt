@@ -33,10 +33,10 @@ class Api constructor(private val on: On) {
     fun createStyle(request: StyleRequest, callback: (SuccessResponse) -> Unit) =
         post("style", request, callback)
 
-    fun getStyles(callback: (SuccessResponse) -> Unit) =
+    fun getStyles(callback: (List<Style>) -> Unit) =
         get("style", callback = callback)
 
-    fun searchStyles(query: String, callback: (SuccessResponse) -> Unit) =
+    fun searchStyles(query: String, callback: (List<Style>) -> Unit) =
         get("style", mapOf("search" to query), callback)
 
     fun messages(person: String, callback: (List<Message>) -> Unit) =

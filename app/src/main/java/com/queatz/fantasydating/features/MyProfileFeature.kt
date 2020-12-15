@@ -16,6 +16,7 @@ class MyProfileFeature constructor(private val on: On) : OnLifecycle {
             myProfile.invited = it.invited
             myProfile.approved = it.approved
             myProfile.boss = it.boss
+            myProfile.styles = it.styles
             on<StoreFeature>().get(Person::class).put(myProfile)
             on<State>().profile = ProfileState(myProfile)
             on<LayoutFeature>().isBoss = myProfile.boss
