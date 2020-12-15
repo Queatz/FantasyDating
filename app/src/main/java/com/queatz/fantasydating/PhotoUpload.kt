@@ -22,7 +22,7 @@ class PhotoUpload constructor(private val on: On) {
 
         on<Http>().post<Any>(fullUrl, MultiPartContent.build {
             add("photo", photo.readBytes(), filename = "fantasy.jpg")
-        }, Any::class.java, error, {
+        }, Any::class.java, null, error, {
             success?.invoke(fullUrl)
         })
     }

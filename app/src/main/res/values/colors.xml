@@ -14,5 +14,8 @@
     <color name="black">#000000</color>
     <color name="white50">#80ffffff</color>
     <color name="white75">#BFFFFFFF</color>
+    <color name="white90">#E6FFFFFF</color>
+    <color name="black10">#1A000000</color>
     <color name="black75">#BF000000</color>
+    <color name="sheet_background">@color/white90</color>
 </resources>

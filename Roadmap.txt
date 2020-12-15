@@ -1,1 +1,44 @@
- [ ] Include URL in QR code so people can scan it to download the app, too
+
+Styles
+======
+
+ [X] (L) Add Styles UI (inline chip, name + description card, modal)
+ [ ] (L) Add Style (sort by Popular)
+ [ ] (L) Create New Style (other people can use it)
+ [ ] (M) Remove Style
+ [ ] (M) Show about + style at the top in messages
+
+Style Model
+===========
+
+ [X] Style {
+         name
+         details
+     }
+
+Styles API
+==========
+
+ [X] GET /style?search=boobies -> [{style}]
+ [X] POST /style {style} -> success
+ [X] POST /me/style { link: styleId, unlink: styleId }
+
+Language
+======
+
+ [X] (S) “Fantasy” -> “About”
+ [X] (S) “Love” -> “Like”
+
+Invite & Profile
+================
+
+ [ ] (S) Add checklist to edit profile for first launch
+ [ ] (S) Include URL in QR code so people can scan it to download the app, too
+
+Polish
+======
+
+ [ ] (S) Proper ending of stories messaging in feed
+ [ ] (S) Animations on modals
+ [ ] (S) Approve box doesn't go away...?
+ [ ] (S) Don't send approve notification if already approved

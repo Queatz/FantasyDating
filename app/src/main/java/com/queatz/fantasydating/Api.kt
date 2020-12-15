@@ -6,47 +6,59 @@ import io.ktor.client.utils.EmptyContent
 
 class Api constructor(private val on: On) {
     fun me(callback: (Person) -> Unit) =
-        get("me", callback)
+        get("me", callback = callback)
 
     fun me(request: MeRequest, callback: (Person) -> Unit) =
         post("me", request, callback)
 
     fun events(callback: (List<Event>) -> Unit) =
-        get("me/events", callback)
+        get("me/events", callback = callback)
 
     fun deleteMe(callback: (SuccessResponse) -> Unit) =
         post("me/delete", callback =
         callback)
 
     fun discoveryPreferences(callback: (DiscoveryPreferences) -> Unit) =
-        get("me/discovery-preferences", callback)
+        get("me/discovery-preferences", callback = callback)
 
     fun discoveryPreferences(request: MeDiscoveryPreferencesRequest, callback: (DiscoveryPreferences) -> Unit) =
         post("me/discovery-preferences", request, callback)
 
     fun people(callback: (List<Person>) -> Unit) =
-        get("me/people", callback)
+        get("me/people", callback = callback)
+
+    fun linkStyle(request: MeStyleRequest, callback: (SuccessResponse) -> Unit) =
+        post("me/style", request, callback)
+
+    fun createStyle(request: StyleRequest, callback: (SuccessResponse) -> Unit) =
+        post("style", request, callback)
+
+    fun getStyles(callback: (SuccessResponse) -> Unit) =
+        get("style", callback = callback)
+
+    fun searchStyles(query: String, callback: (SuccessResponse) -> Unit) =
+        get("style", mapOf("search" to query), callback)
 
     fun messages(person: String, callback: (List<Message>) -> Unit) =
-        get("person/${person}/messages", callback)
+        get("person/${person}/messages", callback = callback)
 
     fun sendMessage(person: String, request: MessageRequest, callback: (SuccessResponse) -> Unit) =
         post("person/${person}/messages", request, callback)
 
     fun person(person: String, callback: (Person) -> Unit) =
-        get("person/${person}", callback)
+        get("person/${person}", callback = callback)
 
     fun person(person: String, request: PersonRequest, callback: (SuccessResponse) -> Unit) =
         post("person/${person}", request, callback)
 
     fun bossInfo(callback: (BossInfo) -> Unit) =
-        get("boss/info", callback)
+        get("boss/info", callback = callback)
 
     fun bossReports(callback: (List<Report>) -> Unit) =
-        get("boss/reports", callback)
+        get("boss/reports", callback = callback)
 
     fun bossApprovals(callback: (List<Person>) -> Unit) =
-        get("boss/approvals", callback)
+        get("boss/approvals", callback = callback)
 
     fun boss(request: WhoIsTheBossRequest, callback: (SuccessResponse) -> Unit) =
         post("boss/me", request, callback)
@@ -69,12 +81,12 @@ class Api constructor(private val on: On) {
     fun phone(request: PhoneRequest, callback: (SuccessResponse) -> Unit) =
         post("phone", request, callback)
 
-    private inline fun <reified T : Any> get(url: String, noinline callback: (T) -> Unit) = CallbackHandle { error(it) }.apply {
-        on<Http>().get(url, type<T>(), { errorCallback(it) }, callback)
+    private inline fun <reified T : Any> get(url: String, queryParams: Map<String, String>? = null, noinline callback: (T) -> Unit) = CallbackHandle { error(it) }.apply {
+        on<Http>().get(url, type<T>(), queryParams, { errorCallback(it) }, callback)
     }
 
     private inline fun <reified T : Any> post(url: String, body: Any = EmptyContent, noinline callback: (T) -> Unit) = CallbackHandle { error(it) }.apply {
-        on<Http>().post(url, body, type<T>(), { errorCallback(it) }, callback)
+        on<Http>().post(url, body, type<T>(), null, { errorCallback(it) }, callback)
     }
 
     private fun error(throwable: Throwable) {

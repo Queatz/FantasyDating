@@ -101,7 +101,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@color/story_background"
+        android:background="@color/sheet_background"
         android:visibility="gone"
         tools:visibility="visible">
 
@@ -115,10 +115,10 @@
             android:paddingTop="@dimen/pad4x"
             android:paddingStart="@dimen/pad4x"
             android:paddingEnd="@dimen/pad4x"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             app:highlight="false"
             android:scrollbars="vertical"
-            tools:text="Emi’s Fantasy" />
+            tools:text="About Emi" />
 
         <TextView
             android:id="@+id/fantasyText"
@@ -135,25 +135,58 @@
             android:minHeight="80dp"
             android:paddingBottom="@dimen/pad2x"
             android:textAppearance="@style/Text.Medium"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:scrollbars="vertical"
-            tools:text="I want a boy to masturbate and kiss me on a bench overlooking the lake." />
+            tools:text="I'm a simple girl with a solid mind." />
+
+        <com.queatz.fantasydating.ui.FancyTextView
+            android:id="@+id/styleTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/fantasyText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingStart="@dimen/pad4x"
+            android:paddingEnd="@dimen/pad4x"
+            android:textColor="@color/black"
+            app:highlight="false"
+            android:scrollbars="vertical"
+            tools:text="Emi's Cuddle Style" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/styleRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            android:paddingTop="@dimen/pad2x"
+            android:paddingBottom="@dimen/pad2x"
+            android:paddingStart="@dimen/pad4x"
+            android:paddingEnd="@dimen/pad4x"
+            app:layout_constraintTop_toBottomOf="@+id/styleTitle"
+            app:layout_constraintBottom_toTopOf="@+id/loveButton"
+            tools:listitem="@layout/item_style_small"
+            tools:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+            tools:orientation="horizontal"
+            android:maxHeight="96dp"
+            android:overScrollMode="ifContentScrolls" />
 
         <ImageView
             android:id="@+id/loveButton"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            app:layout_constraintTop_toBottomOf="@id/fantasyText"
+            app:layout_constraintTop_toBottomOf="@id/styleRecyclerView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_gravity="center_horizontal"
             android:layout_margin="@dimen/pad2x"
+            android:elevation="@dimen/elevation"
             android:foreground="@drawable/ic_heart"
             android:foregroundGravity="center"
             android:foregroundTint="@color/colorPrimaryBright"
-            android:background="@drawable/white_rounded_oval" />
+            android:background="@drawable/clickable_white_rounded_512dp" />
 
         <com.queatz.fantasydating.ui.FancyTextView
             android:id="@+id/confirmLove"
@@ -548,9 +581,85 @@
             android:textColor="@color/white"
             android:elevation="@dimen/pad2x"
             android:shadowColor="@color/story_background"
-            android:shadowRadius="24"
+            android:shadowRadius="16"
             android:text="🧜"
-            android:textSize="64sp"/>
+            android:textSize="54sp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/searchLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="@dimen/pad4x"
+        android:clickable="true"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:background="@color/story_background">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/searchModal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/pad4x"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias=".4"
+            android:background="@drawable/white_rounded"
+            android:padding="@dimen/pad4x"
+            android:elevation="@dimen/pad2x">
+
+            <com.queatz.fantasydating.ui.FancyEditText
+                android:id="@+id/searchEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/searchRecyclerView"
+                android:textAppearance="@style/Text.Medium"
+                android:textSize="24sp"
+                android:background="@null"
+                android:gravity="start"
+                android:hint="@string/search"
+                android:lineSpacingMultiplier="1.4"
+                android:padding="@dimen/pad"
+                android:textColor="@color/black"
+                android:imeOptions="actionDone"
+                android:inputType="textCapSentences|textMultiLine"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/searchRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="154dp"
+                android:clipToPadding="false"
+                android:clipChildren="false"
+                android:paddingTop="@dimen/pad2x"
+                android:paddingBottom="@dimen/pad2x"
+                app:layout_constraintTop_toBottomOf="@+id/searchEditText"
+                app:layout_constraintBottom_toTopOf="@+id/searchModalText"
+                app:layout_constraintHeight_max="154dp"
+                app:layout_constraintHeight_default="spread"
+                app:layout_constrainedHeight="true"
+                tools:listitem="@layout/item_style_small"
+                tools:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+                tools:orientation="horizontal"
+                android:overScrollMode="ifContentScrolls" />
+
+            <com.queatz.fantasydating.ui.FancyTextView
+                android:id="@+id/searchModalText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/searchRecyclerView"
+                android:layout_marginTop="@dimen/pad2x"
+                app:thin="true"
+                android:textAppearance="@style/Text.Medium"
+                tools:text="Close" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

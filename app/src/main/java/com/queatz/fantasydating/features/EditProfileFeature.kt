@@ -83,7 +83,7 @@ class EditProfileFeature constructor(private val on: On) {
                                 ) }
                             }
 
-                            on<EditorFeature>().open(myProfile.stories[on<StoryFeature>().getCurrentStory()].story, prefix = "I love ") {
+                            on<EditorFeature>().open(myProfile.stories[on<StoryFeature>().getCurrentStory()].story, prefix = "${getString(R.string.about_photo_prefix)} ") {
                                 on<MyProfileFeature>().edit {
                                     stories[on<StoryFeature>().getCurrentStory()].story = it
                                 }
@@ -203,10 +203,17 @@ class EditProfileFeature constructor(private val on: On) {
         on<ViewFeature>().with {
             val me = on<MyProfileFeature>().myProfile
 
-            storyText.text = me.let { "<tap data=\"name\">${if (it.name.isBlank()) getString(R.string.your_name) else it.name}</tap>, <tap data=\"age\">${if (it.age < 18) getString(R.string.your_age) else if (it.age > 99) "too old for this" else it.age.toString()}</tap><br /><br />I love <tap data=\"story\">${it.stories[on<StoryFeature>().getCurrentStory()].story.let {
+            storyText.text = me.let { "<tap data=\"name\">${if (it.name.isBlank()) getString(R.string.your_name) else it.name}</tap>, <tap data=\"age\">${
                 when {
-                    it.isBlank() -> "write something to complement your photo"
-                    it.startsWith("I love ") -> it.replaceFirst("I love ", "")
+                    it.age < 18 -> getString(R.string.your_age)
+                    it.age > 99 -> getString(
+                        R.string.old_lol)
+                    else -> it.age.toString()
+                }
+            }</tap><br /><br />${getString(R.string.about_photo_prefix)} <tap data=\"story\">${it.stories[on<StoryFeature>().getCurrentStory()].story.let {
+                when {
+                    it.isBlank() -> getString(R.string.write_photo_description)
+                    it.startsWith("${getString(R.string.about_photo_prefix)} ") -> it.replaceFirst("${getString(R.string.about_photo_prefix)} ", "")
                     else -> it
                 }
             }}</tap>" }
@@ -216,7 +223,8 @@ class EditProfileFeature constructor(private val on: On) {
     fun updateFantasy() {
         on<ViewFeature>().with {
             val me = on<MyProfileFeature>().myProfile
-            fantasyTitle.text = if (me.name.isNotBlank()) "${me.name}'s Fantasy" else "Your Fantasy"
+            fantasyTitle.text = if (me.name.isNotBlank()) getString(R.string.persons_fantasy, me.name) else getString(R.string.about_you)
+            styleTitle.text = if (me.name.isNotBlank()) getString(R.string.persons_cuddle_styles, me.name) else getString(R.string.your_styles)
             fantasyText.text = on<MyProfileFeature>().myProfile.fantasy.let { if (it.isBlank()) getString(R.string.empty_fantasy) else it }
         }
     }

@@ -9,7 +9,12 @@ import com.queatz.fantasydating.features.NavigationFeature
 import com.queatz.fantasydating.features.TopFeature
 import com.queatz.fantasydating.features.ViewFeature
 import com.queatz.fantasydating.ui.MessagesAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_messages.*
+import kotlinx.android.synthetic.main.activity_messages.background
+import kotlinx.android.synthetic.main.activity_messages.fantasy
+import kotlinx.android.synthetic.main.activity_messages.fantasyText
+import kotlinx.android.synthetic.main.activity_messages.fantasyTitle
 
 class MessagesActivity : BaseActivity() {
 
@@ -116,7 +121,8 @@ class MessagesActivity : BaseActivity() {
                 on<NavigationFeature>().showPerson(person.id!!)
             }
             fantasy.visible = true
-            fantasyTitle.text = "${person.name ?: ""}'s Fantasy"
+            fantasyTitle.text = getString(R.string.persons_fantasy, person.name)
+            styleTitle.text = getString(R.string.persons_cuddle_styles, person.name ?: "")
             fantasyText.text = person.fantasy
             sendMessageInput.hint = "Send ${ on<ValueFeature>().referToAs(person.sex, true)} a message"
             sendMessageInput.isEnabled = true

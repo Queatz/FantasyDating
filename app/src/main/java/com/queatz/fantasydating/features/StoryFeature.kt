@@ -1,5 +1,6 @@
 package com.queatz.fantasydating.features
 
+import android.app.backup.FullBackupDataOutput
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.PointF
@@ -7,13 +8,18 @@ import android.text.method.ScrollingMovementMethod
 import android.view.ViewGroup
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.get
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
 import com.queatz.fantasydating.*
 import com.queatz.fantasydating.ui.MoveZoomHandler
+import com.queatz.fantasydating.ui.StyleAdapter
 import com.queatz.on.On
 import com.queatz.on.OnLifecycle
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlin.math.min
 
 class StoryFeature constructor(private val on: On) : OnLifecycle {
@@ -31,6 +37,8 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                 background.origin = origin
             }
         }
+
+    private lateinit var adapter: StyleAdapter
 
     fun event(event: StoryEvent) {
         if (on<State>().person.current == null) {
@@ -54,6 +62,65 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
     }
 
     fun start() {
+        on<ViewFeature>().with {
+            styleRecyclerView.layoutManager = FlexboxLayoutManager(this, FlexDirection.ROW, FlexWrap.WRAP)
+
+            adapter = StyleAdapter(on, true, {
+                on<ViewFeature>().with {
+                    val adapter = StyleAdapter(on, false) {
+                        adapter.items = mutableListOf(*adapter.items.toTypedArray(), it)
+                        searchLayout.visible = false
+                    }
+
+                    searchLayout.searchEditText.setText("")
+
+                    searchLayout.searchRecyclerView.adapter = adapter
+                    adapter.items = mutableListOf(
+                        Style(name = "\uD83D\uDC59 Boobs", about = "The boobies are out to play."),
+                        Style(name = "\uD83C\uDF03 Overnight", about = "If we're up past 9pm, we're staying together.")
+                    )
+                    searchLayout.searchRecyclerView.layoutManager = FlexboxLayoutManager(this, FlexDirection.ROW, FlexWrap.WRAP)
+
+                    searchModalText.text = "Tap on a Cuddle Style to add it to your profile.<br /><br /><tap data=\"create\">Create one</tap>, or <tap data=\"close\">Close</tap>"
+                    searchModalText.onLinkClick = {
+                        when (it) {
+                            "create" -> {
+
+                            }
+                            "close" -> { }
+                        }
+
+                        searchLayout.visible = false
+                    }
+
+                    searchLayout.visible = true
+                }
+            }) { style ->
+                on<ViewFeature>().with {
+                    on<LayoutFeature>().canCloseFullscreenModal = true
+                    fullscreenMessageText.text = "<b>${style.name}</b><br />${style.about}<br /><br /><tap data=\"close\">Close</tap>, or <tap data=\"remove\">Remove</tap>"
+                    fullscreenMessageLayout.visible = true
+                    fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
+
+                    fullscreenMessageText.onLinkClick = {
+                        when (it) {
+                            "remove" -> {
+                                on<Api>().linkStyle(MeStyleRequest(unlink = style.id)) {}
+                            }
+                        }
+
+                        fullscreenMessageLayout.visible = false
+                    }
+                }
+            }
+
+            styleRecyclerView.adapter = adapter
+            adapter.items = mutableListOf(
+                Style(name = "\uD83D\uDC59 Boobs", about = "The boobies are out to play."),
+                Style(name = "\uD83C\uDF03 Overnight", about = "If we're up past 9pm, we're staying together.")
+            )
+        }
+
         on<State>().observe(State.Area.Person) {
             on<ViewFeature>().with {
                 disposables.add(lifecycle.subscribe {
@@ -96,6 +163,7 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                     }
                     fantasyText.text = ""
                     storyText.text = ""
+
                     return@with
                 } else {
                     stories.visible = true
@@ -115,7 +183,8 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                 if (ui.showEditProfile) {
                     on<EditProfileFeature>().updateFantasy()
                 } else {
-                    fantasyTitle.text = "${person.current?.name ?: ""}'s Fantasy"
+                    fantasyTitle.text = getString(R.string.persons_fantasy, person.current?.name ?: "")
+                    styleTitle.text = getString(R.string.persons_cuddle_styles, person.current?.name ?: "")
                     fantasyText.text = person.current?.fantasy ?: ""
                     person.current?.stories?.apply { stories.count = size }
                 }
@@ -143,7 +212,6 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                             getString(R.string.complete_your_profile, person.name)
                         else ->
                             getString(R.string.confirm_your_love, person.name)
-
                     }
                 }
 
@@ -268,11 +336,18 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
     }
 
     fun onBackPressed() = on<ViewFeature>().with {
-        if (confirmLove.visible) {
-            confirmLove.visible = false
-            on<StoryFeature>().event(StoryEvent.Resume)
-            true
-        } else false
+        when {
+            searchLayout.visible -> {
+                searchLayout.visible = false
+                true
+            }
+            confirmLove.visible -> {
+                confirmLove.visible = false
+                on<StoryFeature>().event(StoryEvent.Resume)
+                true
+            }
+            else -> false
+        }
     }
 
     override fun off() {

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/pad"
+        android:layout_marginBottom="@dimen/pad"
+        android:clickable="true"
+        android:paddingStart="@dimen/pad2x"
+        android:paddingEnd="@dimen/pad2x"
+        android:paddingTop="@dimen/pad"
+        android:paddingBottom="@dimen/pad"
+        android:elevation="@dimen/elevationSmall"
+        android:gravity="center"
+        android:background="@drawable/clickable_white_rounded_512dp"
+        android:textAppearance="@style/Text.Medium"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:scrollbars="none"
+        tools:text="👙 Boobs" />
+
+</FrameLayout>

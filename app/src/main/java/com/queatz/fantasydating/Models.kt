@@ -54,6 +54,7 @@ data class Person constructor(
     var lovesYou: Boolean = false,
     @Convert(converter = PersonStoryListJsonConverter::class, dbType = String::class)
     var stories: List<PersonStory> = listOf(),
+    var styles: List<Style> = listOf(),
     var boss: Boolean = false
 ) : BaseModel()
 
@@ -72,4 +73,10 @@ class PersonStory constructor(
     var x: Float = .5f,
     var y: Float = .5f
 )
+
+@Entity
+class Style constructor(
+    var name: String = "",
+    var about: String = ""
+) : BaseModel()
 

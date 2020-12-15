@@ -9,4 +9,6 @@
     <dimen name="pad8x">64dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="qr_code">180dp</dimen>
+    <dimen name="elevation">8dp</dimen>
+    <dimen name="elevationSmall">4dp</dimen>
 </resources>

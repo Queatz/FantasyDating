@@ -10,8 +10,7 @@ import io.ktor.client.features.DefaultRequest
 import io.ktor.client.features.json.GsonSerializer
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.observer.ResponseObserver
-import io.ktor.client.request.get
-import io.ktor.client.request.post
+import io.ktor.client.request.*
 import io.ktor.client.response.readText
 import io.ktor.client.utils.EmptyContent
 import io.ktor.http.*
@@ -65,15 +64,15 @@ class Http constructor(private val on: On) : OnLifecycle {
         http.close()
     }
 
-    fun <T : Any> get(url: String, klass: Type, error: ((Throwable) -> Unit)? = null, result: ((T) -> Unit)? = null) {
-        call(url, klass, Get, result = result, error = error)
+    fun <T : Any> get(url: String, klass: Type, queryParams: Map<String, String>? = null, error: ((Throwable) -> Unit)? = null, result: ((T) -> Unit)? = null) {
+        call(url, klass, Get, queryParams = queryParams, result = result, error = error)
     }
 
-    fun <T : Any> post(url: String, body: Any, klass: Type, error: ((Throwable) -> Unit)? = null, result: ((T) -> Unit)? = null) {
-        call(url, klass, Post, body, result, error)
+    fun <T : Any> post(url: String, body: Any, klass: Type, queryParams: Map<String, String>? = null, error: ((Throwable) -> Unit)? = null, result: ((T) -> Unit)? = null) {
+        call(url, klass, Post, queryParams, body, result, error)
     }
 
-    fun <T : Any> call(url: String, klass: Type, method: HttpMethod, body: Any = EmptyContent, result: ((T) -> Unit)? = null, error: ((Throwable) -> Unit)? = null) {
+    private fun <T : Any> call(url: String, klass: Type, method: HttpMethod, queryParams: Map<String, String>? = null, body: Any = EmptyContent, result: ((T) -> Unit)? = null, error: ((Throwable) -> Unit)? = null) {
         val fullUrl = (if (url.contains("://")) "" else baseUrl) + url
         val httpClient = if (fullUrl.startsWith(PhotoUpload.url)) contentHttp else http
 
@@ -85,7 +84,9 @@ class Http constructor(private val on: On) : OnLifecycle {
                     else
                         on<Json>().from(when (method) {
                             Post -> httpClient.post(fullUrl) { this.body = body }
-                            else -> httpClient.get(fullUrl)
+                            else -> httpClient.get(fullUrl) { HttpRequestBuilder().apply {
+                                queryParams?.forEach { k, v -> parameter(k, v) }
+                            } }
                         }, klass) as T, null)
                 } catch (e: Exception) {
                     Result(null, e)

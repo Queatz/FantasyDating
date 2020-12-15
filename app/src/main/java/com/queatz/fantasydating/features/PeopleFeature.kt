@@ -1,7 +1,5 @@
 package com.queatz.fantasydating.features
 
-import coil.Coil
-import coil.api.load
 import com.queatz.fantasydating.*
 import com.queatz.on.On
 
@@ -80,6 +78,7 @@ class PeopleFeature constructor(private val on: On) {
     }
 
     fun show(people: List<Person>) {
+        on<State>().person = PersonState(null)
         this.people = people.toMutableList()
         index = -1
         nextPerson()
