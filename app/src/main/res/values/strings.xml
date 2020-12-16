@@ -73,4 +73,10 @@
     <string name="style_about">Description</string>
     <string name="style_added_to_your_profile">Style added to your profile</string>
     <string name="style_removed_from_your_profile">Style removed from your profile</string>
+    <string name="scan_to_join">Scan someone\'s invite code to join The Cuddly Connection.</string>
+    <string name="reload">Reload</string>
+    <string name="failed_to_load">Failed to load</string>
+    <string name="send_x_a_message">Send %1$s a message</string>
+    <string name="close">Close</string>
+    <string name="name_too_short">Name is too short</string>
 </resources>

@@ -2,25 +2,32 @@ package com.queatz.fantasydating
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.queatz.fantasydating.features.NavigationFeature
-import com.queatz.fantasydating.features.TopFeature
-import com.queatz.fantasydating.features.ViewFeature
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.queatz.fantasydating.features.*
 import com.queatz.fantasydating.ui.MessagesAdapter
+import com.queatz.fantasydating.ui.StyleAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_messages.*
 import kotlinx.android.synthetic.main.activity_messages.background
 import kotlinx.android.synthetic.main.activity_messages.fantasy
 import kotlinx.android.synthetic.main.activity_messages.fantasyText
 import kotlinx.android.synthetic.main.activity_messages.fantasyTitle
+import kotlinx.android.synthetic.main.activity_messages.styleRecyclerView
+import kotlinx.android.synthetic.main.activity_messages.styleTitle
+import kotlinx.android.synthetic.main.fullscreen_modal.*
 
 class MessagesActivity : BaseActivity() {
 
     private var person: Person? = null
     private lateinit var personId: String
     private lateinit var adapter: MessagesAdapter
+    private lateinit var styleAdapter: StyleAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +40,21 @@ class MessagesActivity : BaseActivity() {
         messagesRecyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, true)
         adapter = MessagesAdapter(on) { person?.name ?: "" }
         messagesRecyclerView.adapter = adapter
+
+        styleAdapter = StyleAdapter(on) { style, _ ->
+            on<ViewFeature>().with {
+                on<LayoutFeature>().canCloseFullscreenModal = true
+                fullscreenMessageText.text = "<b>${style.name}</b><br />${style.about}<br /><br /><tap data=\"close\">${getString(R.string.close)}</tap>"
+                fullscreenMessageLayout.visible = true
+                fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
+
+                fullscreenMessageText.onLinkClick = {
+                    fullscreenMessageLayout.visible = false
+                }
+            }
+        }
+        styleRecyclerView.layoutManager = FlexboxLayoutManager(this, FlexDirection.ROW, FlexWrap.WRAP)
+        styleRecyclerView.adapter = styleAdapter
 
         sendMessageInput.setOnEditorActionListener { _, action, _ ->
             if (action == EditorInfo.IME_ACTION_SEND) {
@@ -114,6 +136,7 @@ class MessagesActivity : BaseActivity() {
         this.person = person
 
         person?.let { person ->
+            styleAdapter.items = person.styles.toMutableList()
             setPhoto(person.stories.firstOrNull()?.photo)
             viewStoryButton.visible = true
             viewStoryButton.text = getString(R.string.view_story,  on<ValueFeature>().referToAs(person.sex))
@@ -122,9 +145,11 @@ class MessagesActivity : BaseActivity() {
             }
             fantasy.visible = true
             fantasyTitle.text = getString(R.string.persons_fantasy, person.name)
-            styleTitle.text = getString(R.string.persons_cuddle_styles, person.name ?: "")
             fantasyText.text = person.fantasy
-            sendMessageInput.hint = "Send ${ on<ValueFeature>().referToAs(person.sex, true)} a message"
+            styleTitle.text = getString(R.string.persons_cuddle_styles, person.name)
+            styleTitle.visible = person.styles.isNotEmpty()
+            styleRecyclerView.visible = person.styles.isNotEmpty()
+            sendMessageInput.hint = getString(R.string.send_x_a_message, on<ValueFeature>().referToAs(person.sex, true))
             sendMessageInput.isEnabled = true
             sendMessageButton.isEnabled = true
         } ?: run {

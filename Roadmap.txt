@@ -3,10 +3,18 @@ Styles
 ======
 
  [X] (L) Add Styles UI (inline chip, name + description card, modal)
- [ ] (L) Add Style (sort by Popular)
- [ ] (L) Create New Style (other people can use it)
- [ ] (M) Remove Style
- [ ] (M) Show about + style at the top in messages
+ [X] (L) Add Style (sort by Popular)
+ [X] (L) Create New Style (other people can use it)
+ [X] (M) Remove Style
+ [X] (M) Show about + style at the top in messages
+ [X] offset wrong on initial load
+ [X] search styles
+ [X] search 1 line
+ [X] no purple color, replace with white
+ [ ] always fade in photos
+ [X] "I like" saved on BE failing? does it enforce "I love"?
+ [X] messages crashes
+ [X] reload UI on style added/removed
 
 Style Model
 ===========

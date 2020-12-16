@@ -4,6 +4,7 @@ import androidx.core.widget.addTextChangedListener
 import com.queatz.fantasydating.*
 import com.queatz.on.On
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fullscreen_modal.*
 
 class MoreOptionsFeature constructor(private val on: On) {
 

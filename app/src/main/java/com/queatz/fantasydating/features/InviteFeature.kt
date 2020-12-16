@@ -8,6 +8,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder
 import com.queatz.fantasydating.*
 import com.queatz.on.On
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fullscreen_modal.*
 
 class InviteFeature constructor(private val on: On) {
     fun generateInviteCode(success: (Bitmap) -> Unit) {
@@ -39,7 +40,7 @@ class InviteFeature constructor(private val on: On) {
             fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
 
             generateInviteCode {
-                fullscreenMessageText.text = "Scan this QR Code to join Fantasy Dating, or <tap data=\"close\">Close</tap>"
+                fullscreenMessageText.text = "Scan this QR Code to join The Cuddly Connection, or <tap data=\"close\">Close</tap>"
                 fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(
                     null, BitmapDrawable(resources, it), null, null
                 )

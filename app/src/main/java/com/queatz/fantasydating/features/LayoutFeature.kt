@@ -5,11 +5,23 @@ import com.queatz.fantasydating.*
 import com.queatz.fantasydating.ui.TileDrawable
 import com.queatz.on.On
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fullscreen_modal.*
 
 class LayoutFeature constructor(private val on: On) {
 
     var isBoss = on<MyProfileFeature>().myProfile.boss
     var canCloseFullscreenModal = false
+        set(value) {
+            field = value
+
+            if (canCloseFullscreenModal) {
+                on<ViewFeature>().with { fullscreenMessageLayout }.setOnClickListener {
+                    it.visible = false
+                }
+            } else {
+                on<ViewFeature>().with { fullscreenMessageLayout }.setOnClickListener(null)
+            }
+        }
 
     fun start() {
         on<ViewFeature>().with {

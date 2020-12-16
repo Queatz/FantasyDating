@@ -3,10 +3,12 @@ package com.queatz.fantasydating.features
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.PointF
+import android.text.TextWatcher
 import android.text.method.ScrollingMovementMethod
 import android.view.ViewGroup
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.get
+import androidx.core.widget.doOnTextChanged
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -21,11 +23,15 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.add_style_modal.*
 import kotlinx.android.synthetic.main.add_style_modal.view.*
+import kotlinx.android.synthetic.main.fullscreen_modal.*
 import kotlin.math.min
 
+@Suppress("UNUSED_ANONYMOUS_PARAMETER")
 class StoryFeature constructor(private val on: On) : OnLifecycle {
 
     private val disposables = CompositeDisposable()
+    private var searchEditTextListener: TextWatcher? = null
+    private var searchCallback: CallbackHandle? = null
 
     var currentOrigin = PointF()
     var overrideEvent: StoryEventListener? = null
@@ -98,6 +104,16 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
 
                     searchLayout.searchEditText.setText("")
 
+                    searchEditTextListener?.let { searchLayout.searchEditText.removeTextChangedListener(it) }
+                    searchEditTextListener = searchLayout.searchEditText.doOnTextChanged { text, _, _, _ ->
+                        searchCallback?.cancel()
+                        searchCallback = on<Api>().searchStyles(text.toString().trim()) {
+                            on<State>().person.current?.let { person ->
+                                adapter.items = it.filter { style -> person.styles.all { it.id != style.id } }.toMutableList()
+                            }
+                        }
+                    }
+
                     searchLayout.searchRecyclerView.adapter = adapter
                     searchLayout.searchRecyclerView.layoutManager = FlexboxLayoutManager(this, FlexDirection.ROW, FlexWrap.WRAP)
 
@@ -116,16 +132,21 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                                             val name = addStyleModalLayout.addStyleNameEditText.text.toString()
                                             val about = addStyleModalLayout.addStyleAboutEditText.text.toString()
 
-                                            on<Api>().createStyle(StyleRequest(name, about)) {
-                                                on<Say>().say(R.string.style_added_to_your_profile)
-                                                on<MyProfileFeature>().reload()
+                                            if (name.length < 2) {
+                                                on<Say>().say(getString(R.string.name_too_short))
+                                            } else {
+                                                on<Api>().createStyle(StyleRequest(name, about)) {
+                                                    on<Say>().say(R.string.style_added_to_your_profile)
+                                                    on<MyProfileFeature>().reload()
+                                                }
+
+                                                addStyleModalLayout.visible = false
                                             }
                                         }
                                         "close" -> {
+                                            addStyleModalLayout.visible = false
                                         }
                                     }
-
-                                    addStyleModalLayout.visible = false
                                 }
                             }
                             "close" -> { }
@@ -139,7 +160,7 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
             }) { style, _ ->
                 on<ViewFeature>().with {
                     on<LayoutFeature>().canCloseFullscreenModal = true
-                    fullscreenMessageText.text = "<b>${style.name}</b><br />${style.about}<br /><br /><tap data=\"close\">Close</tap>${if (adapter.showAdd) ", or <tap data=\"remove\">Remove</tap>" else ""}"
+                    fullscreenMessageText.text = "<b>${style.name}</b>${style.about?.takeIf { !it.isNullOrBlank() }?.let { "<br />$it" } ?: ""}<br /><br /><tap data=\"close\">Close</tap>${if (adapter.showAdd) ", or <tap data=\"remove\">Remove</tap>" else ""}"
                     fullscreenMessageLayout.visible = true
                     fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
 
@@ -159,6 +180,10 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
             }
 
             styleRecyclerView.adapter = adapter
+        }
+
+        on<State>().observe(State.Area.Profile) {
+            updateStyles()
         }
 
         on<State>().observe(State.Area.Person) {
@@ -189,10 +214,10 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                     moreOptionsButton.visible = false
                     loveButton.visible = false
                     fantasyTitle.text = when {
-                        person.failed && on<MyProfileFeature>().myProfile.invited.not() -> "Scan someone's invite code to join Fantasy Dating."
-                        person.failed && on<MyProfileFeature>().myProfile.invited -> "Failed to load ${
+                        person.failed && on<MyProfileFeature>().myProfile.invited.not() -> getString(R.string.scan_to_join)
+                        person.failed && on<MyProfileFeature>().myProfile.invited -> "${getString(R.string.failed_to_load)} ${
                             on<ValueFeature>().pluralSex(on<DiscoveryPreferencesFeature>().discoveryPreferences.who).toLowerCase()
-                        }. <tap data=\"reload\">Reload</tap>"
+                        }. <tap data=\"reload\">${getString(R.string.reload)}</tap>"
                         person.loading -> "Finding ${
                             on<ValueFeature>().pluralSex(on<DiscoveryPreferencesFeature>().discoveryPreferences.who).toLowerCase()
                         }, please wait..."
@@ -226,8 +251,7 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                     }
                 }
 
-                adapter.showAdd = ui.showEditProfile
-                adapter.items = person.current?.styles?.toMutableList() ?: mutableListOf()
+                updateStyles()
 
                 if (ui.showEditProfile) {
                     on<EditProfileFeature>().updateFantasy()
@@ -358,6 +382,16 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
         }
     }
 
+    private fun updateStyles() {
+        on<ViewFeature>().with {
+            adapter.showAdd = on<State>().ui.showEditProfile
+            adapter.items = on<State>().person.current?.styles?.toMutableList() ?: mutableListOf()
+
+            styleTitle.visible = adapter.items.isNotEmpty() || adapter.showAdd
+            styleRecyclerView.visible = styleTitle.visible
+        }
+    }
+
     fun setPhoto(photo: String) {
         on<ViewFeature>().with {
             stories.post { event(StoryEvent.Pause) }
@@ -379,7 +413,6 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                 hsv[2] = min(hsv[2], .333f)
                 val c = Color.HSVToColor(hsv)
                 storyText.setTextColor(c)
-                fantasy.setBackgroundColor(Color.argb(163, Color.red(c) / 4, Color.green(c) / 4, Color.blue(c) / 4))
             }
         }
     }

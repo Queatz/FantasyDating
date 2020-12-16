@@ -1,0 +1,49 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fullscreenMessageLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:elevation="@dimen/pad4x"
+    android:clickable="true"
+    android:visibility="gone"
+    android:background="@color/story_background">
+
+    <com.queatz.fantasydating.ui.FancyTextView
+        android:id="@+id/fullscreenMessageText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/pad2x"
+        android:layout_margin="@dimen/pad4x"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias=".33"
+        android:lineSpacingMultiplier="1.2"
+        app:thin="true"
+        android:textAppearance="@style/Text.Medium"
+        android:background="@drawable/white_rounded"
+        android:paddingTop="@dimen/pad8x"
+        android:paddingStart="@dimen/pad4x"
+        android:paddingEnd="@dimen/pad4x"
+        android:paddingBottom="@dimen/pad4x"
+        android:elevation="@dimen/pad2x"
+        tools:text="@string/welcome_modal_message" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/fullscreenMessageText"
+        app:layout_constraintBottom_toTopOf="@+id/fullscreenMessageText"
+        app:layout_constraintStart_toStartOf="@+id/fullscreenMessageText"
+        app:layout_constraintEnd_toEndOf="@+id/fullscreenMessageText"
+        android:textColor="@color/white"
+        android:elevation="@dimen/pad2x"
+        android:shadowColor="@color/story_background"
+        android:shadowRadius="16"
+        android:text="🧜"
+        android:textSize="54sp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

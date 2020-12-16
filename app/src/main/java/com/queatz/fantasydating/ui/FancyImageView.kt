@@ -45,6 +45,11 @@ class FancyImageView : ImageView {
         val vw = measuredWidth.toFloat()
         val vh = measuredHeight.toFloat()
 
+        if (dw <= 0 || dh <= 0) {
+            invalidate()
+            return
+        }
+
         imageMatrix = Matrix().apply {
             baseScale = max(vw / dw, vh / dh) * scale
 

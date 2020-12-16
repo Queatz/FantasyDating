@@ -3,6 +3,7 @@ package com.queatz.fantasydating
 import com.google.gson.reflect.TypeToken
 import com.queatz.on.On
 import io.ktor.client.utils.EmptyContent
+import java.util.concurrent.CancellationException
 
 class Api constructor(private val on: On) {
     fun me(callback: (Person) -> Unit) =
@@ -82,11 +83,11 @@ class Api constructor(private val on: On) {
         post("phone", request, callback)
 
     private inline fun <reified T : Any> get(url: String, queryParams: Map<String, String>? = null, noinline callback: (T) -> Unit) = CallbackHandle { error(it) }.apply {
-        on<Http>().get(url, type<T>(), queryParams, { errorCallback(it) }, callback)
+        on<Http>().get(url, type<T>(), queryParams, { errorCallback(it) }, callback, { cancelCallback = it })
     }
 
     private inline fun <reified T : Any> post(url: String, body: Any = EmptyContent, noinline callback: (T) -> Unit) = CallbackHandle { error(it) }.apply {
-        on<Http>().post(url, body, type<T>(), null, { errorCallback(it) }, callback)
+        on<Http>().post(url, body, type<T>(), null, { errorCallback(it) }, callback, { cancelCallback = it })
     }
 
     private fun error(throwable: Throwable) {
@@ -98,10 +99,17 @@ class Api constructor(private val on: On) {
 }
 
 typealias ErrorCallback = (throwable: Throwable) -> Unit
+typealias CancelCallback = (CancellationException) -> Unit
 
 class CallbackHandle constructor(var errorCallback: ErrorCallback) {
+    lateinit var cancelCallback: CancelCallback
+
     infix fun error(errorCallback: ErrorCallback): CallbackHandle {
         this.errorCallback = errorCallback
         return this
+    }
+
+    fun cancel(cancellationException: CancellationException? = null) {
+        cancelCallback.invoke(cancellationException ?: CancellationException("Cancelled"))
     }
 }

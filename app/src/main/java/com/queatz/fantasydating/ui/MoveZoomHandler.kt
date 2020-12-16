@@ -10,12 +10,10 @@ import kotlin.math.max
 class MoveZoomHandler constructor(private val on: On, private val callback: MoveZoomHandlerCallback) {
 
     var scale: Float = 1f
-    var origin: PointF =
-        PointF()
+    var origin: PointF = PointF()
 
     var targetScale: Float = 1f
-    var targetOrigin: PointF =
-        PointF()
+    var targetOrigin: PointF = PointF()
 
     private val animationInterval = TimeAnimator().apply {
         setTimeListener { _, _, delta ->

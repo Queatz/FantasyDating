@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import com.queatz.fantasydating.*
 import com.queatz.on.On
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fullscreen_modal.*
 
 class WalkthroughFeature constructor(private val on: On) {
 

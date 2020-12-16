@@ -127,7 +127,7 @@ class PushNotifications constructor(private val on: On) {
                 it.setDefaults(Notification.DEFAULT_LIGHTS)
             }
 
-            it.setSmallIcon(R.drawable.icon)
+            it.setSmallIcon(R.mipmap.ic_launcher_foreground)
             it.setContentTitle(name)
             it.setContentText(message)
             it.setAutoCancel(true)
@@ -141,7 +141,7 @@ class PushNotifications constructor(private val on: On) {
                 backgroundIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT)
 
-            val action = NotificationCompat.Action.Builder(R.drawable.icon,
+            val action = NotificationCompat.Action.Builder(R.mipmap.ic_launcher_foreground,
                 on<ContextFeature>().context.getString(R.string.reply), replyPendingIntent)
                 .addRemoteInput(remoteInput)
                 .build()

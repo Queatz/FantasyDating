@@ -5,4 +5,5 @@
             <gradient android:startColor="@color/colorPrimary" android:endColor="@color/colorPrimaryLight" android:angle="45" />
         </shape>
     </item>
+    <item android:drawable="@mipmap/ic_launcher_foreground" android:gravity="center" />
 </layer-list>

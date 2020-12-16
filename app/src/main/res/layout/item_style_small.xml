@@ -15,7 +15,7 @@
         android:paddingEnd="@dimen/pad2x"
         android:paddingTop="@dimen/pad"
         android:paddingBottom="@dimen/pad"
-        android:elevation="@dimen/elevationSmall"
+        android:elevation="@dimen/elevationLow"
         android:gravity="center"
         android:background="@drawable/clickable_white_rounded_512dp"
         android:textAppearance="@style/Text.Medium"

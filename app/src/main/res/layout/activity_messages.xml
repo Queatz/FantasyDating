@@ -48,7 +48,7 @@
             android:paddingTop="@dimen/pad4x"
             android:paddingStart="@dimen/pad4x"
             android:paddingEnd="@dimen/pad4x"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             app:highlight="false"
             android:scrollbars="vertical"
             tools:text="Emi’s Fantasy" />
@@ -68,10 +68,42 @@
             android:minHeight="80dp"
             android:paddingBottom="@dimen/pad2x"
             android:textAppearance="@style/Text.Medium"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:scrollbars="vertical"
-            tools:text="I want a boy to masturbate and kiss me on a bench overlooking the lake." />
+            tools:text="Boobs. More boobs." />
+
+        <com.queatz.fantasydating.ui.FancyTextView
+            android:id="@+id/styleTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/fantasyText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingStart="@dimen/pad4x"
+            android:paddingEnd="@dimen/pad4x"
+            android:textColor="@color/black"
+            app:highlight="false"
+            android:scrollbars="vertical"
+            tools:text="Emi's Cuddle Style" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/styleRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            android:paddingTop="@dimen/pad2x"
+            android:paddingBottom="@dimen/pad4x"
+            android:paddingStart="@dimen/pad4x"
+            android:paddingEnd="@dimen/pad4x"
+            app:layout_constraintTop_toBottomOf="@+id/styleTitle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/item_style_small"
+            tools:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+            tools:orientation="horizontal"
+            android:maxHeight="96dp"
+            android:overScrollMode="never" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -82,10 +114,13 @@
         android:layout_marginTop="@dimen/pad2x"
         android:layout_marginStart="@dimen/pad2x"
         android:layout_marginEnd="@dimen/pad2x"
-        android:padding="@dimen/pad"
+        android:paddingStart="@dimen/pad2x"
+        android:paddingEnd="@dimen/pad2x"
+        android:paddingTop="@dimen/pad"
+        android:paddingBottom="@dimen/pad"
         android:background="@drawable/white_rounded_2dp"
         app:thin="true"
-        android:elevation="@dimen/pad"
+        android:elevation="@dimen/elevationHigh"
         android:gravity="center_horizontal"
         app:layout_goneMarginTop="@dimen/pad4x"
         app:layout_constraintTop_toTopOf="parent"
@@ -133,5 +168,7 @@
             android:contentDescription="Send message button"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include layout="@layout/fullscreen_modal" android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
