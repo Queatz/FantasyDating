@@ -23,11 +23,23 @@
             android:padding="@dimen/pad4x"
             android:elevation="@dimen/pad2x">
 
+            <com.queatz.fantasydating.ui.FancyTextView
+                android:id="@+id/addStyleModalTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/addStyleNameEditText"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textAppearance="@style/Text.Medium"
+                android:text="@string/add_a_new_cuddle_style" />
+
             <com.queatz.fantasydating.ui.FancyEditText
                 android:id="@+id/addStyleNameEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="@dimen/pad2x"
+                app:layout_constraintTop_toBottomOf="@+id/addStyleModalTitle"
                 app:layout_constraintBottom_toTopOf="@+id/addStyleAboutEditText"
                 android:textAppearance="@style/Text.Medium"
                 android:textSize="24sp"

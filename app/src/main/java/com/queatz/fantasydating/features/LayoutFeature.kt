@@ -92,7 +92,7 @@ class LayoutFeature constructor(private val on: On) {
                         choosePhotoButton.visible = false
                         storyText.visible = false
                         moreOptionsButton.visible = false
-                        on<MoreOptionsFeature>().close()
+                        on<MoreOptionsFeature>().close(true)
                         on<StoryFeature>().event(StoryEvent.Pause)
 
                         ui.showEditProfile otherwise {

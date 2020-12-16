@@ -121,7 +121,11 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                         addStyleModalLayout.fadeOut()
                     }
 
-                    searchModalText.text = "Tap on a Cuddle Style to add it to your profile.<br /><br /><tap data=\"create\">Add new</tap>, or <tap data=\"close\">Close</tap>"
+                    searchLayout.setOnClickListener {
+                        searchLayout.fadeOut()
+                    }
+
+                    searchModalText.text = "Tap on a Cuddle Style to add it to your profile.<br /><br /><tap data=\"create\">Make</tap> your own, or <tap data=\"close\">Close</tap>"
                     searchModalText.onLinkClick = {
                         when (it) {
                             "create" -> {

@@ -96,9 +96,15 @@ class MoreOptionsFeature constructor(private val on: On) {
         }
     }
 
-    fun close() {
+    fun close(noAnimation: Boolean = false) {
         on<StoryFeature>().event(StoryEvent.Resume)
         on<ViewFeature>().with { on<Timer>().remove(closeCallback) }
-        on<ViewFeature>().with { moreOptionsText }.fadeOut()
+        on<ViewFeature>().with {
+            if (noAnimation) {
+                moreOptionsText.visible = false
+            } else {
+                moreOptionsText.fadeOut()
+            }
+        }
     }
 }
