@@ -7,6 +7,9 @@ Invite & Profile
 Polish
 ======
 
+ [X] (S) Max height on styles in story text drawer
+ [ ] (S) Reorder styles (draghelper?)
  [ ] (L) New Icon!
  [ ] (S) Approve box doesn't go away after approval...?
  [ ] (M) Upgrade backend on Linode
+

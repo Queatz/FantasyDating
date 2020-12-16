@@ -30,6 +30,16 @@ class StyleAdapter constructor(
             // todo diff
         }
 
+    fun moveItem(from: Int, to: Int) {
+        if (from >= items.size || to >= items.size) {
+            return
+        }
+
+        val item = items.removeAt(from)
+        items.add(to, item)
+        notifyItemMoved(from, to)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StyleViewHolder {
         return StyleViewHolder(LayoutInflater.from(parent.context)
             .inflate(R.layout.item_style_small, parent, false))
@@ -55,10 +65,10 @@ class StyleAdapter constructor(
             callback(item, false)
         }
 
-        holder.name.setOnLongClickListener {
-            callback(item, true)
-            true
-        }
+//        holder.name.setOnLongClickListener {
+//            callback(item, true)
+//            true
+//        }
     }
 }
 

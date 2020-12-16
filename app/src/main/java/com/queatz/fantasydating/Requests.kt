@@ -6,7 +6,8 @@ data class MeRequest constructor(
     var age: Int? = null,
     var active: Boolean? = null,
     var fantasy: String? = null,
-    var stories: List<PersonStory>? = null
+    var stories: List<PersonStory>? = null,
+    var stylesOrder: List<String>? = null
 )
 
 data class MeDiscoveryPreferencesRequest constructor(

@@ -263,7 +263,16 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
 
                 if (ui.showEditProfile) {
                     on<EditProfileFeature>().updateFantasy()
+
+                    on<StyleFeature>().attach(styleRecyclerView, {
+                        if (!it) {
+                            on<Api>().me(MeRequest(stylesOrder = adapter.items.map { it.id!! })) {}
+                        }
+                    }, { from, to ->
+                        adapter.moveItem(from, to)
+                    })
                 } else {
+                    on<StyleFeature>().deattach()
                     fantasyTitle.text = getString(R.string.persons_fantasy, person.current?.name ?: "")
                     styleTitle.text = getString(R.string.persons_cuddle_styles, person.current?.name ?: "")
                     fantasyText.text = person.current?.fantasy ?: ""
