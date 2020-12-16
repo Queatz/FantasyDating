@@ -142,14 +142,14 @@ class GesturesFeature constructor(private val on: On) {
 
                 override fun onScaleEnd(detector: ScaleGestureDetector) {
                     on<State> {
-                        ui = ui.copy(showStoryDetails = true)
+                        ui = ui.copy(showStoryDetails = true, showFantasy = false)
                     }
 
                     on<StoryFeature>().scaleHandler.set(1f, on<StoryFeature>().currentOrigin)
                 }
                 override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {
                     on<State> {
-                        ui = ui.copy(showStoryDetails = false)
+                        ui = ui.copy(showStoryDetails = false, showFantasy = false)
                     }
 
                     return true

@@ -105,10 +105,14 @@ class LayoutFeature constructor(private val on: On) {
                     } else {
                         fantasy.disappear {
                             swipeUpArrow.rotation = 0f
-                            storyText.fadeIn(slide = false)
                             moreOptionsButton.visible = false
-                            if (person.current != null) {
-                                moreOptionsButton.fadeIn(slide = false)
+
+                            if (on<StoryFeature>().scaleHandler.targetScale == 1f) {
+                                storyText.fadeIn(slide = false)
+
+                                if (person.current != null) {
+                                    moreOptionsButton.fadeIn(slide = false)
+                                }
                             }
 
                             on<StoryFeature>().event(StoryEvent.Resume)

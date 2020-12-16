@@ -7,5 +7,6 @@ Invite & Profile
 Polish
 ======
 
+ [ ] (L) New Icon!
  [ ] (S) Approve box doesn't go away after approval...?
  [ ] (M) Upgrade backend on Linode
