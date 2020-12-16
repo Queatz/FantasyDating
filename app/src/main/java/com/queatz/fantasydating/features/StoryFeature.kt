@@ -79,7 +79,7 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
 
                         on<LayoutFeature>().canCloseFullscreenModal = true
                         fullscreenMessageText.text = "<b>${style.name}</b><br />${style.about}<br /><br /><tap data=\"add\">Add</tap>, or <tap data=\"close\">Close</tap>"
-                        fullscreenMessageLayout.visible = true
+                        fullscreenMessageLayout.fadeIn()
                         fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
 
                         fullscreenMessageText.onLinkClick = {
@@ -92,7 +92,7 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                                 }
                             }
 
-                            fullscreenMessageLayout.visible = false
+                            fullscreenMessageLayout.fadeOut()
                         }
                     }
 
@@ -117,11 +117,15 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                     searchLayout.searchRecyclerView.adapter = adapter
                     searchLayout.searchRecyclerView.layoutManager = FlexboxLayoutManager(this, FlexDirection.ROW, FlexWrap.WRAP)
 
+                    addStyleModalLayout.setOnClickListener {
+                        addStyleModalLayout.fadeOut()
+                    }
+
                     searchModalText.text = "Tap on a Cuddle Style to add it to your profile.<br /><br /><tap data=\"create\">Add new</tap>, or <tap data=\"close\">Close</tap>"
                     searchModalText.onLinkClick = {
                         when (it) {
                             "create" -> {
-                                addStyleModalLayout.visible = true
+                                addStyleModalLayout.fadeIn()
                                 addStyleModalLayout.addStyleNameEditText.setText("")
                                 addStyleModalLayout.addStyleAboutEditText.setText("")
                                 addStyleModalLayout.addStyleModalText.text = "<tap data=\"create\">Add</tap>, or <tap data=\"close\">Cancel</tap>"
@@ -140,11 +144,11 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                                                     on<MyProfileFeature>().reload()
                                                 }
 
-                                                addStyleModalLayout.visible = false
+                                                addStyleModalLayout.fadeOut()
                                             }
                                         }
                                         "close" -> {
-                                            addStyleModalLayout.visible = false
+                                            addStyleModalLayout.fadeOut()
                                         }
                                     }
                                 }
@@ -152,16 +156,16 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                             "close" -> { }
                         }
 
-                        searchLayout.visible = false
+                        searchLayout.fadeOut()
                     }
 
-                    searchLayout.visible = true
+                    searchLayout.fadeIn()
                 }
             }) { style, _ ->
                 on<ViewFeature>().with {
                     on<LayoutFeature>().canCloseFullscreenModal = true
                     fullscreenMessageText.text = "<b>${style.name}</b>${style.about?.takeIf { !it.isNullOrBlank() }?.let { "<br />$it" } ?: ""}<br /><br /><tap data=\"close\">Close</tap>${if (adapter.showAdd) ", or <tap data=\"remove\">Remove</tap>" else ""}"
-                    fullscreenMessageLayout.visible = true
+                    fullscreenMessageLayout.fadeIn()
                     fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
 
                     fullscreenMessageText.onLinkClick = {
@@ -174,7 +178,7 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                             }
                         }
 
-                        fullscreenMessageLayout.visible = false
+                        fullscreenMessageLayout.fadeOut()
                     }
                 }
             }
@@ -290,7 +294,10 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
 
                 on<WalkthroughFeature>().closeBub(bub4)
 
-                confirmLove.visible = confirmLove.visible.not()
+                when (confirmLove.visible.not()) {
+                    true -> confirmLove.fadeIn()
+                    false -> confirmLove.fadeOut()
+                }
                 confirmLove.onLinkClick = {
                     when (it) {
                         "love" -> {
@@ -420,15 +427,15 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
     fun onBackPressed() = on<ViewFeature>().with {
         when {
             searchLayout.visible -> {
-                searchLayout.visible = false
+                searchLayout.fadeOut()
                 true
             }
             addStyleModalLayout.visible -> {
-                addStyleModalLayout.visible = false
+                addStyleModalLayout.fadeOut()
                 true
             }
             confirmLove.visible -> {
-                confirmLove.visible = false
+                confirmLove.fadeOut()
                 on<StoryFeature>().event(StoryEvent.Resume)
                 true
             }

@@ -1,42 +1,3 @@
-
-Styles
-======
-
- [X] (L) Add Styles UI (inline chip, name + description card, modal)
- [X] (L) Add Style (sort by Popular)
- [X] (L) Create New Style (other people can use it)
- [X] (M) Remove Style
- [X] (M) Show about + style at the top in messages
- [X] offset wrong on initial load
- [X] search styles
- [X] search 1 line
- [X] no purple color, replace with white
- [ ] always fade in photos
- [X] "I like" saved on BE failing? does it enforce "I love"?
- [X] messages crashes
- [X] reload UI on style added/removed
-
-Style Model
-===========
-
- [X] Style {
-         name
-         details
-     }
-
-Styles API
-==========
-
- [X] GET /style?search=boobies -> [{style}]
- [X] POST /style {style} -> success
- [X] POST /me/style { link: styleId, unlink: styleId }
-
-Language
-======
-
- [X] (S) “Fantasy” -> “About”
- [X] (S) “Love” -> “Like”
-
 Invite & Profile
 ================
 
@@ -46,8 +7,5 @@ Invite & Profile
 Polish
 ======
 
- [ ] (S) Proper ending of stories messaging in feed
- [ ] (S) Animations on modals
- [ ] (S) Approve box doesn't go away...?
- [ ] (S) Don't send approve notification if already approved
- [ ] (M) Upgrade backend
+ [ ] (S) Approve box doesn't go away after approval...?
+ [ ] (M) Upgrade backend on Linode

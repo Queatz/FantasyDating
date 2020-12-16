@@ -73,7 +73,7 @@ class FeedFeature constructor(private val on: On) {
                     on<ViewFeature>().with {
                         on<LayoutFeature>().canCloseFullscreenModal = true
                         fullscreenMessageText.text = "${event.message}<br /><br /><tap data=\"profile\">Edit your profile</tap> or <tap data=\"close\">Close</tap>"
-                        fullscreenMessageLayout.visible = true
+                        fullscreenMessageLayout.fadeIn()
                         fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
 
 
@@ -81,7 +81,7 @@ class FeedFeature constructor(private val on: On) {
                             when (it) {
                                 "profile" -> on<EditProfileFeature>().editProfile()
                             }
-                            fullscreenMessageLayout.visible = false
+                            fullscreenMessageLayout.fadeOut()
                         }
                     }
                 }

@@ -45,11 +45,11 @@ class MessagesActivity : BaseActivity() {
             on<ViewFeature>().with {
                 on<LayoutFeature>().canCloseFullscreenModal = true
                 fullscreenMessageText.text = "<b>${style.name}</b><br />${style.about}<br /><br /><tap data=\"close\">${getString(R.string.close)}</tap>"
-                fullscreenMessageLayout.visible = true
+                fullscreenMessageLayout.fadeIn()
                 fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
 
                 fullscreenMessageText.onLinkClick = {
-                    fullscreenMessageLayout.visible = false
+                    fullscreenMessageLayout.fadeOut()
                 }
             }
         }

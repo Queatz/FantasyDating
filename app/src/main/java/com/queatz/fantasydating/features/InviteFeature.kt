@@ -36,7 +36,7 @@ class InviteFeature constructor(private val on: On) {
         on<ViewFeature>().with {
             on<LayoutFeature>().canCloseFullscreenModal = true
             fullscreenMessageText.text = "Please wait... <tap data=\"close\">Close</tap>"
-            fullscreenMessageLayout.visible = true
+            fullscreenMessageLayout.fadeIn()
             fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
 
             generateInviteCode {
@@ -47,8 +47,9 @@ class InviteFeature constructor(private val on: On) {
             }
 
             fullscreenMessageText.onLinkClick = {
-                fullscreenMessageLayout.visible = false
-                fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
+                fullscreenMessageLayout.fadeOut {
+                    fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
+                }
             }
         }
     }

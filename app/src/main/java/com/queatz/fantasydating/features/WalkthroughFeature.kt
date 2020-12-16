@@ -87,12 +87,12 @@ class WalkthroughFeature constructor(private val on: On) {
             on<ViewFeature>().with {
                 on<LayoutFeature>().canCloseFullscreenModal = false
                 fullscreenMessageText.setText(R.string.welcome_modal_scan_invite)
-                fullscreenMessageLayout.visible = true
+                fullscreenMessageLayout.fadeIn()
                 fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
 
                 fullscreenMessageText.onLinkClick = {
                     on<ScanQrCodeFeature>().scan {
-                        fullscreenMessageLayout.visible = false
+                        fullscreenMessageLayout.fadeOut()
                     }
                 }
             }
@@ -118,13 +118,13 @@ class WalkthroughFeature constructor(private val on: On) {
         on<ViewFeature>().with {
             on<LayoutFeature>().canCloseFullscreenModal = false
             fullscreenMessageText.setText(R.string.welcome_modal_message)
-            fullscreenMessageLayout.visible = true
+            fullscreenMessageLayout.fadeIn()
             fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
 
             fullscreenMessageText.onLinkClick = {
                 on<MyProfileFeature>().edit { sex = it }
 
-                fullscreenMessageLayout.visible = false
+                fullscreenMessageLayout.fadeOut()
 
                 showBub(bub2)
                 showBub(bub1)

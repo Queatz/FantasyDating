@@ -27,7 +27,7 @@ class MoreOptionsFeature constructor(private val on: On) {
                     moreOptionsText.setText(R.string.moreOptionsProfileTemplate)
                 }
 
-                moreOptionsText.visible = true
+                moreOptionsText.fadeIn()
                 on<StoryFeature>().event(StoryEvent.Pause)
 
                 on<WalkthroughFeature>().closeBub(bub5)
@@ -60,7 +60,7 @@ class MoreOptionsFeature constructor(private val on: On) {
                             close()
                             on<LayoutFeature>().canCloseFullscreenModal = true
                             fullscreenMessageText.setText(R.string.moreOptionsProfileConfirmTemplate)
-                            fullscreenMessageLayout.visible = true
+                            fullscreenMessageLayout.fadeIn()
                             fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
 
                             fullscreenMessageText.onLinkClick = {
@@ -74,7 +74,7 @@ class MoreOptionsFeature constructor(private val on: On) {
                                     }
                                 }
 
-                                fullscreenMessageLayout.visible = false
+                                fullscreenMessageLayout.fadeOut()
                             }
                         }
                     }
@@ -99,6 +99,6 @@ class MoreOptionsFeature constructor(private val on: On) {
     fun close() {
         on<StoryFeature>().event(StoryEvent.Resume)
         on<ViewFeature>().with { on<Timer>().remove(closeCallback) }
-        on<ViewFeature>().with { moreOptionsText }.visible = false
+        on<ViewFeature>().with { moreOptionsText }.fadeOut()
     }
 }

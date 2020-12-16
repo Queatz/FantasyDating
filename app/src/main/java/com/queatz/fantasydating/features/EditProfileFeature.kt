@@ -133,16 +133,16 @@ class EditProfileFeature constructor(private val on: On) {
                 else
                     R.string.upload_photo_modal
             )
-            choosePhotoModal.visible = true
+
+            if (!choosePhotoModal.visible) {
+                choosePhotoModal.fadeIn()
+            }
 
             choosePhotoModal.onLinkClick = {
-                choosePhotoModal.visible = false
-
                 when (it) {
                     "guidebook" -> {
                         choosePhotoModal.text = getString(R.string.photography_guidebook)
-                        choosePhotoModal.visible = true
-                    }
+                         }
                     "guidebook:close" -> {
                         choosePhoto()
                     }
@@ -150,14 +150,19 @@ class EditProfileFeature constructor(private val on: On) {
                         on<Upload>().getPhotoFromDevice {
                             updateCurrentStoryPhoto(it)
                         }
+                        choosePhotoModal.fadeOut()
                     }
                     "hire" -> {
                         on<Say>().say("working on it...")
+                        choosePhotoModal.fadeOut()
                     }
                     "reposition" -> {
                         reposition()
+                        choosePhotoModal.fadeOut()
                     }
-                    "close" -> {}
+                    "close" -> {
+                        choosePhotoModal.fadeOut()
+                    }
                 }
             }
         }
@@ -231,7 +236,7 @@ class EditProfileFeature constructor(private val on: On) {
 
     fun onBackPressed() = on<ViewFeature>().with {
         if (choosePhotoModal.visible) {
-            choosePhotoModal.visible = false
+            choosePhotoModal.fadeOut()
             true
         } else false
     }

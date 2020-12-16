@@ -33,6 +33,7 @@ class PeopleFeature constructor(private val on: On) {
 
         if (index >= people.size) {
             index = people.size - 1
+            on<Say>().say("Swipe down from the top to return to your news feed.")
         } else if (index >= 0) {
             show(people[index])
         } else {

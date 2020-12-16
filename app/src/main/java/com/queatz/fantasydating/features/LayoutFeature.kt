@@ -5,6 +5,8 @@ import com.queatz.fantasydating.*
 import com.queatz.fantasydating.ui.TileDrawable
 import com.queatz.on.On
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.fantasy
+import kotlinx.android.synthetic.main.activity_main.fantasyText
 import kotlinx.android.synthetic.main.fullscreen_modal.*
 
 class LayoutFeature constructor(private val on: On) {
@@ -16,7 +18,7 @@ class LayoutFeature constructor(private val on: On) {
 
             if (canCloseFullscreenModal) {
                 on<ViewFeature>().with { fullscreenMessageLayout }.setOnClickListener {
-                    it.visible = false
+                    it.fadeOut()
                 }
             } else {
                 on<ViewFeature>().with { fullscreenMessageLayout }.setOnClickListener(null)
@@ -28,10 +30,18 @@ class LayoutFeature constructor(private val on: On) {
             polka.setImageDrawable(TileDrawable(getDrawable(R.drawable.polka)!!, Shader.TileMode.REPEAT))
 
             on<State>().observe(State.Area.Ui) {
-                discoveryPreferencesLayout.visible = ui.showDiscoveryPreferences
-                discoveryPreferencesText.visible = ui.showFeed && ui.showEditProfile.not() && ui.showDiscoveryPreferences.not()
-                feed.visible = ui.showFeed && ui.showEditProfile.not()
-
+                when (ui.showDiscoveryPreferences) {
+                    true -> discoveryPreferencesLayout.fadeIn(reverse = true)
+                    false -> discoveryPreferencesLayout.fadeOut(reverse = true)
+                }
+                when (ui.showFeed && ui.showEditProfile.not() && ui.showDiscoveryPreferences.not()) {
+                    true -> discoveryPreferencesText.fadeIn()
+                    false -> discoveryPreferencesText.fadeOut()
+                }
+                when (ui.showFeed && ui.showEditProfile.not()) {
+                    true -> feed.fadeIn(speed = .5f)
+                    false -> feed.fadeOut(speed = 4f)
+                }
                 changed(it) { ui.showCompleteYourProfileButton } then {
                     completeYourProfileButton.visible = ui.showCompleteYourProfileButton
                 }
@@ -78,7 +88,7 @@ class LayoutFeature constructor(private val on: On) {
                     if (ui.showFantasy) {
                         on<WalkthroughFeature>().closeBub(bub3)
                         swipeUpArrow.rotation = 180f
-                        fantasy.visible = true
+                        fantasy.appear()
                         choosePhotoButton.visible = false
                         storyText.visible = false
                         moreOptionsButton.visible = false
@@ -93,18 +103,23 @@ class LayoutFeature constructor(private val on: On) {
                             on<WalkthroughFeature>().closeBub(bub5)
                         }
                     } else {
-                        swipeUpArrow.rotation = 0f
-                        fantasy.visible = false
-                        storyText.visible = true
-                        moreOptionsButton.visible = person.current != null
-                        on<StoryFeature>().event(StoryEvent.Resume)
+                        fantasy.disappear {
+                            swipeUpArrow.rotation = 0f
+                            storyText.fadeIn(slide = false)
+                            moreOptionsButton.visible = false
+                            if (person.current != null) {
+                                moreOptionsButton.fadeIn(slide = false)
+                            }
 
-                        ui.showEditProfile then {
-                            choosePhotoButton.visible = true
-                        } otherwise {
-                            on<WalkthroughFeature>().closeBub(bub4)
-                            person.current?.let {
-                                on<WalkthroughFeature>().showBub(bub5)
+                            on<StoryFeature>().event(StoryEvent.Resume)
+
+                            ui.showEditProfile then {
+                                choosePhotoButton.fadeIn(slide = false)
+                            } otherwise {
+                                on<WalkthroughFeature>().closeBub(bub4)
+                                person.current?.let {
+                                    on<WalkthroughFeature>().showBub(bub5)
+                                }
                             }
                         }
                     }
@@ -175,7 +190,7 @@ class LayoutFeature constructor(private val on: On) {
     fun onBackPressed(): Boolean {
         if (on<ViewFeature>().activity.fullscreenMessageLayout.visible) {
             if (canCloseFullscreenModal) {
-                on<ViewFeature>().activity.fullscreenMessageLayout.visible = false
+                on<ViewFeature>().activity.fullscreenMessageLayout.fadeOut()
             }
 
             return true
