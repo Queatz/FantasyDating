@@ -1,0 +1,341 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:2821175480957602316",
+      "lastPropertyId": "6:8070450964415474366",
+      "name": "DiscoveryPreferences",
+      "properties": [
+        {
+          "id": "1:3417062749084528836",
+          "name": "objectBoxId",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:134476449166920776",
+          "name": "id",
+          "type": 9
+        },
+        {
+          "id": "3:2778724214888976188",
+          "name": "who",
+          "type": 9
+        },
+        {
+          "id": "4:4830418830039463173",
+          "name": "where",
+          "type": 9
+        },
+        {
+          "id": "5:772945879850831292",
+          "name": "ageMin",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "6:8070450964415474366",
+          "name": "ageMax",
+          "type": 5,
+          "flags": 4
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:1039383565022929276",
+      "lastPropertyId": "6:597718507061973751",
+      "name": "Event",
+      "properties": [
+        {
+          "id": "1:3284464622411539100",
+          "name": "objectBoxId",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5228062415290235370",
+          "name": "id",
+          "type": 9
+        },
+        {
+          "id": "3:264832452694649640",
+          "name": "person",
+          "type": 9
+        },
+        {
+          "id": "4:6300492741541655833",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "5:8247655403000138250",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "6:597718507061973751",
+          "name": "data",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "3:8127616584265529726",
+      "lastPropertyId": "7:1841199985584397360",
+      "name": "Message",
+      "properties": [
+        {
+          "id": "1:2532042432829449547",
+          "name": "objectBoxId",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6614731664070302952",
+          "name": "id",
+          "type": 9
+        },
+        {
+          "id": "3:3021389249501887947",
+          "name": "created",
+          "type": 10
+        },
+        {
+          "id": "4:3984176321524176591",
+          "name": "from",
+          "type": 9
+        },
+        {
+          "id": "5:4416261816289435192",
+          "name": "to",
+          "type": 9
+        },
+        {
+          "id": "6:3449486237238412990",
+          "name": "message",
+          "type": 9
+        },
+        {
+          "id": "7:1841199985584397360",
+          "name": "attachment",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "4:128675954143802031",
+      "lastPropertyId": "14:8378606608453611894",
+      "name": "Person",
+      "properties": [
+        {
+          "id": "1:6572268984592514962",
+          "name": "objectBoxId",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7705919187093809146",
+          "name": "id",
+          "type": 9
+        },
+        {
+          "id": "3:5823531492398460538",
+          "name": "sex",
+          "type": 9
+        },
+        {
+          "id": "4:4018573301996002004",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "5:1356445564873010858",
+          "name": "age",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "6:7299604013211742509",
+          "name": "approved",
+          "type": 1,
+          "flags": 4
+        },
+        {
+          "id": "7:383060634184167711",
+          "name": "active",
+          "type": 1,
+          "flags": 4
+        },
+        {
+          "id": "8:6593570622611910188",
+          "name": "invited",
+          "type": 1,
+          "flags": 4
+        },
+        {
+          "id": "9:261419356269543095",
+          "name": "fantasy",
+          "type": 9
+        },
+        {
+          "id": "10:3461708820058321338",
+          "name": "youLove",
+          "type": 1,
+          "flags": 4
+        },
+        {
+          "id": "11:8572050419969802898",
+          "name": "lovesYou",
+          "type": 1,
+          "flags": 4
+        },
+        {
+          "id": "12:2541494162890855699",
+          "name": "stories",
+          "type": 9
+        },
+        {
+          "id": "13:6595366678911212751",
+          "name": "styles",
+          "type": 9
+        },
+        {
+          "id": "14:8378606608453611894",
+          "name": "boss",
+          "type": 1,
+          "flags": 4
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:5112995125844165585",
+      "lastPropertyId": "4:5601472140768747376",
+      "name": "Phone",
+      "properties": [
+        {
+          "id": "1:2740853541648200772",
+          "name": "objectBoxId",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7741568955206054054",
+          "name": "id",
+          "type": 9
+        },
+        {
+          "id": "3:189544285225662155",
+          "name": "token",
+          "type": 9
+        },
+        {
+          "id": "4:5601472140768747376",
+          "name": "synced",
+          "type": 1,
+          "flags": 4
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "6:4744043768763789787",
+      "lastPropertyId": "4:8067559886186844521",
+      "name": "Style",
+      "properties": [
+        {
+          "id": "1:6128266589352124600",
+          "name": "objectBoxId",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:9151209472000935331",
+          "name": "id",
+          "type": 9
+        },
+        {
+          "id": "3:6275727794493467373",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "4:8067559886186844521",
+          "name": "about",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "7:75127153678323379",
+      "lastPropertyId": "3:6887660715855671424",
+      "name": "Token",
+      "properties": [
+        {
+          "id": "1:2980772951661573106",
+          "name": "objectBoxId",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1052196582868065530",
+          "name": "id",
+          "type": 9
+        },
+        {
+          "id": "3:6887660715855671424",
+          "name": "token",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "8:2766703874420693013",
+      "lastPropertyId": "4:5371705770824581386",
+      "name": "WalkthroughStep",
+      "properties": [
+        {
+          "id": "1:5004015290232570634",
+          "name": "objectBoxId",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3062988694506716802",
+          "name": "id",
+          "type": 9
+        },
+        {
+          "id": "3:290866106043337890",
+          "name": "step",
+          "type": 9
+        },
+        {
+          "id": "4:5371705770824581386",
+          "name": "shown",
+          "type": 1,
+          "flags": 4
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "8:2766703874420693013",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}
