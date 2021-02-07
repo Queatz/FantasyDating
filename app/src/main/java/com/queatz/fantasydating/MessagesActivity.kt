@@ -144,7 +144,7 @@ class MessagesActivity : BaseActivity() {
                 on<NavigationFeature>().showPerson(person.id!!)
             }
             fantasy.visible = true
-            fantasyTitle.text = getString(R.string.persons_fantasy, person.name)
+            fantasyTitle.text = getString(R.string.introduction)
             fantasyText.text = person.fantasy
             styleTitle.text = getString(R.string.persons_cuddle_styles, person.name)
             styleTitle.visible = person.styles.isNotEmpty()

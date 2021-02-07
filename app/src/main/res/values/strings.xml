@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Cuddly Connection</string>
+    <string name="app_name">氣</string>
     <string name="enable_location">Enable location</string>
     <string name="location_modal_message">We need your location to find people near you.</string>
     <string name="welcome_modal_message"><![CDATA[Welcome to The Cuddly Connection!<br /><br />We\'re super excited to have you here!<br /><br />Let’s get started by selecting your sex.<br /><br />I am a <tap data="Girl">Girl</tap>, <tap data="Boy">Boy</tap>, or <tap data="Person">Person</tap>.]]></string>
@@ -37,7 +37,7 @@
         <b>1.</b> &nbsp; <u>You</u> should be the highlight of the photograph.<br />
         <b>2.</b> &nbsp; Use a <u>pro camera</u> and an <u>interesting location</u>.<br />
         <b>3.</b> &nbsp; Be artistic!  Pose in a new way. <u>Express yourself</u> fully.<br />
-        <b>4.</b> &nbsp; Your photo should appear <u>natural</u> (some color correction and post editing is totally okay.)<br /><br />
+        <b>4.</b> &nbsp; Your photo should appear <u>natural</u> (some color correction and post editing is cool.)<br /><br />
         <tap data="guidebook:close">Close Guidebook</tap>]]>
     </string>
     <string name="upload__photo">UPLOAD\nPHOTO</string>
@@ -60,24 +60,23 @@
     <string name="invite_a_friend"><![CDATA[<tap>Invite a friend</tap>]]></string>
     <string name="viewing_archived_messages">Viewing archived messages</string>
     <string name="invite_code_didnt_work">That invite code didn\'t work</string>
-    <string name="welcome_modal_scan_invite"><![CDATA[Hey friend!<br /><br /><b>The Cuddly Connection</b> is an app for Austinites to get closer and learn about each other.<br /><br />Start by <tap data="scan">scanning someone\'s invite code</tap>]]></string>
-    <string name="persons_fantasy">About %1$s</string>
-    <string name="about_you">About you</string>
+    <string name="welcome_modal_scan_invite"><![CDATA[Hey friend!<br /><br /><b>氣</b> is an app for Austinites to get closer to and learn about each other.<br /><br />Start by <tap data="scan">scanning someone\'s invite code</tap>]]></string>
+    <string name="introduction">Introduction</string>
     <string name="write_photo_description">write something here to complement your photo</string>
     <string name="about_photo_prefix">I like</string>
     <string name="old_lol">too old for this</string>
-    <string name="persons_cuddle_styles">%1$s\'s Cuddle Style</string>
-    <string name="your_styles">Your cuddle styles</string>
+    <string name="persons_cuddle_styles">What %1$s\'s about</string>
+    <string name="your_styles">What you\'re about</string>
     <string name="search">Search</string>
     <string name="style_name">Style name</string>
     <string name="style_about">Description</string>
     <string name="style_added_to_your_profile">Style added to your profile</string>
     <string name="style_removed_from_your_profile">Style removed from your profile</string>
-    <string name="scan_to_join">Scan someone\'s invite code to join The Cuddly Connection.</string>
+    <string name="scan_to_join">Scan someone\'s invite code to join 氣.</string>
     <string name="reload">Reload</string>
     <string name="failed_to_load">Failed to load</string>
     <string name="send_x_a_message">Send %1$s a message</string>
     <string name="close">Close</string>
     <string name="name_too_short">Name is too short</string>
-    <string name="add_a_new_cuddle_style">Add a new Cuddle Style</string>
+    <string name="add_a_new_cuddle_style">Add a new style</string>
 </resources>

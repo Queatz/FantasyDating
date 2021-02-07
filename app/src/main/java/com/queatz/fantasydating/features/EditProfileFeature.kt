@@ -228,7 +228,7 @@ class EditProfileFeature constructor(private val on: On) {
     fun updateFantasy() {
         on<ViewFeature>().with {
             val me = on<MyProfileFeature>().myProfile
-            fantasyTitle.text = if (me.name.isNotBlank()) getString(R.string.persons_fantasy, me.name) else getString(R.string.about_you)
+            fantasyTitle.text = getString(R.string.introduction)
             styleTitle.text = if (me.name.isNotBlank()) getString(R.string.persons_cuddle_styles, me.name) else getString(R.string.your_styles)
             fantasyText.text = on<MyProfileFeature>().myProfile.fantasy.let { if (it.isBlank()) getString(R.string.empty_fantasy) else it }
         }
