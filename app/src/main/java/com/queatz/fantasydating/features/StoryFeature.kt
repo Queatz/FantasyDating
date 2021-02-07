@@ -125,7 +125,7 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                         searchLayout.fadeOut()
                     }
 
-                    searchModalText.text = "Tap on a tag to add it to your profile.<br /><br /><tap data=\"create\">Make</tap> your own, or <tap data=\"close\">Close</tap>"
+                    searchModalText.text = "Tap on a 氣 to add it to your profile.<br /><br /><tap data=\"create\">Make</tap> your own 氣, or <tap data=\"close\">Close</tap>"
                     searchModalText.onLinkClick = {
                         when (it) {
                             "create" -> {

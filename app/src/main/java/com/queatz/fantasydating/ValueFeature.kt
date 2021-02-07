@@ -16,8 +16,8 @@ class ValueFeature constructor(private val on: On) {
     }
 
     fun pluralSex(who: String) = when (who) {
-        "Girl" -> "Girls"
-        "Boy" -> "Boys"
+        "Girl" -> "Females"
+        "Boy" -> "Males"
         else -> "People"
     }
 }

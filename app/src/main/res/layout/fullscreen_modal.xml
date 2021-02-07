@@ -8,6 +8,7 @@
     android:elevation="@dimen/pad4x"
     android:clickable="true"
     android:visibility="gone"
+    tools:visibility="visible"
     android:background="@color/story_background">
 
     <com.queatz.fantasydating.ui.FancyTextView
@@ -32,18 +33,14 @@
         android:elevation="@dimen/pad2x"
         tools:text="@string/welcome_modal_message" />
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@+id/fullscreenMessageText"
         app:layout_constraintBottom_toTopOf="@+id/fullscreenMessageText"
         app:layout_constraintStart_toStartOf="@+id/fullscreenMessageText"
         app:layout_constraintEnd_toEndOf="@+id/fullscreenMessageText"
-        android:textColor="@color/white"
         android:elevation="@dimen/pad2x"
-        android:shadowColor="@color/story_background"
-        android:shadowRadius="16"
-        android:text="🧜"
-        android:textSize="54sp"/>
+        android:src="@mipmap/ic_launcher_foreground"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

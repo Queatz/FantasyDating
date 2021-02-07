@@ -2,28 +2,26 @@
     <string name="app_name">氣</string>
     <string name="enable_location">Enable location</string>
     <string name="location_modal_message">We need your location to find people near you.</string>
-    <string name="welcome_modal_message"><![CDATA[Welcome to The Cuddly Connection!<br /><br />We\'re super excited to have you here!<br /><br />Let’s get started by selecting your sex.<br /><br />I am a <tap data="Girl">Girl</tap>, <tap data="Boy">Boy</tap>, or <tap data="Person">Person</tap>.]]></string>
+    <string name="welcome_modal_message"><![CDATA[Welcome to 氣!<br /><br />We\'re super excited to have you here!<br /><br />Let’s get started by selecting your sex.<br /><br />I am a <tap data="Girl">Female</tap>, <tap data="Boy">Male</tap>, or <tap data="Person">Person</tap>.]]></string>
     <string name="swipe_up">Swipe up</string>
     <string name="edit_your_profile"><![CDATA[<tap>Edit your profile</tap>]]></string>
     <string name="discovery_preferences_template"><![CDATA[Show me <tap data="who">%1$s</tap> in <tap data="where">%2$s</tap> between the ages of <tap data="ageMin">%3$s</tap> and <tap data="ageMax">%4$s</tap>]]></string>
     <string name="discovery_preferences"><![CDATA[<tap>%1$s in %2$s, Ages %3$s – %4$s</tap>]]></string>
-    <string name="not_in_austin"><![CDATA[Not in Austin?  Don\'t worry, keep The Cuddly Connection installed and we\'ll let you know when we launch in more areas. <tap data="ok">Okay then</tap>.]]></string>
+    <string name="not_in_austin"><![CDATA[Not in Austin?  Don\'t worry, keep 氣 installed and we\'ll let you know when we launch in more areas. <tap data="ok">Okay then</tap>.]]></string>
 
     <string name="link"><![CDATA[<tap thin="true">%1$s</tap>]]></string>
-    <string name="edit_who"><![CDATA[<tap data="Girl">Girls</tap>, <tap data="Boy">Boys</tap>, or <tap data="Person">People</tap>]]></string>
+    <string name="edit_who"><![CDATA[<tap data="Girl">Females</tap>, <tap data="Boy">Males</tap>, or <tap data="Person">People</tap>]]></string>
     <string name="edit_where"><![CDATA[<tap data="Austin">Austin</tap>, or <tap data="nope">somewhere else</tap>]]></string>
-    <string name="upload_photo_modal"><![CDATA[
-        Choose a photo. We review all photos for authenticity and naturalness. We recommend hiring a pro photographer.<br /><br />We allow nudity so long as it is artistic or cute. Read our <tap thin="true" data="guidebook">Photography Guidebook</tap>.<br /><br />
-        <tap data="choose">Choose from your photos</tap>, or <tap data="close">Close</tap>]]></string>
-    <string name="choose_photo_modal"><![CDATA[
-        Choose a photo, or <tap data="reposition">reposition</tap> this one.<br /><br />We review all photos for authenticity and naturalness. We recommend hiring a pro photographer.<br /><br />We allow nudity so long as it is artistic or cute. Read our <tap thin="true" data="guidebook">Photography Guidebook</tap>.<br /><br />
-        <tap data="choose">Choose from your photos</tap>, or <tap data="close">Close</tap>]]></string>
+    <string name="upload_photo_modal"><![CDATA[Choose a photo. We review all photos for authenticity and naturalness. We recommend hiring a pro photographer.<br /><br />We allow nudity so long as it is artistic or cute. Read our <tap thin="true" data="guidebook">Photography Guidebook</tap>.<br /><br />
+        <tap data="choose">Choose a photo</tap>, or <tap data="close">Close</tap>]]></string>
+    <string name="choose_photo_modal"><![CDATA[Choose a photo, or <tap data="reposition">reposition</tap> this one.<br /><br />We review all photos for authenticity and naturalness. We recommend hiring a pro photographer.<br /><br />We allow nudity so long as it is artistic or cute. Read our <tap thin="true" data="guidebook">Photography Guidebook</tap>.<br /><br />
+        <tap data="choose">Choose a photo</tap>, or <tap data="close">Close</tap>]]></string>
     <string name="cont">Continue</string>
     <string name="moreOptionsTemplate"><![CDATA[<tap data="report">Report</tap>, or <tap data="hide">Hide</tap> %1$s]]></string>
     <string name="moreOptionsHideConfirmTemplate"><![CDATA[<tap data="hide:confirm">Yes</tap>, I want to hide %1$s]]></string>
     <string name="moreOptionsReportConfirmTemplate"><![CDATA[Hide %1$s and report as <tap data="report:confirm:fake">Fake</tap> or <tap data="report:confirm:other">Something else</tap>]]></string>
     <string name="moreOptionsProfileTemplate"><![CDATA[<tap data="deleteMyAccount">Delete my account</tap>]]></string>
-    <string name="moreOptionsProfileConfirmTemplate"><![CDATA[Your account will die and you\'ll need to set up a new account to use The Cuddly Connection again.<br /><br />Do you want this?<br /><br /><tap data="deleteMyAccount:confirm">Yes, delete my account</tap><br /><br /><tap data="cancel">No way, get me outta here</tap>]]></string>
+    <string name="moreOptionsProfileConfirmTemplate"><![CDATA[Your account will die and you\'ll need to set up a new account to use 氣 again.<br /><br />Do you want this?<br /><br /><tap data="deleteMyAccount:confirm">Yes, delete my account</tap><br /><br /><tap data="cancel">No way, get me outta here</tap>]]></string>
     <string name="confirm_your_love"><![CDATA[Yes, <tap data="love">I like %1$s</tap>]]></string>
     <string name="cancel">Cancel</string>
     <string name="done">Done</string>
@@ -65,18 +63,18 @@
     <string name="write_photo_description">write something here to complement your photo</string>
     <string name="about_photo_prefix">I like</string>
     <string name="old_lol">too old for this</string>
-    <string name="persons_cuddle_styles">What %1$s\'s about</string>
-    <string name="your_styles">What you\'re about</string>
-    <string name="search">Search</string>
-    <string name="style_name">Style name</string>
+    <string name="persons_cuddle_styles">%1$s\'s 氣</string>
+    <string name="your_styles">Your 氣</string>
+    <string name="search">Search for a 氣</string>
+    <string name="style_name">氣 name</string>
     <string name="style_about">Description</string>
-    <string name="style_added_to_your_profile">Style added to your profile</string>
-    <string name="style_removed_from_your_profile">Style removed from your profile</string>
+    <string name="style_added_to_your_profile">氣 added to your profile</string>
+    <string name="style_removed_from_your_profile">氣 removed from your profile</string>
     <string name="scan_to_join">Scan someone\'s invite code to join 氣.</string>
     <string name="reload">Reload</string>
     <string name="failed_to_load">Failed to load</string>
     <string name="send_x_a_message">Send %1$s a message</string>
     <string name="close">Close</string>
     <string name="name_too_short">Name is too short</string>
-    <string name="add_a_new_cuddle_style">Add a new style</string>
+    <string name="add_a_new_cuddle_style">Add a new 氣</string>
 </resources>
