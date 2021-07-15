@@ -44,15 +44,15 @@ class MessagesActivity : BaseActivity() {
         styleAdapter = StyleAdapter(on) { style, _ ->
             on<ViewFeature>().with {
                 on<LayoutFeature>().canCloseFullscreenModal = true
-                fullscreenMessageText.text = "<b>${style.name}</b><br />${style.about}<br /><br />Show <tap data=\"style-promote\">More</tap>, <tap data=\"style-demote\">Less</tap>, or <tap data=\"style-dismiss\">Don't</tap> show people with this 氣<br /><br /><tap data=\"close\">${getString(R.string.close)}</tap>"
+                fullscreenMessageText.text = "<b>${style.name}</b><br />${style.about}<br /><br />Show <tap data=\"promote\">More</tap>, <tap data=\"demote\">Less</tap>, or <tap data=\"dismiss\">Don't</tap> show people with this 氣<br /><br /><tap data=\"close\">${getString(R.string.close)}</tap>"
                 fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
                 fullscreenMessageLayout.fadeIn()
 
                 fullscreenMessageText.onLinkClick = {
                     when (it) {
-                        "style-promote" -> {}
-                        "style-demote" -> {}
-                        "style-dismiss" -> {}
+                        "promote" -> { on<StyleApiFeature>().promote(style.id!!) }
+                        "demote" -> { on<StyleApiFeature>().demote(style.id!!) }
+                        "dismiss" -> { on<StyleApiFeature>().dismiss(style.id!!) }
                     }
 
                     fullscreenMessageLayout.fadeOut()

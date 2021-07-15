@@ -79,4 +79,5 @@
     <string name="add_a_new_cuddle_style">Add a new 氣</string>
     <string name="hide">Hide</string>
     <string name="remove">Remove</string>
+    <string name="style_preferences_updated">Style preferences updated</string>
 </resources>

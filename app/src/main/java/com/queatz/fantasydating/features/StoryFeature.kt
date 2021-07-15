@@ -78,21 +78,16 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                         if (longPress) return@StyleAdapter
 
                         on<LayoutFeature>().canCloseFullscreenModal = true
-                        fullscreenMessageText.text = "<b>${style.name}</b><br />${style.about}<br /><br />Show <tap data=\"style-promote\">More</tap>, <tap data=\"style-demote\">Less</tap>, or <tap data=\"style-dismiss\">Don't</tap> show people with this 氣<br /><br /><tap data=\"add\">Add</tap> to your profile, or <tap data=\"close\">Close</tap>"
+                        fullscreenMessageText.text = "<b>${style.name}</b><br />${style.about}<br /><br />Show <tap data=\"promote\">More</tap>, <tap data=\"demote\">Less</tap>, or <tap data=\"dismiss\">Don't</tap> show people with this 氣<br /><br /><tap data=\"add\">Add</tap> to your profile, or <tap data=\"close\">Close</tap>"
                         fullscreenMessageLayout.fadeIn()
                         fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
 
                         fullscreenMessageText.onLinkClick = {
                             when (it) {
-                                "add" -> {
-                                    on<Api>().linkStyle(MeStyleRequest(link = style.id)) {
-                                        on<Say>().say(R.string.style_added_to_your_profile)
-                                        on<MyProfileFeature>().reload()
-                                    }
-                                }
-                                "style-promote" -> {}
-                                "style-demote" -> {}
-                                "style-dismiss" -> {}
+                                "add" -> { on<StyleApiFeature>().add(style.id!!) }
+                                "promote" -> { on<StyleApiFeature>().promote(style.id!!) }
+                                "demote" -> { on<StyleApiFeature>().demote(style.id!!) }
+                                "dismiss" -> { on<StyleApiFeature>().dismiss(style.id!!) }
                             }
 
                             fullscreenMessageLayout.fadeOut()
@@ -171,21 +166,16 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
             }) { style, _ ->
                 on<ViewFeature>().with {
                     on<LayoutFeature>().canCloseFullscreenModal = true
-                    fullscreenMessageText.text = "<b>${style.name}</b>${style.about?.takeIf { !it.isNullOrBlank() }?.let { "<br />$it" } ?: ""}<br /><br />Show <tap data=\"style-promote\">More</tap>, <tap data=\"style-demote\">Less</tap>, or <tap data=\"style-dismiss\">Don't</tap> show people with this 氣<br /><br /><tap data=\"close\">Close</tap>${if (adapter.showAdd) ", or <tap data=\"remove\">Remove</tap> from your profile" else ""}"
+                    fullscreenMessageText.text = "<b>${style.name}</b>${style.about?.takeIf { !it.isNullOrBlank() }?.let { "<br />$it" } ?: ""}<br /><br />Show <tap data=\"promote\">More</tap>, <tap data=\"demote\">Less</tap>, or <tap data=\"dismiss\">Don't</tap> show people with this 氣<br /><br /><tap data=\"close\">Close</tap>${if (adapter.showAdd) ", or <tap data=\"remove\">Remove</tap> from your profile" else ""}"
                     fullscreenMessageLayout.fadeIn()
                     fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
 
                     fullscreenMessageText.onLinkClick = {
                         when (it) {
-                            "remove" -> {
-                                on<Api>().linkStyle(MeStyleRequest(unlink = style.id)) {
-                                    on<Say>().say(R.string.style_removed_from_your_profile)
-                                    on<MyProfileFeature>().reload()
-                                }
-                            }
-                            "style-promote" -> {}
-                            "style-demote" -> {}
-                            "style-dismiss" -> {}
+                            "remove" -> { on<StyleApiFeature>().remove(style.id!!) }
+                            "promote" -> { on<StyleApiFeature>().promote(style.id!!) }
+                            "demote" -> { on<StyleApiFeature>().demote(style.id!!) }
+                            "dismiss" -> { on<StyleApiFeature>().dismiss(style.id!!) }
                         }
 
                         fullscreenMessageLayout.fadeOut()
