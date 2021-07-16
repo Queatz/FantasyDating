@@ -4,6 +4,7 @@ import io.objectbox.annotation.BaseEntity
 import io.objectbox.annotation.Convert
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
+import io.objectbox.annotation.Transient
 import java.util.*
 
 
@@ -68,6 +69,13 @@ class Message constructor(
     var attachment: String? = null
 ) : BaseModel()
 
+@Entity
+class Style constructor(
+    var name: String = "",
+    var about: String = "",
+    @Transient var preference: StylePreference? = null
+) : BaseModel()
+
 class PersonStory constructor(
     var story: String = "",
     var photo: String = "",
@@ -75,9 +83,7 @@ class PersonStory constructor(
     var y: Float = .5f
 )
 
-@Entity
-class Style constructor(
-    var name: String = "",
-    var about: String = ""
-) : BaseModel()
-
+class StylePreference {
+    var favor: Float = 0f
+    var dismissed: Boolean? = null
+}

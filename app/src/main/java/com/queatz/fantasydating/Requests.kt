@@ -62,5 +62,6 @@ data class MeStyleRequest constructor(
     var unlink: String? = null,
     var promote: String? = null,
     var demote: String? = null,
-    var dismiss: String? = null
+    var dismiss: String? = null,
+    var undismiss: String? = null
 )

@@ -591,7 +591,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/searchRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="124dp"
+                android:layout_height="196dp"
                 android:clipToPadding="false"
                 android:clipChildren="false"
                 android:paddingTop="@dimen/pad2x"
@@ -600,7 +600,7 @@
                 android:paddingEnd="@dimen/pad4x"
                 app:layout_constraintTop_toBottomOf="@+id/searchEditText"
                 app:layout_constraintBottom_toTopOf="@+id/searchModalText"
-                app:layout_constraintHeight_max="124dp"
+                app:layout_constraintHeight_max="196dp"
                 app:layout_constraintHeight_default="spread"
                 app:layout_constrainedHeight="true"
                 tools:listitem="@layout/item_style_small"

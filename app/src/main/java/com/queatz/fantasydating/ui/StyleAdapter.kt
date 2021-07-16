@@ -1,9 +1,17 @@
 package com.queatz.fantasydating.ui
 
+import android.graphics.Color
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.text.bold
+import androidx.core.text.color
+import androidx.core.text.toSpannable
 import androidx.recyclerview.widget.RecyclerView
 import com.queatz.fantasydating.R
 import com.queatz.fantasydating.Style
@@ -59,7 +67,11 @@ class StyleAdapter constructor(
 
         val item = items[position]
 
-        holder.name.text = item.name
+        if (item.preference == null) {
+            holder.name.text = item.name
+        } else {
+            holder.name.text = styleWithPrefs(item)
+        }
 
         holder.name.setOnClickListener {
             callback(item, false)
@@ -69,6 +81,25 @@ class StyleAdapter constructor(
 //            callback(item, true)
 //            true
 //        }
+    }
+
+    private fun styleWithPrefs(style: Style): Spannable {
+        val spannable = SpannableStringBuilder(style.name)
+
+        val pref = pref(style)
+
+        if (pref.isNotEmpty()) {
+            spannable.bold { color(if ((style.preference?.favor ?: 0f) > 0f) Color.parseColor("#00aa00") else Color.RED) { append(pref) } }
+        }
+
+        return spannable.toSpannable()
+    }
+
+    private fun pref(style: Style) = when {
+        style.preference?.dismissed == true -> " ⛔"
+        style.preference!!.favor > 0 -> " +${style.preference!!.favor.toInt()}"
+        style.preference!!.favor < 0 -> " ${style.preference!!.favor.toInt()}"
+        else -> ""
     }
 }
 

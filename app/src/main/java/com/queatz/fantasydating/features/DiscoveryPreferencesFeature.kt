@@ -111,7 +111,10 @@ class DiscoveryPreferencesFeature constructor(private val on: On) : OnLifecycle 
             }
 
             editProfileText.onLinkClick = {
-                on<EditProfileFeature>().editProfile()
+                when (it) {
+                    "edit" -> { on<EditProfileFeature>().editProfile() }
+                    "qi" -> { on<EditPrefsFeature>().edit() }
+                }
             }
 
             editProfileText.setOnLongClickListener {

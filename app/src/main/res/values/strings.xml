@@ -4,7 +4,7 @@
     <string name="location_modal_message">We need your location to find people near you.</string>
     <string name="welcome_modal_message"><![CDATA[Welcome to 氣!<br /><br />We\'re super excited to have you here!<br /><br />Let’s get started by selecting your sex.<br /><br />I am a <tap data="Girl">Female</tap>, <tap data="Boy">Male</tap>, or <tap data="Person">Person</tap>.]]></string>
     <string name="swipe_up">Swipe up</string>
-    <string name="edit_your_profile"><![CDATA[<tap>Edit your profile</tap>]]></string>
+    <string name="edit_your_profile"><![CDATA[Edit your <tap data="edit">profile</tap>, or <tap data="qi">氣 prefs</tap>]]></string>
     <string name="discovery_preferences_template"><![CDATA[Show me <tap data="who">%1$s</tap> in <tap data="where">%2$s</tap> between the ages of <tap data="ageMin">%3$s</tap> and <tap data="ageMax">%4$s</tap>]]></string>
     <string name="discovery_preferences"><![CDATA[<tap>%1$s in %2$s, Ages %3$s – %4$s</tap>]]></string>
     <string name="not_in_austin"><![CDATA[Not in Austin?  Don\'t worry, keep 氣 installed and we\'ll let you know when we launch in more areas. <tap data="ok">Okay then</tap>.]]></string>
@@ -79,5 +79,5 @@
     <string name="add_a_new_cuddle_style">Add a new 氣</string>
     <string name="hide">Hide</string>
     <string name="remove">Remove</string>
-    <string name="style_preferences_updated">Style preferences updated</string>
+    <string name="style_preferences_updated">氣 preferences updated</string>
 </resources>
