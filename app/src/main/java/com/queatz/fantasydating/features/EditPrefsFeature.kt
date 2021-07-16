@@ -69,21 +69,17 @@ class EditPrefsFeature constructor(private val on: On) {
     }
 
     private fun reload() {
-        val search = on<ViewFeature>().with {  searchLayout }.searchEditText.text.toString().trim()
+        val search = on<ViewFeature>().with { searchLayout }.searchEditText.text.toString().trim()
+
+        searchCallback?.cancel()
 
         if (search.isNotBlank()) {
-            searchCallback?.cancel()
             searchCallback = on<Api>().searchStyles(search, true) {
-                on<State>().person.current?.let { person ->
-                    adapter.items = it.filter { style -> person.styles.all { it.id != style.id } }.toMutableList()
-                }
+                adapter.items = it.toMutableList()
             }
         } else {
-            on<Api>().getStyles(true) {
-                on<State>().person.current?.let { person ->
-                    adapter.items = it.filter { style -> person.styles.all { it.id != style.id } }
-                        .toMutableList()
-                }
+            searchCallback = on<Api>().getStyles(true) {
+                adapter.items = it.toMutableList()
             }
         }
     }
