@@ -19,6 +19,12 @@ class MoreOptionsFeature constructor(private val on: On) {
             }
 
             moreOptionsButton.setOnClickListener {
+                if (isOpen) {
+                    moreOptionsText.fadeOut()
+
+                    return@setOnClickListener
+                }
+
                 timeout()
 
                 if (on<State>().ui.showEditProfile.not()) {
@@ -27,7 +33,7 @@ class MoreOptionsFeature constructor(private val on: On) {
                     moreOptionsText.setText(R.string.moreOptionsProfileTemplate)
                 }
 
-                moreOptionsText.fadeIn()
+                moreOptionsText.fadeIn(reverse = true)
                 on<StoryFeature>().event(StoryEvent.Pause)
 
                 on<WalkthroughFeature>().closeBub(bub5)

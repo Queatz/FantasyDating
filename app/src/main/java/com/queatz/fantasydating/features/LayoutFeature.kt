@@ -43,7 +43,10 @@ class LayoutFeature constructor(private val on: On) {
                     false -> feed.fadeOut(speed = 4f)
                 }
                 changed(it) { ui.showCompleteYourProfileButton } then {
-                    completeYourProfileButton.visible = ui.showCompleteYourProfileButton
+                    when (ui.showCompleteYourProfileButton) {
+                        true -> completeYourProfileButton.fadeIn(speed = .5f)
+                        false -> completeYourProfileButton.fadeOut(speed = 4f)
+                    }
                 }
 
                 changed(it) { ui.showStoryDetails } then {

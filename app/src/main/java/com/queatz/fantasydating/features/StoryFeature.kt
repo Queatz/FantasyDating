@@ -78,16 +78,13 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                         if (longPress) return@StyleAdapter
 
                         on<LayoutFeature>().canCloseFullscreenModal = true
-                        fullscreenMessageText.text = "<b>${style.name}</b><br />${style.about}<br /><br />Show <tap data=\"promote\">More</tap>, <tap data=\"demote\">Less</tap>, or <tap data=\"dismiss\">Don't</tap> show people with this 氣<br /><br /><tap data=\"add\">Add</tap> to your profile, or <tap data=\"close\">Close</tap>"
+                        fullscreenMessageText.text = "<b>${style.name}</b><br />${style.about}<br /><br /><tap data=\"add\">Add</tap> to your profile, or <tap data=\"close\">Close</tap>"
                         fullscreenMessageLayout.fadeIn()
                         fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
 
                         fullscreenMessageText.onLinkClick = {
                             when (it) {
                                 "add" -> { on<StyleApiFeature>().add(style.id!!) }
-                                "promote" -> { on<StyleApiFeature>().promote(style.id!!) }
-                                "demote" -> { on<StyleApiFeature>().demote(style.id!!) }
-                                "dismiss" -> { on<StyleApiFeature>().dismiss(style.id!!) }
                             }
 
                             fullscreenMessageLayout.fadeOut()
