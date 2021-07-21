@@ -1,13 +1,13 @@
 <resources>
-    <string name="app_name">氣</string>
+    <string name="app_name">Qimates</string>
     <string name="enable_location">Enable location</string>
     <string name="location_modal_message">We need your location to find people near you.</string>
-    <string name="welcome_modal_message"><![CDATA[Welcome to 氣!<br /><br />We\'re super excited to have you here!<br /><br />Let’s get started by selecting your sex.<br /><br />I am a <tap data="Girl">Female</tap>, <tap data="Boy">Male</tap>, or <tap data="Person">Person</tap>.]]></string>
+    <string name="welcome_modal_message"><![CDATA[Welcome to Qimates!<br /><br />We\'re super excited to have you here!<br /><br />Let’s get started by selecting your sex.<br /><br />I am a <tap data="Girl">Female</tap>, <tap data="Boy">Male</tap>, or <tap data="Person">Person</tap>.]]></string>
     <string name="swipe_up">Swipe up</string>
     <string name="edit_your_profile"><![CDATA[Edit your <tap data="edit">profile</tap>, or <tap data="qi">氣 prefs</tap>]]></string>
     <string name="discovery_preferences_template"><![CDATA[Show me <tap data="who">%1$s</tap> in <tap data="where">%2$s</tap> between the ages of <tap data="ageMin">%3$s</tap> and <tap data="ageMax">%4$s</tap>]]></string>
     <string name="discovery_preferences"><![CDATA[<tap>%1$s in %2$s, Ages %3$s – %4$s</tap>]]></string>
-    <string name="not_in_austin"><![CDATA[Not in Austin?  Don\'t worry, keep 氣 installed and we\'ll let you know when we launch in more areas. <tap data="ok">Okay then</tap>.]]></string>
+    <string name="not_in_austin"><![CDATA[Not in Austin?  Don\'t worry, keep Qimates installed and we\'ll let you know when we launch in more areas. <tap data="ok">Okay then</tap>.]]></string>
 
     <string name="link"><![CDATA[<tap thin="true">%1$s</tap>]]></string>
     <string name="edit_who"><![CDATA[<tap data="Girl">Females</tap>, <tap data="Boy">Males</tap>, or <tap data="Person">People</tap>]]></string>
@@ -21,8 +21,8 @@
     <string name="moreOptionsHideConfirmTemplate"><![CDATA[<tap data="hide:confirm">Yes</tap>, I want to hide %1$s]]></string>
     <string name="moreOptionsReportConfirmTemplate"><![CDATA[Hide %1$s and report as <tap data="report:confirm:fake">Fake</tap> or <tap data="report:confirm:other">Something else</tap>]]></string>
     <string name="moreOptionsProfileTemplate"><![CDATA[<tap data="deleteMyAccount">Delete my account</tap>]]></string>
-    <string name="moreOptionsProfileConfirmTemplate"><![CDATA[Your account will die and you\'ll need to set up a new account to use 氣 again.<br /><br />Do you want this?<br /><br /><tap data="deleteMyAccount:confirm">Yes, delete my account</tap><br /><br /><tap data="cancel">No way, get me outta here</tap>]]></string>
-    <string name="confirm_your_love"><![CDATA[Yes, <tap data="love">I like %1$s</tap>]]></string>
+    <string name="moreOptionsProfileConfirmTemplate"><![CDATA[Your account will die and you\'ll need to be invited again to join.<br /><br />Do you want this?<br /><br /><tap data="deleteMyAccount:confirm">Yes, delete my account</tap><br /><br /><tap data="cancel">No way, get me outta here</tap>]]></string>
+    <string name="confirm_your_love"><![CDATA[Yes, <tap data="love">I want to be qimates with %1$s</tap>]]></string>
     <string name="cancel">Cancel</string>
     <string name="done">Done</string>
     <string name="any">Any</string>
@@ -44,8 +44,8 @@
     <string name="complete_your_profile"><![CDATA[<tap data="profile">Complete your profile</tap> to let %1$s discover you]]></string>
     <string name="profile_in_review">Your profile is currently in review</string>
     <string name="confirm_love_self">You like you</string>
-    <string name="remove_love"><![CDATA[You like %1$s. <tap data="love:remove">Remove</tap>]]></string>
-    <string name="you_love_each_other"><![CDATA[You and %1$s like each other. <tap data="message">Talk with %2$s</tap>]]></string>
+    <string name="remove_love"><![CDATA[You want to be qimates with %1$s. <tap data="love:remove">Remove</tap>]]></string>
+    <string name="you_love_each_other"><![CDATA[You and %1$s want to be qimates. <tap data="message">Talk with %2$s</tap>]]></string>
     <string name="submit_profile_for_review"><![CDATA[Your profile is complete. <tap data="submit">Submit for review</tap>]]></string>
     <string name="view_story"><![CDATA[<tap data="story">View %1$s story</tap>]]></string>
     <string name="notification_channel">notifications</string>
@@ -54,11 +54,11 @@
     <string name="message_sent">Message sent</string>
     <string name="message_not_sent">Message not sent</string>
     <string name="bub3">Swipe up to learn about %1$s\.</string>
-    <string name="bub4">Tap show you like %1$s. If %2$s likes you back, you’ll both be able to talk with each other.</string>
+    <string name="bub4">Tap to show you want to be qimates with %1$s. If %2$s also wants to be qimates with you, you’ll both be able to talk with each other.</string>
     <string name="invite_a_friend"><![CDATA[<tap>Invite a friend</tap>]]></string>
     <string name="viewing_archived_messages">Viewing archived messages</string>
     <string name="invite_code_didnt_work">That invite code didn\'t work</string>
-    <string name="welcome_modal_scan_invite"><![CDATA[Hey friend!<br /><br /><b>氣</b> is an app for Austinites to get closer to and learn about each other.<br /><br />Start by <tap data="scan">scanning someone\'s invite code</tap>]]></string>
+    <string name="welcome_modal_scan_invite"><![CDATA[Hey friend!<br /><br /><b>Qimates</b> is an app for Austinites to get closer to and learn about each other.<br /><br />Start by <tap data="scan">scanning someone\'s invite code</tap>]]></string>
     <string name="introduction">Introduction</string>
     <string name="write_photo_description">write something here to complement your photo</string>
     <string name="about_photo_prefix">I like</string>
@@ -70,7 +70,7 @@
     <string name="style_about">Description</string>
     <string name="style_added_to_your_profile">氣 added to your profile</string>
     <string name="style_removed_from_your_profile">氣 removed from your profile</string>
-    <string name="scan_to_join">Scan someone\'s invite code to join 氣.</string>
+    <string name="scan_to_join">Scan someone\'s invite code to join Qimates.</string>
     <string name="reload">Reload</string>
     <string name="failed_to_load">Failed to load</string>
     <string name="send_x_a_message">Send %1$s a message</string>

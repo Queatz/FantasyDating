@@ -40,7 +40,7 @@ class InviteFeature constructor(private val on: On) {
             fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
 
             generateInviteCode {
-                fullscreenMessageText.text = "Scan this QR Code to join 氣, or <tap data=\"close\">Close</tap>"
+                fullscreenMessageText.text = "Scan this QR Code to join Qimates, or <tap data=\"close\">Close</tap>"
                 fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(
                     null, BitmapDrawable(resources, it), null, null
                 )

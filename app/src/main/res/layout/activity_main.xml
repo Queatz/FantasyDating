@@ -186,10 +186,11 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="@dimen/pad2x"
             android:elevation="@dimen/elevation"
-            android:foreground="@drawable/ic_heart"
-            android:foregroundGravity="center"
-            android:foregroundTint="@color/colorPrimaryBright"
-            android:background="@drawable/clickable_white_rounded_512dp" />
+            android:src="@drawable/ic_qi"
+            android:padding="@dimen/pad2x"
+            app:tint="@color/colorPrimaryBright"
+            android:background="@drawable/clickable_white_rounded_512dp"
+            android:contentDescription="@string/app_name" />
 
         <com.queatz.fantasydating.ui.FancyTextView
             android:id="@+id/confirmLove"
