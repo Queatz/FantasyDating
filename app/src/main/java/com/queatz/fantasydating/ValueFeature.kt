@@ -6,7 +6,7 @@ class ValueFeature constructor(private val on: On) {
     fun referToAs(sex: String, objectiveForm: Boolean = false) = when (sex) {
         "Boy" -> if (objectiveForm) "him" else "his"
         "Girl" -> "her"
-        else -> "them"
+        else -> if (objectiveForm) "them" else "their"
     }
 
     fun pronoun(sex: String) = when (sex) {

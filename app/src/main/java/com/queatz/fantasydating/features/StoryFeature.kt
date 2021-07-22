@@ -163,12 +163,13 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
             }) { style, _ ->
                 on<ViewFeature>().with {
                     on<LayoutFeature>().canCloseFullscreenModal = true
-                    fullscreenMessageText.text = "<b>${style.name}</b>${style.about?.takeIf { !it.isNullOrBlank() }?.let { "<br />$it" } ?: ""}<br /><br />Show <tap data=\"promote\">More</tap>, <tap data=\"demote\">Less</tap>, or <tap data=\"dismiss\">Don't</tap> show people with this 氣<br /><br /><tap data=\"close\">Close</tap>${if (adapter.showAdd) ", or <tap data=\"remove\">Remove</tap> from your profile" else ""}"
+                    fullscreenMessageText.text = "<b>${style.name}</b>${style.about?.takeIf { !it.isNullOrBlank() }?.let { "<br />$it" } ?: ""}<br /><br />Show <tap data=\"promote\">More</tap>, <tap data=\"demote\">Less</tap>, or <tap data=\"dismiss\">Don't</tap> show people with this 氣<br /><br /><tap data=\"close\">Close</tap>${addRemoveText(style)}"
                     fullscreenMessageLayout.fadeIn()
                     fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
 
                     fullscreenMessageText.onLinkClick = {
                         when (it) {
+                            "add" -> { on<StyleApiFeature>().add(style.id!!) }
                             "remove" -> { on<StyleApiFeature>().remove(style.id!!) }
                             "promote" -> { on<StyleApiFeature>().promote(style.id!!) }
                             "demote" -> { on<StyleApiFeature>().demote(style.id!!) }
@@ -394,6 +395,10 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                 })
         }
     }
+
+    private fun addRemoveText(style: Style) = if (on<MyProfileFeature>().myProfile.styles.any { it.id == style.id }) {
+            ", or <tap data=\"remove\">Remove</tap> from your profile"
+        } else ", or <tap data=\"add\">Add</tap> to your profile"
 
     private fun updateStyles() {
         on<ViewFeature>().with {
