@@ -20,6 +20,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintVertical_bias=".4"
             android:background="@drawable/white_rounded"
+            android:clickable="true"
             android:padding="@dimen/pad4x"
             android:elevation="@dimen/pad2x">
 

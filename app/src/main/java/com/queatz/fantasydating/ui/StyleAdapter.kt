@@ -81,6 +81,10 @@ class StyleAdapter constructor(
 //            callback(item, true)
 //            true
 //        }
+
+        holder.name.post {
+            holder.name.requestLayout()
+        }
     }
 
     private fun styleWithPrefs(style: Style): Spannable {

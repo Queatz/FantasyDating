@@ -563,6 +563,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintVertical_bias=".4"
+            android:clickable="true"
             android:background="@drawable/white_rounded"
             android:paddingTop="@dimen/pad4x"
             android:paddingBottom="@dimen/pad4x"

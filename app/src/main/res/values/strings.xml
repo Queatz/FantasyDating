@@ -4,7 +4,7 @@
     <string name="location_modal_message">We need your location to find people near you.</string>
     <string name="welcome_modal_message"><![CDATA[Welcome to Qimates!<br /><br />We\'re super excited to have you here!<br /><br />Let’s get started by selecting your sex.<br /><br />I am a <tap data="Girl">Female</tap>, <tap data="Boy">Male</tap>, or <tap data="Person">Person</tap>.]]></string>
     <string name="swipe_up">Swipe up</string>
-    <string name="edit_your_profile"><![CDATA[Edit your <tap data="edit">profile</tap>, or <tap data="qi">氣 prefs</tap>]]></string>
+    <string name="edit_your_profile"><![CDATA[<tap data="edit">Edit your profile</tap>, or <tap data="qi">氣 prefs</tap>]]></string>
     <string name="discovery_preferences_template"><![CDATA[Show me <tap data="who">%1$s</tap> in <tap data="where">%2$s</tap> between the ages of <tap data="ageMin">%3$s</tap> and <tap data="ageMax">%4$s</tap>]]></string>
     <string name="discovery_preferences"><![CDATA[<tap>%1$s in %2$s, Ages %3$s – %4$s</tap>]]></string>
     <string name="not_in_austin"><![CDATA[Not in Austin?  Don\'t worry, keep Qimates installed and we\'ll let you know when we launch in more areas. <tap data="ok">Okay then</tap>.]]></string>
@@ -12,9 +12,9 @@
     <string name="link"><![CDATA[<tap thin="true">%1$s</tap>]]></string>
     <string name="edit_who"><![CDATA[<tap data="Girl">Females</tap>, <tap data="Boy">Males</tap>, or <tap data="Person">People</tap>]]></string>
     <string name="edit_where"><![CDATA[<tap data="Austin">Austin</tap>, or <tap data="nope">somewhere else</tap>]]></string>
-    <string name="upload_photo_modal"><![CDATA[Choose a photo. We review all photos for authenticity and naturalness. We recommend hiring a pro photographer.<br /><br />We allow nudity so long as it is artistic or cute. Read our <tap thin="true" data="guidebook">Photography Guidebook</tap>.<br /><br />
+    <string name="upload_photo_modal"><![CDATA[Choose a photo. We review all photos for authenticity. Read our <tap thin="true" data="guidebook">Photography Guidebook</tap>.<br /><br />
         <tap data="choose">Choose a photo</tap>, or <tap data="close">Close</tap>]]></string>
-    <string name="choose_photo_modal"><![CDATA[Choose a photo, or <tap data="reposition">reposition</tap> this one.<br /><br />We review all photos for authenticity and naturalness. We recommend hiring a pro photographer.<br /><br />We allow nudity so long as it is artistic or cute. Read our <tap thin="true" data="guidebook">Photography Guidebook</tap>.<br /><br />
+    <string name="choose_photo_modal"><![CDATA[Choose a photo, or <tap data="reposition">reposition</tap> this one.<br /><br />We review all photos for authenticity. Read our <tap thin="true" data="guidebook">Photography Guidebook</tap>.<br /><br />
         <tap data="choose">Choose a photo</tap>, or <tap data="close">Close</tap>]]></string>
     <string name="cont">Continue</string>
     <string name="moreOptionsTemplate"><![CDATA[<tap data="report">Report</tap>, or <tap data="hide">Hide</tap> %1$s]]></string>
@@ -33,9 +33,9 @@
     <string name="photography_guidebook"><![CDATA[
         <b>Photography Guidebook</b><br /><br />
         <b>1.</b> &nbsp; <u>You</u> should be the highlight of the photograph.<br />
-        <b>2.</b> &nbsp; Use a <u>pro camera</u> and an <u>interesting location</u>.<br />
-        <b>3.</b> &nbsp; Be artistic!  Pose in a new way. <u>Express yourself</u> fully.<br />
-        <b>4.</b> &nbsp; Your photo should appear <u>natural</u> (some color correction and post editing is cool.)<br /><br />
+        <b>2.</b> &nbsp; <u>Express yourself</u> - let your true self shine through.<br />
+        <b>3.</b> &nbsp; If you\'re naked, try keeping it artistic or cute.<br />
+        <b>4.</b> &nbsp; Your photo should appear mostly <u>unedited</u> and without filters.<br /><br />
         <tap data="guidebook:close">Close Guidebook</tap>]]>
     </string>
     <string name="upload__photo">UPLOAD\nPHOTO</string>
