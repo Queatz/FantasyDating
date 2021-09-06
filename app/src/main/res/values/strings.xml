@@ -58,7 +58,8 @@
     <string name="invite_a_friend"><![CDATA[<tap>Invite a friend</tap>]]></string>
     <string name="viewing_archived_messages">Viewing archived messages</string>
     <string name="invite_code_didnt_work">That invite code didn\'t work</string>
-    <string name="welcome_modal_scan_invite"><![CDATA[Hey friend!<br /><br /><b>Qimates</b> is an app for Austinites to get closer to and learn about each other.<br /><br />Start by <tap data="scan">scanning someone\'s invite code</tap>]]></string>
+    <string name="self_invite_didnt_work">It seems like you\'ll need an invite code from someone else at this time.</string>
+    <string name="welcome_modal_scan_invite"><![CDATA[Hey mate!<br /><br /><b>Qimates</b> is an app for Austinites to get closer to and learn about each other.<br /><br />Start by <tap data="scan">scanning an invite code</tap> or <tap data="create-profile">creating a profile</tap>]]></string>
     <string name="introduction">Introduction</string>
     <string name="write_photo_description">write something here to complement your photo</string>
     <string name="about_photo_prefix">I like</string>

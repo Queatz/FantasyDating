@@ -37,6 +37,22 @@
         android:padding="@dimen/pad4x"
         tools:text="Emi, 27\n\nI love pretending I’m visiting Earth on an intergalactic mission." />
 
+    <ImageView
+        android:id="@+id/createProfileHintStoryText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_downward_black_24dp"
+        app:tint="@color/colorAccent"
+        android:visibility="gone"
+        android:elevation="@dimen/elevation"
+        android:scaleX="1.25"
+        android:scaleY="1.25"
+        android:background="@drawable/clickable_white_rounded_512dp"
+        app:layout_constraintHorizontal_bias=".125"
+        app:layout_constraintBottom_toTopOf="@+id/storyText"
+        app:layout_constraintStart_toStartOf="@+id/storyText"
+        app:layout_constraintEnd_toEndOf="@+id/storyText" />
+
     <ImageButton
         android:id="@+id/swipeUpArrow"
         android:layout_width="wrap_content"
@@ -50,6 +66,28 @@
         android:scaleX=".5"
         android:scaleY=".5"
         android:background="@null" />
+
+    <TextView
+        android:id="@+id/createProfileHintSwipeUpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:drawableStartCompat="@drawable/ic_arrow_upward_black_24dp"
+        android:drawablePadding="@dimen/pad"
+        app:drawableTint="@color/colorAccent"
+        app:tint="@color/colorAccent"
+        android:visibility="gone"
+        android:elevation="@dimen/elevation"
+        android:scaleX="1"
+        android:scaleY="1"
+        android:text="Swipe"
+        android:textColor="@color/black"
+        android:textAppearance="@style/Text.Medium"
+        android:paddingVertical="@dimen/pad2z"
+        android:paddingHorizontal="@dimen/pad2x"
+        android:background="@drawable/clickable_white_rounded_512dp"
+        app:layout_constraintBottom_toTopOf="@+id/swipeUpArrow"
+        app:layout_constraintStart_toStartOf="@+id/swipeUpArrow"
+        app:layout_constraintEnd_toEndOf="@+id/swipeUpArrow" />
 
     <View
         android:id="@+id/touchTarget"
@@ -276,6 +314,36 @@
         android:background="@drawable/black50_rounded"
         android:visibility="gone"
         tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/createProfileHintChoosePhotoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_downward_black_24dp"
+        app:tint="@color/colorAccent"
+        android:visibility="gone"
+        android:elevation="@dimen/elevation"
+        android:scaleX="1.25"
+        android:scaleY="1.25"
+        android:background="@drawable/clickable_white_rounded_512dp"
+        app:layout_constraintBottom_toTopOf="@+id/choosePhotoButton"
+        app:layout_constraintStart_toStartOf="@+id/choosePhotoButton"
+        app:layout_constraintEnd_toEndOf="@+id/choosePhotoButton" />
+
+    <ImageView
+        android:id="@+id/createProfileHintNextStory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_forward_black_24dp"
+        app:tint="@color/colorAccent"
+        android:visibility="gone"
+        android:elevation="@dimen/elevation"
+        android:scaleX="1.25"
+        android:scaleY="1.25"
+        android:background="@drawable/clickable_white_rounded_512dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.queatz.fantasydating.ui.FancyTextView
         android:id="@+id/discoveryPreferencesText"

@@ -79,6 +79,9 @@ class Api constructor(private val on: On) {
     fun useInviteCode(code: String, callback: (SuccessResponse) -> Unit) =
         post("invite/${code}", callback = callback)
 
+    fun selfInvite(callback: (SuccessResponse) -> Unit) =
+        post("invite/self", callback = callback)
+
     fun phone(request: PhoneRequest, callback: (SuccessResponse) -> Unit) =
         post("phone", request, callback)
 

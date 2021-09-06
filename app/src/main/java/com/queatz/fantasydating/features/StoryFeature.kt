@@ -270,6 +270,7 @@ class StoryFeature constructor(private val on: On) : OnLifecycle {
                     fantasyTitle.text = getString(R.string.introduction)
                     styleTitle.text = getString(R.string.persons_cuddle_styles, person.current?.name ?: "")
                     fantasyText.text = person.current?.fantasy ?: ""
+                    fantasyText.setTextColor(on<ViewFeature>().activity.getColor(R.color.black))
                     person.current?.stories?.apply { stories.count = size }
                 }
 

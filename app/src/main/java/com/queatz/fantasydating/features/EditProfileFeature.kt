@@ -191,6 +191,7 @@ class EditProfileFeature constructor(private val on: On) {
         }
 
         on<StoryFeature>().setPhoto(photo)
+        on<TutorialFeature>().refresh()
     }
 
     private fun reposition() {
@@ -204,6 +205,7 @@ class EditProfileFeature constructor(private val on: On) {
     fun updateMyStory() {
         updatePhotoButton()
         updateFantasy()
+        on<TutorialFeature>().refresh()
 
         on<ViewFeature>().with {
             val me = on<MyProfileFeature>().myProfile
@@ -230,6 +232,7 @@ class EditProfileFeature constructor(private val on: On) {
             val me = on<MyProfileFeature>().myProfile
             fantasyTitle.text = getString(R.string.introduction)
             styleTitle.text = if (me.name.isNotBlank()) getString(R.string.persons_cuddle_styles, me.name) else getString(R.string.your_styles)
+            fantasyText.setTextColor(on<ViewFeature>().activity.getColor(R.color.colorAccent))
             fantasyText.text = on<MyProfileFeature>().myProfile.fantasy.let { if (it.isBlank()) getString(R.string.empty_fantasy) else it }
         }
     }

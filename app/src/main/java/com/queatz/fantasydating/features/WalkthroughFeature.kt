@@ -91,8 +91,20 @@ class WalkthroughFeature constructor(private val on: On) {
                 fullscreenMessageText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
 
                 fullscreenMessageText.onLinkClick = {
-                    on<ScanQrCodeFeature>().scan {
-                        fullscreenMessageLayout.fadeOut()
+                    when (it) {
+                        "create-profile" -> {
+                            on<InviteFeature>().selfInvite {
+                                on<MyProfileFeature>().reload()
+                                fullscreenMessageLayout.fadeOut()
+                                on<EditProfileFeature>().editProfile()
+                            }
+                        }
+                        else -> {
+                            on<ScanQrCodeFeature>().scan {
+                                on<MyProfileFeature>().reload()
+                                fullscreenMessageLayout.fadeOut()
+                            }
+                        }
                     }
                 }
             }

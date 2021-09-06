@@ -152,6 +152,7 @@ class MessagesActivity : BaseActivity() {
             fantasy.visible = true
             fantasyTitle.text = getString(R.string.introduction)
             fantasyText.text = person.fantasy
+            fantasyText.setTextColor(on<ViewFeature>().activity.getColor(R.color.black))
             styleTitle.text = getString(R.string.persons_cuddle_styles, person.name)
             styleTitle.visible = person.styles.isNotEmpty()
             styleRecyclerView.visible = person.styles.isNotEmpty()

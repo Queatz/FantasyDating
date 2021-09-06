@@ -1,6 +1,9 @@
 package com.queatz.fantasydating.features
 
 import android.graphics.Shader
+import android.view.animation.Animation
+import android.view.animation.TranslateAnimation
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import com.queatz.fantasydating.*
 import com.queatz.fantasydating.ui.TileDrawable
 import com.queatz.on.On
@@ -64,6 +67,8 @@ class LayoutFeature constructor(private val on: On) {
                     on<GesturesFeature>().listener =
                         on<GesturesFeature>().storyNavigationListener
 
+                    on<TutorialFeature>().refresh()
+
                     if (ui.showEditProfile) {
                         moreOptionsButton.elevation = 1f
 
@@ -87,6 +92,7 @@ class LayoutFeature constructor(private val on: On) {
 
                 changed(it) { ui.showFantasy } then {
                     confirmLove.visible = false
+                    on<TutorialFeature>().refresh()
 
                     if (ui.showFantasy) {
                         on<WalkthroughFeature>().closeBub(bub3)

@@ -32,6 +32,18 @@ class InviteFeature constructor(private val on: On) {
         }
     }
 
+    fun selfInvite(success: () -> Unit) {
+        on<Api>().selfInvite {
+            if (it.success) {
+                success()
+            } else {
+                on<Say>().say(it.message ?: on<ViewFeature>().with { getString(R.string.self_invite_didnt_work) })
+            }
+        } error {
+            on<Say>().say(R.string.self_invite_didnt_work)
+        }
+    }
+
     fun showInviteCode() {
         on<ViewFeature>().with {
             on<LayoutFeature>().canCloseFullscreenModal = true
