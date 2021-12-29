@@ -11,12 +11,11 @@ import io.ktor.client.features.json.GsonSerializer
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.observer.ResponseObserver
 import io.ktor.client.request.*
-import io.ktor.client.response.readText
+import io.ktor.client.statement.*
 import io.ktor.client.utils.EmptyContent
 import io.ktor.http.*
 import io.ktor.http.HttpMethod.Companion.Get
 import io.ktor.http.HttpMethod.Companion.Post
-import io.ktor.util.KtorExperimentalAPI
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,7 +25,6 @@ import java.nio.charset.Charset
 import java.time.Instant
 import java.util.concurrent.CancellationException
 
-@KtorExperimentalAPI
 class Http constructor(private val on: On) : OnLifecycle {
 
     private val baseUrl = when (on<Env>().isDev) {

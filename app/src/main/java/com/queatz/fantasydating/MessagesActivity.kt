@@ -2,7 +2,6 @@ package com.queatz.fantasydating
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.method.ScrollingMovementMethod
 import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +11,6 @@ import com.google.android.flexbox.FlexboxLayoutManager
 import com.queatz.fantasydating.features.*
 import com.queatz.fantasydating.ui.MessagesAdapter
 import com.queatz.fantasydating.ui.StyleAdapter
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_messages.*
 import kotlinx.android.synthetic.main.activity_messages.background
 import kotlinx.android.synthetic.main.activity_messages.fantasy

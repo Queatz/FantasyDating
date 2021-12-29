@@ -3,11 +3,8 @@ package com.queatz.fantasydating
 import com.queatz.on.On
 import io.ktor.http.*
 import io.ktor.http.content.OutgoingContent
-import io.ktor.util.KtorExperimentalAPI
 import io.ktor.util.flattenEntries
-import kotlinx.coroutines.io.ByteWriteChannel
-import kotlinx.coroutines.io.writeFully
-import kotlinx.coroutines.io.writeStringUtf8
+import io.ktor.utils.io.*
 import java.io.InputStream
 import java.util.*
 
@@ -16,7 +13,6 @@ class PhotoUpload constructor(private val on: On) {
         const val url = "http://closer-files.vlllage.com/"
     }
 
-    @KtorExperimentalAPI
     fun uploadPhoto(photo: InputStream, error: ((Throwable) -> Unit)? = null, success: ((String) -> Unit)? = null) {
         val fullUrl = "$url${on<Rnd>().rnd()}"
 

@@ -138,7 +138,7 @@ class PushNotifications constructor(private val on: On) {
         if (remoteInput != null) {
             val replyPendingIntent = PendingIntent.getBroadcast(context,
                 REQUEST_CODE_NOTIFICATION,
-                backgroundIntent,
+                backgroundIntent!!,
                 PendingIntent.FLAG_UPDATE_CURRENT)
 
             val action = NotificationCompat.Action.Builder(R.mipmap.ic_launcher_foreground,

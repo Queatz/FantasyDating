@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.queatz.fantasydating.*
 import com.queatz.on.On
+import io.objectbox.query.QueryBuilder
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fullscreen_modal.*
 
@@ -71,7 +72,7 @@ class WalkthroughFeature constructor(private val on: On) {
     }
 
     private fun step(step: String) = on<StoreFeature>().get(WalkthroughStep::class).query()
-        .equal(WalkthroughStep_.step, step)
+        .equal(WalkthroughStep_.step, step, QueryBuilder.StringOrder.CASE_SENSITIVE)
         .build()
         .findFirst()
 
